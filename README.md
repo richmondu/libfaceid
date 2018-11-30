@@ -1,4 +1,4 @@
-libfaceid
+# libfaceid
 
     libfaceid is a python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
     It simplifies development of facial recognition systems by providing different models for detection and identification/encoding.
@@ -9,7 +9,7 @@ libfaceid
     The library and example applications have been tested on Windows 7 and Raspberry Pi 3B+.
 
 
-Supported Models:
+### Supported Models:
 
     Face Detector models for detecting face locations
         - Haar Cascade Classifier via OpenCV
@@ -35,38 +35,12 @@ Supported Models:
         - QDA
         
     Other models can be integrated to libfaceid in the future.
-        - VGG-Face (VGG-16, ResNet-50) via Keras https://github.com/rcmalli/keras-vggface
-        - FaceNet (Inception ResNet v1) via Tensorflow https://github.com/davidsandberg/facenet
-        - OpenFace https://github.com/richmondu/openface
-
-Classes:
-
-    detector.py - module for Face Detector models
-        - class FaceDetectorModels
-            FaceDetectorModels.HAARCASCADE
-            FaceDetectorModels.DLIBHOG
-            FaceDetectorModels.DLIBCNN
-            FaceDetectorModels.SSDRESNET
-            FaceDetectorModels.MTCNN
-        - class FaceDetector
-            detect(frame) - returs a list of face_rect
-
-    encoder.py - module for Face Encoder/Embedder models
-        - class FaceEncoderModels
-            FaceEncoderModels.LBPH
-            FaceEncoderModels.OPENFACE
-            FaceEncoderModels.DLIBRESNET
-        - class FaceEncoder
-            identify(frame, face_rect) - returns the name of the face
-            train() - outputs files containing encoding of the dataset of provided images with face
-
-    liveness.py - module for Face Liveness Detector models
-        - class FaceLivenessDetectorModels
-        - class FaceLiveness
-            detect()
+        - VGG-Face (VGG-16, ResNet-50) via Keras
+        - FaceNet (Inception ResNet v1) via Tensorflow
+        - OpenFace via Torch
 
 
-Usage:
+### Usage:
 
     Pre-requisites:
 
@@ -170,8 +144,9 @@ Usage:
 
 
 
-Links to valuable resoures:
+### Links to valuable resoures:
 
+        Special thanks to these guys for sharing their work and helping me understand Face Recognition.
         1. OpenCV by Adrian Rosebrock https://www.pyimagesearch.com/
         2. Dlib by Davis King https://github.com/davisking/dlib
         3. Face Recognition by Adam Geitgey https://github.com/ageitgey/face_recognition
