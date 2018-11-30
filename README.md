@@ -147,9 +147,9 @@
 ### Links to valuable resoures:
 
         Special thanks to these guys for sharing their work and helping me understand Face Recognition.
-        1. OpenCV by Adrian Rosebrock https://www.pyimagesearch.com/
-        2. Dlib by Davis King https://github.com/davisking/dlib
-        3. Face Recognition by Adam Geitgey https://github.com/ageitgey/face_recognition
-        4. FaceNet by David Sandberg https://github.com/davidsandberg/facenet
-        5. OpenFace https://github.com/richmondu/openface        
-        6. VGG-Face https://github.com/rcmalli/keras-vggface
+        1. OpenCV by Adrian Rosebrock <https://www.pyimagesearch.com/>
+        2. Dlib by Davis King <https://github.com/davisking/dlib>
+        3. Face Recognition by Adam Geitgey <https://github.com/ageitgey/face_recognition>
+        4. FaceNet by David Sandberg <https://github.com/davidsandberg/facenet>
+        5. OpenFace <https://github.com/richmondu/openface>      
+        6. VGG-Face <https://github.com/rcmalli/keras-vggface>
