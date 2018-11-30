@@ -4,8 +4,8 @@ import argparse
 import numpy as np
 import cv2
 from libfaceid.detector import FaceDetectorModels, FaceDetector
-from libfaceid.encoder import FaceEncoderModels, FaceEncoder, FaceClassifierModels
-#from libfaceid.classifier import FaceClassifierModels
+from libfaceid.encoder import FaceEncoderModels, FaceEncoder
+from libfaceid.classifier import FaceClassifierModels
 from libfaceid.liveness import FaceLivenessDetectorModels, FaceLiveness
 
 
@@ -455,8 +455,8 @@ def run():
     detector=FaceDetectorModels.MTCNN
 
 #    encoder=FaceEncoderModels.LBPH
-#    encoder=FaceEncoderModels.OPENFACE
-    encoder=FaceEncoderModels.DLIBRESNET
+    encoder=FaceEncoderModels.OPENFACE
+#    encoder=FaceEncoderModels.DLIBRESNET
 
     classifier=FaceClassifierModels.NAIVE_BAYES
 #    classifier=FaceClassifierModels.LINEAR_SVM

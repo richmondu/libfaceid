@@ -6,15 +6,9 @@ import pickle                  # for FaceEncoderModels.OPENFACE and FaceEncoderM
 from imutils import paths      # for FaceEncoderModels.LBPH
 from sklearn.preprocessing import LabelEncoder # for FaceEncoderModels
 import dlib                    # for FaceEncoderModels.DLIBRESNET
+from libfaceid.classifier import FaceClassifierModels, FaceClassifier
 
 
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.neural_network import MLPClassifier
 
 
 
@@ -26,19 +20,6 @@ class FaceEncoderModels(Enum):
     # VGGFACE1_VGG16    = 3    # Refer to models\others\vggface_recognition
     # VGGFACE2_RESNET50 = 4    # Refer to models\others\vggface_recognition
     # FACENET           = 5    # Refer to models\others\facenet-master_recognition
-
-
-class FaceClassifierModels(Enum):
-
-    NAIVE_BAYES         = 0
-    LINEAR_SVM          = 1
-    RBF_SVM             = 2
-    NEAREST_NEIGHBORS   = 3
-    DECISION_TREE       = 4
-    RANDOM_FOREST       = 5
-    NEURAL_NET          = 6
-    ADABOOST            = 7
-    QDA                 = 8
 
 
 class FaceEncoder():
@@ -143,14 +124,14 @@ class FaceEncoder_OPENFACE():
     def __init__(self, path=None, path_training=None, training=False):
         self.path = path
         self.path_training = path_training
-        self.recognizer = None
+        self.clf = None
         self.embedder = None
         self.label_encoder = None
         self.shaper = None
 
         self.embedder = cv2.dnn.readNetFromTorch(self.path + 'openface_nn4.small2.v1.t7')
         if training == False:
-            self.recognizer = pickle.loads(open(self.path_training + 'openface_re.pickle', "rb").read())
+            self.clf = pickle.loads(open(self.path_training + 'openface_re.pickle', "rb").read())
             self.label_encoder = pickle.loads(open(self.path_training + 'openface_le.pickle', "rb").read())
             print(self.label_encoder.classes_)
 
@@ -163,7 +144,7 @@ class FaceEncoder_OPENFACE():
         self.embedder.setInput(faceBlob)
         vec = self.embedder.forward()
 
-        predictions_face = self.recognizer.predict_proba(vec)[0]
+        predictions_face = self.clf.predict_proba(vec)[0]
         id = np.argmax(predictions_face)
         confidence = predictions_face[id] * 100
         face_id = self.label_encoder.classes_[id]
@@ -209,24 +190,7 @@ class FaceEncoder_OPENFACE():
         print(le.classes_)
         print(labels)
 
-        if classifier == FaceClassifierModels.NAIVE_BAYES:
-            clf = GaussianNB()
-        elif classifier == FaceClassifierModels.LINEAR_SVM:
-            clf = SVC(C=1.0, kernel="linear", probability=True)
-        elif classifier == FaceClassifierModels.RBF_SVM:
-            clf = SVC(C=1, kernel='rbf', probability=True, gamma=2)
-        elif classifier == FaceClassifierModels.NEAREST_NEIGHBORS:
-            clf = KNeighborsClassifier(1)
-        elif classifier == FaceClassifierModels.DECISION_TREE:
-            clf = DecisionTreeClassifier(max_depth=5)
-        elif classifier == FaceClassifierModels.RANDOM_FOREST:
-            clf = RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)
-        elif classifier == FaceClassifierModels.NEURAL_NET:
-            clf = MLPClassifier(alpha=1)
-        elif classifier == FaceClassifierModels.ADABOOST:
-            clf = AdaBoostClassifier()
-        elif classifier == FaceClassifierModels.QDA:
-            clf = QuadraticDiscriminantAnalysis()
+        clf = FaceClassifier(classifier)
         clf.fit(knownEmbeddings, labels)
 
         f = open(self.path_training + 'openface_re.pickle', "wb")
@@ -244,7 +208,7 @@ class FaceEncoder_DLIBRESNET():
     def __init__(self, path=None, path_training=None, training=False):
         self.path = path
         self.path_training = path_training
-        self.recognizer = None
+        self.clf = None
         self.embedder = None
         self.label_encoder = None
         self.shaper = None
@@ -252,7 +216,7 @@ class FaceEncoder_DLIBRESNET():
         self.embedder = dlib.face_recognition_model_v1(self.path + 'dlib_face_recognition_resnet_model_v1.dat')
         self.shaper = dlib.shape_predictor(self.path + 'shape_predictor_5_face_landmarks.dat')
         if training == False:
-            self.recognizer = pickle.loads(open(self.path_training + 'dlib_re.pickle', "rb").read())
+            self.clf = pickle.loads(open(self.path_training + 'dlib_re.pickle', "rb").read())
             self.label_encoder = pickle.loads(open(self.path_training + 'dlib_le.pickle', "rb").read())
             print(self.label_encoder.classes_)
 
@@ -266,7 +230,7 @@ class FaceEncoder_DLIBRESNET():
         vec = self.embedder.compute_face_descriptor(frame_rgb, shape)
 
         vec = np.array([vec])
-        predictions_face = self.recognizer.predict_proba(vec)[0]
+        predictions_face = self.clf.predict_proba(vec)[0]
         print(predictions_face)
         id = np.argmax(predictions_face)
         confidence = predictions_face[id] * 100
@@ -309,31 +273,12 @@ class FaceEncoder_DLIBRESNET():
         print("[INFO] Number of images = {}".format(total))
         print("[INFO] Number of classes = {}".format(knownNames))
 
-
         le = LabelEncoder()
         labels = le.fit_transform(knownNames)
         print(le.classes_)
         print(labels)
 
-        if classifier == FaceClassifierModels.NAIVE_BAYES:
-            clf = GaussianNB()
-        elif classifier == FaceClassifierModels.LINEAR_SVM:
-            clf = SVC(C=1.0, kernel="linear", probability=True)
-        elif classifier == FaceClassifierModels.RBF_SVM:
-            clf = SVC(C=1, kernel='rbf', probability=True, gamma=2)
-        elif classifier == FaceClassifierModels.NEAREST_NEIGHBORS:
-            clf = KNeighborsClassifier(1)
-        elif classifier == FaceClassifierModels.DECISION_TREE:
-            clf = DecisionTreeClassifier(max_depth=5)
-        elif classifier == FaceClassifierModels.RANDOM_FOREST:
-            clf = RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)
-        elif classifier == FaceClassifierModels.NEURAL_NET:
-            clf = MLPClassifier(alpha=1)
-        elif classifier == FaceClassifierModels.ADABOOST:
-            clf = AdaBoostClassifier()
-        elif classifier == FaceClassifierModels.QDA:
-            clf = QuadraticDiscriminantAnalysis()
-        print(classifier)
+        clf = FaceClassifier(classifier)
         clf.fit(knownEmbeddings, labels)
 
         f = open(self.path_training + 'dlib_re.pickle', "wb")
@@ -343,4 +288,5 @@ class FaceEncoder_DLIBRESNET():
         f = open(self.path_training + 'dlib_le.pickle', "wb")
         f.write(pickle.dumps(le))
         f.close()
+
 

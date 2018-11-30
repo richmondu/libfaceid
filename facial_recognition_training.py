@@ -1,7 +1,7 @@
 import sys
 import argparse
 from libfaceid.detector import FaceDetectorModels, FaceDetector
-from libfaceid.encoder  import FaceEncoderModels, FaceEncoder, FaceClassifierModels
+from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
 from libfaceid.classifier  import FaceClassifierModels
 
 

@@ -26,16 +26,12 @@ class FaceDetector:
 
         if model == FaceDetectorModels.HAARCASCADE:
             self._base = FaceDetector_HAARCASCADE(path, optimize, minfacesize)
-
         elif model == FaceDetectorModels.DLIBHOG:
             self._base = FaceDetector_DLIBHOG(path, optimize, minfacesize)
-
         elif model == FaceDetectorModels.DLIBCNN:
             self._base = FaceDetector_DLIBCNN(path, optimize, minfacesize)
-
         elif model == FaceDetectorModels.SSDRESNET:
             self._base = FaceDetector_SSDRESNET(path, optimize, minfacesize)
-
         elif model == FaceDetectorModels.MTCNN:
             self._base = FaceDetector_MTCNN(path, optimize, minfacesize)
 
