@@ -10,7 +10,7 @@ from scipy.spatial import distance as dist # for FaceLivenessDetectorModels.EYEB
 
 class FaceLivenessDetectorModels(Enum):
 
-    EYEBLINKING         = 0    # [DL] DLIB ResNet
+    EYEBLINKING = 0
 
 
 class FaceLiveness():
