@@ -1,5 +1,5 @@
 __pycache__
 models/training/*
 models/others/*
-datasets/coni/*
-datasets/rico/*
+datasets/coni/
+datasets/rico/
