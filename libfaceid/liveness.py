@@ -28,18 +28,16 @@ class FaceLiveness():
 
     def detect(self, frame, face, total_eye_blinks, eye_counter):
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        ear_threshold = 0.3
-        ear_consecframes = 1
         (x, y, w, h) = face
         rect = dlib.rectangle(int(x), int(y), int(x+w), int(y+h))
         shape = self.shape_to_np(self.detector(frame_gray, rect))
         ear = (self.eye_aspect_ratio(shape[42:48]) + self.eye_aspect_ratio(shape[36:42])) / 2.0
-        if ear < ear_threshold:
+        if ear < 0.3:
             print("less than eye threshold {:.2f}".format(ear))
             eye_counter += 1
         else:
             #print("more than eye threshold {:.2f}".format(ear))
-            if eye_counter >= ear_consecframes:
+            if eye_counter >= 1:
                 total_eye_blinks += 1
             eye_counter = 0
         return total_eye_blinks, eye_counter

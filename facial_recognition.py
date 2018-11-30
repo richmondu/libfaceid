@@ -182,6 +182,7 @@ def process_facerecognition(cam_resolution, out_resolution, framecount, image=No
     ###############################################################################
     # Initialize face recognizer
     face_encoder = FaceEncoder(model=model_recognizer, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
+    face_id, confidence = ("Unknown", 0)
 
 
     # Initialize fps counter
@@ -190,7 +191,12 @@ def process_facerecognition(cam_resolution, out_resolution, framecount, image=No
     fps = 0
     saveVideo = False
     out = None
-    
+
+    # Optimization
+    skip_frames = True
+    skip_frames_count = 0
+    skip_frames_set = 2
+
     while (True):
        
         # Capture frame-by-frame
@@ -209,6 +215,7 @@ def process_facerecognition(cam_resolution, out_resolution, framecount, image=No
             #frame = imutils.resize(frame, width=out_resolution[0])
             (h, w) = image.shape[:2]
             frame = cv2.resize(frame, (out_resolution[0], int(h * out_resolution[0] / float(w) )));
+
 
         ###############################################################################
         # FACE DETECTION
@@ -326,8 +333,6 @@ def process_facerecognition_livenessdetection(cam_resolution, out_resolution, fr
             #frame = imutils.resize(frame, width=out_resolution[0])
             (h, w) = image.shape[:2]
             frame = cv2.resize(frame, (out_resolution[0], int(h * out_resolution[0] / float(w) )));
-        frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        frame_rgb = frame[:, :, ::-1]
 
         ###############################################################################
         # FACE DETECTION
@@ -444,18 +449,18 @@ def train_recognition(model_detector, model_encoder, model_classifier, verify):
 
 def run():
     # set models to use
-#    detector=FaceDetectorModels.HAARCASCADE
+    detector=FaceDetectorModels.HAARCASCADE
 #    detector=FaceDetectorModels.DLIBHOG
 #    detector=FaceDetectorModels.DLIBCNN
 #    detector=FaceDetectorModels.SSDRESNET
-    detector=FaceDetectorModels.MTCNN
+#    detector=FaceDetectorModels.MTCNN
 
-#    encoder=FaceEncoderModels.LBPH
-    encoder=FaceEncoderModels.OPENFACE
+    encoder=FaceEncoderModels.LBPH
+#    encoder=FaceEncoderModels.OPENFACE
 #    encoder=FaceEncoderModels.DLIBRESNET
 
-    classifier=FaceClassifierModels.NAIVE_BAYES
-#    classifier=FaceClassifierModels.LINEAR_SVM
+#    classifier=FaceClassifierModels.NAIVE_BAYES
+    classifier=FaceClassifierModels.LINEAR_SVM
 #    classifier=FaceClassifierModels.RBF_SVM
 #    classifier=FaceClassifierModels.NEAREST_NEIGHBORS
 #    classifier=FaceClassifierModels.DECISION_TREE
