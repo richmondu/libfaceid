@@ -46,9 +46,8 @@ def label_face(frame, face_rect, face_id, confidence):
     (x, y, w, h) = face_rect
     cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 255), 1)
     if face_id is not None:
-        cv2.putText(frame, "{} {:.2f}%".format(face_id, confidence),
-            (x+5,y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-    return frame
+        cv2.putText(frame, "{} {:.2f}%".format(face_id, confidence), 
+            (x+5,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
 
 def process_facerecognition(model_detector, model_recognizer, cam_index, cam_resolution):

@@ -12,13 +12,11 @@ INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
 INPUT_DIR_MODEL_TRAINING  = "models/training/"
 
 
-
 def train_recognition(model_detector, model_encoder, model_classifier, verify):
 
     face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)
     face_encoder = FaceEncoder(model=model_encoder, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
     face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=model_classifier)
-
 
 def run():
     detector=FaceDetectorModels.HAARCASCADE
@@ -43,7 +41,6 @@ def run():
 
     train_recognition(detector, encoder, classifier, True)
 
-
 def main(args):
     if args.detector and args.encoder:
         try:
@@ -58,7 +55,6 @@ def main(args):
         return
     run()
 
-
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--detector', required=False,
@@ -68,7 +64,6 @@ def parse_arguments(argv):
     parser.add_argument('--classifier', required=False,
         help='Classifier algorithm to use. Options: 0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA.')
     return parser.parse_args(argv)
-
 
 if __name__ == '__main__':
     main(parse_arguments(sys.argv[1:]))

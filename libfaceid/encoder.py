@@ -10,6 +10,17 @@ from libfaceid.classifier import FaceClassifierModels, FaceClassifier
 
 
 
+OUTPUT_LBPH_CLASSIFIER     = 'lbph.yml'
+OUTPUT_LBPH_LABELER        = 'lbph_le.pickle'
+
+INPUT_OPENFACE_MODEL       = 'openface_nn4.small2.v1.t7'
+OUTPUT_OPENFACE_CLASSIFIER = 'openface_re.pickle'
+OUTPUT_OPENFACE_LABELER    = 'openface_le.pickle'
+
+INPUT_DLIBRESNET_MODEL       = 'dlib_face_recognition_resnet_model_v1.dat'
+INPUT_DLIBRESNET_MODEL2      = 'shape_predictor_5_face_landmarks.dat'
+OUTPUT_DLIBRESNET_CLASSIFIER = 'dlib_re.pickle'
+OUTPUT_DLIBRESNET_LABELER    = 'dlib_le.pickle'
 
 
 class FaceEncoderModels(Enum):
@@ -45,15 +56,15 @@ class FaceEncoder_LBPH():
     def __init__(self, path=None, path_training=None, training=False):
         self.path = path
         self.path_training = path_training
-        self.recognizer = None
+        self.clf = None
         self.embedder = None
         self.label_encoder = None
         self.shaper = None
 
-        self.recognizer = cv2.face.LBPHFaceRecognizer_create()
+        self.clf = cv2.face.LBPHFaceRecognizer_create()
         if training == False:
-            self.recognizer.read(self.path_training + 'lbph.yml')
-            self.label_encoder = pickle.loads(open(self.path_training + 'lbph_le.pickle', "rb").read())
+            self.clf.read(self.path_training + OUTPUT_LBPH_CLASSIFIER)
+            self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_LBPH_LABELER, "rb").read())
             print(self.label_encoder.classes_)
 
     def identify(self, frame, face_rect):
@@ -63,7 +74,7 @@ class FaceEncoder_LBPH():
         frame_gray = frame[y:y+h, x:x+w]
         face = cv2.cvtColor(frame_gray, cv2.COLOR_BGR2GRAY)
         try:
-            id, confidence = self.recognizer.predict(face)
+            id, confidence = self.clf.predict(face)
             if confidence > 99.99: 
                 confidence = 99.99
             face_id = self.label_encoder.classes_[id]
@@ -106,15 +117,15 @@ class FaceEncoder_LBPH():
         print(ids)
         print(knownNames)
 
-        self.recognizer.train(faceSamples, np.array(ids))
-        self.recognizer.write(self.path_training + 'lbph.yml')
+        self.clf.train(faceSamples, np.array(ids))
+        self.clf.write(self.path_training + OUTPUT_LBPH_CLASSIFIER)
 
         le = LabelEncoder()
         labels = le.fit_transform(knownNames)
         print(le.classes_)
         print(labels)
         
-        f = open(self.path_training + 'lbph_le.pickle', "wb")
+        f = open(self.path_training + OUTPUT_LBPH_LABELER, "wb")
         f.write(pickle.dumps(le))
         f.close()
 
@@ -129,10 +140,10 @@ class FaceEncoder_OPENFACE():
         self.label_encoder = None
         self.shaper = None
 
-        self.embedder = cv2.dnn.readNetFromTorch(self.path + 'openface_nn4.small2.v1.t7')
+        self.embedder = cv2.dnn.readNetFromTorch(self.path + INPUT_OPENFACE_MODEL)
         if training == False:
-            self.clf = pickle.loads(open(self.path_training + 'openface_re.pickle', "rb").read())
-            self.label_encoder = pickle.loads(open(self.path_training + 'openface_le.pickle', "rb").read())
+            self.clf = pickle.loads(open(self.path_training + OUTPUT_OPENFACE_CLASSIFIER, "rb").read())
+            self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_OPENFACE_LABELER, "rb").read())
             print(self.label_encoder.classes_)
 
     def identify(self, frame, face_rect):
@@ -144,7 +155,7 @@ class FaceEncoder_OPENFACE():
         self.embedder.setInput(faceBlob)
         vec = self.embedder.forward()
 
-        predictions_face = self.clf.predict_proba(vec)[0]
+        predictions_face = self.clf.predict(vec)[0]
         id = np.argmax(predictions_face)
         confidence = predictions_face[id] * 100
         face_id = self.label_encoder.classes_[id]
@@ -193,11 +204,11 @@ class FaceEncoder_OPENFACE():
         clf = FaceClassifier(classifier)
         clf.fit(knownEmbeddings, labels)
 
-        f = open(self.path_training + 'openface_re.pickle', "wb")
+        f = open(self.path_training + OUTPUT_OPENFACE_CLASSIFIER, "wb")
         f.write(pickle.dumps(clf))
         f.close()
 
-        f = open(self.path_training + 'openface_le.pickle', "wb")
+        f = open(self.path_training + OUTPUT_OPENFACE_LABELER, "wb")
         f.write(pickle.dumps(le))
         f.close()
 
@@ -213,11 +224,11 @@ class FaceEncoder_DLIBRESNET():
         self.label_encoder = None
         self.shaper = None
 
-        self.embedder = dlib.face_recognition_model_v1(self.path + 'dlib_face_recognition_resnet_model_v1.dat')
-        self.shaper = dlib.shape_predictor(self.path + 'shape_predictor_5_face_landmarks.dat')
+        self.embedder = dlib.face_recognition_model_v1(self.path + INPUT_DLIBRESNET_MODEL)
+        self.shaper = dlib.shape_predictor(self.path + INPUT_DLIBRESNET_MODEL2)
         if training == False:
-            self.clf = pickle.loads(open(self.path_training + 'dlib_re.pickle', "rb").read())
-            self.label_encoder = pickle.loads(open(self.path_training + 'dlib_le.pickle', "rb").read())
+            self.clf = pickle.loads(open(self.path_training + OUTPUT_DLIBRESNET_CLASSIFIER, "rb").read())
+            self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_DLIBRESNET_LABELER, "rb").read())
             print(self.label_encoder.classes_)
 
     def identify(self, frame, face_rect):
@@ -230,7 +241,7 @@ class FaceEncoder_DLIBRESNET():
         vec = self.embedder.compute_face_descriptor(frame_rgb, shape)
 
         vec = np.array([vec])
-        predictions_face = self.clf.predict_proba(vec)[0]
+        predictions_face = self.clf.predict(vec)[0]
         print(predictions_face)
         id = np.argmax(predictions_face)
         confidence = predictions_face[id] * 100
@@ -281,11 +292,11 @@ class FaceEncoder_DLIBRESNET():
         clf = FaceClassifier(classifier)
         clf.fit(knownEmbeddings, labels)
 
-        f = open(self.path_training + 'dlib_re.pickle', "wb")
+        f = open(self.path_training + OUTPUT_DLIBRESNET_CLASSIFIER, "wb")
         f.write(pickle.dumps(clf))
         f.close()
 
-        f = open(self.path_training + 'dlib_le.pickle', "wb")
+        f = open(self.path_training + OUTPUT_DLIBRESNET_LABELER, "wb")
         f.write(pickle.dumps(le))
         f.close()
 

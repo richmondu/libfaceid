@@ -44,8 +44,6 @@ def cam_release(cap):
     cap.release()
     cv2.destroyAllWindows()
 
-
-
 def process_webcam(cam_resolution, out_resolution, framecount):
 
     # Initialize the camera
@@ -86,7 +84,6 @@ def process_webcam(cam_resolution, out_resolution, framecount):
     cam_release(cap)
     
     return fps
-
 
 def process_facedetection(cam_resolution, out_resolution, framecount, model_detector=0):
 
@@ -144,7 +141,6 @@ def process_facedetection(cam_resolution, out_resolution, framecount, model_dete
     
     return fps
 
-
 def save_video(saveVideo, out, resolution, filename):
     if saveVideo == True:
         print("video recording ended!")
@@ -159,12 +155,12 @@ def save_video(saveVideo, out, resolution, filename):
         saveVideo = True
     return saveVideo, out
 
-def set_text_and_boundingbox_on_face(frame, face_rect, face_id, confidence):
+def label_face(frame, face_rect, face_id, confidence):
     (x, y, w, h) = face_rect
     cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 255), 1)
-    cv2.putText(frame, "{} {:.2f}%".format(face_id, confidence), 
-        (x+5,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-
+    if face_id is not None:
+        cv2.putText(frame, "{} {:.2f}%".format(face_id, confidence), 
+            (x+5,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
 def process_facerecognition(cam_resolution, out_resolution, framecount, image=None, model_detector=0, model_recognizer=0):
 
@@ -227,7 +223,7 @@ def process_facerecognition(cam_resolution, out_resolution, framecount, image=No
             face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
 
             # Set bounding box and text
-            set_text_and_boundingbox_on_face(frame, (x, y, w, h), face_id, confidence)
+            label_face(frame, (x, y, w, h), face_id, confidence)
 
 
         # Update frame count
@@ -346,7 +342,7 @@ def process_facerecognition_livenessdetection(cam_resolution, out_resolution, fr
             face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
 
             # Set bounding box and text
-            set_text_and_boundingbox_on_face(frame, (x, y, w, h), face_id, confidence)
+            label_face(frame, (x, y, w, h), face_id, confidence)
 
             ###############################################################################
             # EYE BLINKING DETECTION

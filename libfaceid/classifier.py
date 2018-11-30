@@ -51,7 +51,7 @@ class FaceClassifier():
     def fit(self, embeddings, labels):
         self._clf.fit(embeddings, labels)
 
-    def predict_proba(self, vec):
+    def predict(self, vec):
         return self._clf.predict_proba(vec)
 
 
