@@ -1,6 +1,6 @@
 libfaceid
 
-    Python library for facial recognition developed for prototyping of PanL-based Facial Recognition solutions.
+    Python library for face recognition developed for prototyping Facial Recognition solutions.
 
 
 Facial Recognition
