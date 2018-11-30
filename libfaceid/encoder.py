@@ -5,12 +5,16 @@ import cv2                     # for FaceEncoderModels.LBPH, FaceEncoderModels.O
 import pickle                  # for FaceEncoderModels.OPENFACE and FaceEncoderModels.DLIBRESNET
 from imutils import paths      # for FaceEncoderModels.LBPH
 from sklearn.preprocessing import LabelEncoder # for FaceEncoderModels
-from sklearn.svm import SVC    # for FaceEncoderModels.OPENFACE and FaceEncoderModels.DLIBRESNET
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.naive_bayes import GaussianNB
 import dlib                    # for FaceEncoderModels.DLIBRESNET
 
 
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+from sklearn.neural_network import MLPClassifier
 
 
 
@@ -26,10 +30,15 @@ class FaceEncoderModels(Enum):
 
 class FaceClassifierModels(Enum):
 
-    LINEAR_SVM          = 0
-    RADIAL_SVM          = 1
-    DECISION_TREE       = 2
-    GAUSSIAN_NB         = 3
+    NAIVE_BAYES         = 0
+    LINEAR_SVM          = 1
+    RBF_SVM             = 2
+    NEAREST_NEIGHBORS   = 3
+    DECISION_TREE       = 4
+    RANDOM_FOREST       = 5
+    NEURAL_NET          = 6
+    ADABOOST            = 7
+    QDA                 = 8
 
 
 class FaceEncoder():
@@ -200,14 +209,24 @@ class FaceEncoder_OPENFACE():
         print(le.classes_)
         print(labels)
 
-        if classifier == FaceClassifierModels.LINEAR_SVM:
-            clf = SVC(C=1.0, kernel="linear", probability=True)
-        elif classifier == FaceClassifierModels.RADIAL_SVM:
-            clf = SVC(C=1, kernel='rbf', probability=True, gamma=2)
-        elif classifier == FaceClassifierModels.DECISION_TREE:
-            clf = DecisionTreeClassifier(max_depth=20)
-        elif classifier == FaceClassifierModels.GAUSSIAN_NB:
+        if classifier == FaceClassifierModels.NAIVE_BAYES:
             clf = GaussianNB()
+        elif classifier == FaceClassifierModels.LINEAR_SVM:
+            clf = SVC(C=1.0, kernel="linear", probability=True)
+        elif classifier == FaceClassifierModels.RBF_SVM:
+            clf = SVC(C=1, kernel='rbf', probability=True, gamma=2)
+        elif classifier == FaceClassifierModels.NEAREST_NEIGHBORS:
+            clf = KNeighborsClassifier(1)
+        elif classifier == FaceClassifierModels.DECISION_TREE:
+            clf = DecisionTreeClassifier(max_depth=5)
+        elif classifier == FaceClassifierModels.RANDOM_FOREST:
+            clf = RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)
+        elif classifier == FaceClassifierModels.NEURAL_NET:
+            clf = MLPClassifier(alpha=1)
+        elif classifier == FaceClassifierModels.ADABOOST:
+            clf = AdaBoostClassifier()
+        elif classifier == FaceClassifierModels.QDA:
+            clf = QuadraticDiscriminantAnalysis()
         clf.fit(knownEmbeddings, labels)
 
         f = open(self.path_training + 'openface_re.pickle', "wb")
@@ -296,14 +315,25 @@ class FaceEncoder_DLIBRESNET():
         print(le.classes_)
         print(labels)
 
-        if classifier == FaceClassifierModels.LINEAR_SVM:
-            clf = SVC(C=1.0, kernel="linear", probability=True)
-        elif classifier == FaceClassifierModels.RADIAL_SVM:
-            clf = SVC(C=1, kernel='rbf', probability=True, gamma=2)
-        elif classifier == FaceClassifierModels.DECISION_TREE:
-            clf = DecisionTreeClassifier(max_depth=20)
-        elif classifier == FaceClassifierModels.GAUSSIAN_NB:
+        if classifier == FaceClassifierModels.NAIVE_BAYES:
             clf = GaussianNB()
+        elif classifier == FaceClassifierModels.LINEAR_SVM:
+            clf = SVC(C=1.0, kernel="linear", probability=True)
+        elif classifier == FaceClassifierModels.RBF_SVM:
+            clf = SVC(C=1, kernel='rbf', probability=True, gamma=2)
+        elif classifier == FaceClassifierModels.NEAREST_NEIGHBORS:
+            clf = KNeighborsClassifier(1)
+        elif classifier == FaceClassifierModels.DECISION_TREE:
+            clf = DecisionTreeClassifier(max_depth=5)
+        elif classifier == FaceClassifierModels.RANDOM_FOREST:
+            clf = RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)
+        elif classifier == FaceClassifierModels.NEURAL_NET:
+            clf = MLPClassifier(alpha=1)
+        elif classifier == FaceClassifierModels.ADABOOST:
+            clf = AdaBoostClassifier()
+        elif classifier == FaceClassifierModels.QDA:
+            clf = QuadraticDiscriminantAnalysis()
+        print(classifier)
         clf.fit(knownEmbeddings, labels)
 
         f = open(self.path_training + 'dlib_re.pickle', "wb")
