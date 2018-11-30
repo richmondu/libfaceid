@@ -1,0 +1,154 @@
+import sys
+import argparse
+import cv2
+from libfaceid.detector import FaceDetectorModels, FaceDetector
+from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
+
+
+
+# Set the window name
+WINDOW_NAME = "Facial_Recognition"
+
+# Set the input directories
+INPUT_DIR_DATASET         = "datasets"
+INPUT_DIR_MODEL_DETECTION = "models/detection/"
+INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
+INPUT_DIR_MODEL_TRAINING  = "models/training/"
+INPUT_DIR_MODEL           = "models/"
+
+# Set width and height
+RESOLUTION_QVGA   = (320, 240)
+RESOLUTION_VGA    = (640, 480)
+RESOLUTION_HD     = (1280, 720)
+RESOLUTION_FULLHD = (1920, 1080)
+
+
+
+def cam_init(cam_index, width, height): 
+    cap = cv2.VideoCapture(cam_index)
+    if sys.version_info < (3, 0):
+        cap.set(cv2.cv.CV_CAP_PROP_FPS, 30)
+        cap.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH,  width)
+        cap.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, height)
+    else:
+        cap.set(cv2.CAP_PROP_FPS, 30)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH,  width)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+    return cap
+
+
+def cam_release(cap):
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+def label_face(frame, face_rect, face_id, confidence):
+    (x, y, w, h) = face_rect
+    cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 255), 1)
+    if face_id is not None:
+        cv2.putText(frame, "{} {:.2f}%".format(face_id, confidence),
+            (x+5,y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+    return frame
+
+
+def process_facerecognition(model_detector, model_recognizer, cam_index, cam_resolution):
+
+    # Initialize the camera
+    camera = cam_init(cam_index, cam_resolution[0], cam_resolution[1])
+
+    # Initialize face detection
+    face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION, optimize=True)
+
+    # Initialize face recognizer
+    try:
+        face_encoder = FaceEncoder(model=model_recognizer, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
+    except:
+        face_encoder = None
+        print("Warning, check if models and trained dataset models exists!")
+    face_id, confidence = (None, 0)
+
+
+    while (True):
+
+        # Capture frame from webcam
+        ret, frame = camera.read()
+        if ret == 0:
+            print("Unexpected error! " + image)
+            break
+
+
+        # Detect faces in the frame
+        faces = face_detector.detect(frame)
+        for (index, face) in enumerate(faces):
+            (x, y, w, h) = face
+            # Indentify face based on trained dataset (note: should run facial_recognition_training.py)
+            if face_encoder is not None:
+                face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
+            # Set text and bounding box on face
+            label_face(frame, (x, y, w, h), face_id, confidence)
+
+
+        # Display updated frame
+        cv2.imshow(WINDOW_NAME, frame)
+
+        # Check for user actions
+        if cv2.waitKey(1) & 0xFF == 27: # ESC
+            break
+
+    # Release the camera
+    cam_release(camera)
+
+
+def run(cam_index, cam_resolution):
+    detector=FaceDetectorModels.HAARCASCADE
+#    detector=FaceDetectorModels.DLIBHOG
+#    detector=FaceDetectorModels.DLIBCNN
+#    detector=FaceDetectorModels.SSDRESNET
+#    detector=FaceDetectorModels.MTCNN
+
+    encoder=FaceEncoderModels.LBPH
+#    encoder=FaceEncoderModels.OPENFACE
+#    encoder=FaceEncoderModels.DLIBRESNET
+
+    process_facerecognition(detector, encoder, cam_index, cam_resolution)
+
+
+def main(args):
+    if sys.version_info < (3, 0):
+        print("Error: Python2 is slow. Use Python3 for max performance.")
+        return
+
+    cam_index = int(args.webcam)
+    resolutions = [ RESOLUTION_QVGA, RESOLUTION_VGA, RESOLUTION_HD, RESOLUTION_FULLHD ]
+    try:
+        cam_resolution = resolutions[int(args.resolution)]
+    except:
+        cam_resolution = RESOLUTION_QVGA
+
+    if args.detector and args.encoder:
+        try:
+            detector = FaceDetectorModels(int(args.detector))
+            encoder = FaceEncoderModels(int(args.encoder))
+            print( "Parameters: {} {}".format(detector, encoder) )
+            process_facerecognition(detector, encoder, cam_index, cam_resolution)
+        except:
+            print( "Invalid parameter" )
+        return
+    run(cam_index, cam_resolution)
+
+
+def parse_arguments(argv):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--detector', required=False,
+        help='Detector model to use. Options: 0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN.')
+    parser.add_argument('--encoder', required=False,
+        help='Encoder model to use. Options: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET.')
+    parser.add_argument('--webcam', required=False, default=0, 
+        help='Camera index to use. Default is 0. Assume only 1 camera connected.)')
+    parser.add_argument('--resolution', required=False, default=0,
+        help='Camera resolution to use. Default is 0. Options: 0-QVGA, 1-VGA, 2-HD, 3-FULLHD')
+    return parser.parse_args(argv)
+
+
+if __name__ == '__main__':
+    main(parse_arguments(sys.argv[1:]))
