@@ -1,8 +1,7 @@
-# libfaceid
+# libfaceid library for Face Recognition
 <p>
-    libfaceid is a python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
-    It enables beginners to learn various models. 
-    and simplifies prototyping of facial recognition solutions by providing different models to choose from.
+    libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
+    It enables beginners to learn various models and simplifies prototyping of facial recognition solutions by providing different models to choose from.
     Multiple models for detection and encoding/embedding including classification models are supported.
     The models are seamlessly integrated so that user can mix and match detection models.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
@@ -20,39 +19,36 @@
 
 ### Supported Models:
 
-<p>
+#### Face Detector models for detecting face locations
+- Haar Cascade Classifier via OpenCV
+- Histogram of Oriented Gradients (HOG) via DLIB
+- Deep Neural Network via DLIB 
+- Single Shot Detector with ResNet-10 via OpenCV
+- Multi-task Cascaded CNN (MTCNN) via Tensorflow
 
-    Face Detector models for detecting face locations
-        - Haar Cascade Classifier via OpenCV
-        - Histogram of Oriented Gradients (HOG) via DLIB
-        - Deep Neural Network via DLIB 
-        - Single Shot Detector with ResNet-10 via OpenCV
-        - Multi-task Cascaded CNN (MTCNN) via Tensorflow
+#### Face Encoder models for generating face embeddings on detected faces
+- Local Binary Patterns Histograms (LBPH) via OpenCV
+- OpenFace via OpenCV
+- ResNet via DLIB
 
-    Face Encoder models for generating face embeddings
-        - Local Binary Patterns Histograms (LBPH) via OpenCV
-        - OpenFace via OpenCV
-        - ResNet via DLIB
-
-    Classifier models for face embedding classification
-        - Naïve Bayes
-        - Linear SVM
-        - RVF SVM
-        - Nearest Neighbors
-        - Decision Tree
-        - Random Forest
-        - Neural Net
-        - Adaboost
-        - QDA
+#### Classifier models for face embedding classification to identify the face
+- Naïve Bayes
+- Linear SVM
+- RVF SVM
+- Nearest Neighbors
+- Decision Tree
+- Random Forest
+- Neural Net
+- Adaboost
+- QDA
         
-    Other models can be integrated to libfaceid in the future.
-        - VGG-Face (VGG-16, ResNet-50) via Keras
-          https://github.com/rcmalli/keras-vggface
-        - FaceNet (Inception ResNet v1) via Tensorflow
-          https://github.com/davidsandberg/facenet
-        - OpenFace via Torch
-          https://github.com/cmusatyalab/openface
-</p>
+#### Other models can be integrated to libfaceid in the future.
+- VGG-Face (VGG-16, ResNet-50) via Keras
+  https://github.com/rcmalli/keras-vggface
+- FaceNet (Inception ResNet v1) via Tensorflow
+  https://github.com/davidsandberg/facenet
+- OpenFace via Torch
+  https://github.com/cmusatyalab/openface
 
 
 ### Usage:
@@ -161,6 +157,7 @@
 
 ### Links to valuable resoures:
 
+Special thanks to these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
 - [OpenCV tutorials by Adrian Rosebrock](https://www.pyimagesearch.com/)
 - [Dlib by Davis King](https://github.com/davisking/dlib)
 - [Face Recognition (Dlib wrapper) by Adam Geitgey](https://github.com/ageitgey/face_recognition)
