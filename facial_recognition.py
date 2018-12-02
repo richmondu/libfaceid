@@ -1,3 +1,4 @@
+import os
 import sys
 from time import time
 import datetime
@@ -43,6 +44,11 @@ def cam_init(width, height):
 def cam_release(cap):
     cap.release()
     cv2.destroyAllWindows()
+
+def ensure_directory(file_path):
+    directory = os.path.dirname("./" + file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 def process_webcam(cam_resolution, out_resolution, framecount):
 
@@ -553,6 +559,8 @@ def test():
 
 def train_recognition(model_detector, model_encoder, model_classifier, verify):
 
+    ensure_directory(INPUT_DIR_DATASET)
+    ensure_directory(INPUT_DIR_MODEL_TRAINING)
     face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)
     face_encoder = FaceEncoder(model=model_encoder, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
     face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=model_classifier)
@@ -584,9 +592,9 @@ def run():
     #fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector)
 
     # check face recognition
-    #train_recognition(detector, encoder, classifier, True)
+    train_recognition(detector, encoder, classifier, True)
     #fps = process_facerecognition( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
-    fps = process_facerecognition_livenessdetection_poseagegenderemotion( RESOLUTION_VGA, None, 0, model_detector=detector, model_recognizer=encoder)
+    fps = process_facerecognition_livenessdetection_poseagegenderemotion( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
     print( "resolution = {}x{}\tfps = {:.2f}".format(RESOLUTION_QVGA[0], RESOLUTION_QVGA[1], fps) )
 
 
