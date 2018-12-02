@@ -1,3 +1,4 @@
+import os
 import sys
 import argparse
 from libfaceid.detector import FaceDetectorModels, FaceDetector
@@ -12,8 +13,15 @@ INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
 INPUT_DIR_MODEL_TRAINING  = "models/training/"
 
 
+def ensure_directory(file_path):
+    directory = os.path.dirname("./" + file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
 def train_recognition(model_detector, model_encoder, model_classifier, verify):
 
+    ensure_directory(INPUT_DIR_DATASET)
+    ensure_directory(INPUT_DIR_MODEL_TRAINING)
     face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)
     face_encoder = FaceEncoder(model=model_encoder, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
     face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=model_classifier)

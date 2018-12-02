@@ -1,5 +1,5 @@
 __pycache__
-models/training/*
+models/training/*.*
 models/others/facenet-master_recognition
 models/others/tensorflow_mobilenetssd_detection
 models/others/vggface_recognition
