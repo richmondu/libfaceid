@@ -87,7 +87,9 @@
         2. facial_recognition_testing_image.py
             Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
         3. facial_recognition_testing_webcam.py
-            Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 2
+            Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 0
+        4. facial_poseagegender_estimation_webcam.py
+            Usage: python facial_poseagegender_estimation_webcam.py --detector 0 --webcam 0 --resolution 0
 
 
 #### Training models with dataset of images:
