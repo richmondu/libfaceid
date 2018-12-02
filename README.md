@@ -52,8 +52,9 @@
 - OpenFace via Torch
   https://github.com/cmusatyalab/openface
 
-#### Bonus: Face Pose estimator models for face landmark detection
-#### Bonus: Face Age/Gender estimator models for predicting age and gender
+#### Additional models: 
+- Face Pose estimator models for face landmark detection
+- Face Age/Gender estimator models for predicting age and gender
 
 
 ### Usage:
