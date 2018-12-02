@@ -53,7 +53,7 @@
 
 ### Usage:
 
-    Pre-requisites:
+#### Pre-requisites:
 
         1. Install Python 3 and Python PIP
 
@@ -68,7 +68,7 @@
             datasets/xyz - contain .jpeg images of person named xyz 
 
 
-    Examples:
+#### Examples:
 
         detector models:       0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN
         encoder models:        0-LBPH, 1-OPENFACE, 2-DLIBRESNET
@@ -84,7 +84,7 @@
             Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 2
 
 
-    Training models with dataset of images:
+#### Training models with dataset of images:
 
         from libfaceid.detector import FaceDetectorModels, FaceDetector
         from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
@@ -100,7 +100,7 @@
         face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=FaceClassifierModels.NAIVE_BAYES)
 
 
-    Face Recognition on images:
+#### Face Recognition on images:
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
@@ -127,7 +127,7 @@
         cv2.destroyAllWindows()
 
 
-    Real-Time Face Recognition:
+#### Real-Time Face Recognition w/a webcam:
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
