@@ -65,7 +65,7 @@ class FaceEncoder_LBPH():
         if training == False:
             self.clf.read(self.path_training + OUTPUT_LBPH_CLASSIFIER)
             self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_LBPH_LABELER, "rb").read())
-            print(self.label_encoder.classes_)
+            #print(self.label_encoder.classes_)
 
     def identify(self, frame, face_rect):
         face_id = "Unknown"
@@ -97,7 +97,7 @@ class FaceEncoder_LBPH():
                 id = knownNames.index(name)
             except:
                 id = id + 1
-            print("name=%s id=%d" % (name, id))
+            #print("name=%s id=%d" % (name, id))
 
             # FACE DETECTION
             frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -114,16 +114,16 @@ class FaceEncoder_LBPH():
                 print("\n [INFO] Image {} has {} faces ".format(imagePath, len(faces)))
                 cv2.imshow('frame', frame)
                 cv2.waitKey(1000)
-        print(ids)
-        print(knownNames)
+        #print(ids)
+        #print(knownNames)
 
         self.clf.train(faceSamples, np.array(ids))
         self.clf.write(self.path_training + OUTPUT_LBPH_CLASSIFIER)
 
         le = LabelEncoder()
         labels = le.fit_transform(knownNames)
-        print(le.classes_)
-        print(labels)
+        #print(le.classes_)
+        #print(labels)
         
         f = open(self.path_training + OUTPUT_LBPH_LABELER, "wb")
         f.write(pickle.dumps(le))
@@ -144,7 +144,7 @@ class FaceEncoder_OPENFACE():
         if training == False:
             self.clf = pickle.loads(open(self.path_training + OUTPUT_OPENFACE_CLASSIFIER, "rb").read())
             self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_OPENFACE_LABELER, "rb").read())
-            print(self.label_encoder.classes_)
+            #print(self.label_encoder.classes_)
 
     def identify(self, frame, face_rect):
         face_id = "Unknown"
@@ -169,9 +169,9 @@ class FaceEncoder_OPENFACE():
         imagePaths = sorted(list(paths.list_images(path_dataset)))
 
         for (j, imagePath) in enumerate(imagePaths):
-            print("[INFO] processing image {}/{}".format(j + 1, len(imagePaths)))
+            #print("[INFO] processing image {}/{}".format(j + 1, len(imagePaths)))
             name = imagePath.split(os.path.sep)[-2]
-            print(name)
+            #print(name)
 
             frame = cv2.imread(imagePath, cv2.IMREAD_COLOR)
             frame_rgb = frame[:, :, ::-1]
@@ -184,22 +184,22 @@ class FaceEncoder_OPENFACE():
                 faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=False)
                 self.embedder.setInput(faceBlob)
                 vec = self.embedder.forward()
-                print("vecshape={}".format(vec.shape))
-                print("vec={}".format(vec))
+                #print("vecshape={}".format(vec.shape))
+                #print("vec={}".format(vec))
                 
                 knownNames.append(name)
                 knownEmbeddings.append(vec.flatten())
                 total += 1
 
-        print(len(knownNames))
-        print(len(knownEmbeddings))
-        print("[INFO] Number of images = {}".format(total))
-        print("[INFO] Number of classes = {}".format(knownNames))
+        #print(len(knownNames))
+        #print(len(knownEmbeddings))
+        #print("[INFO] Number of images = {}".format(total))
+        #print("[INFO] Number of classes = {}".format(knownNames))
 
         le = LabelEncoder()
         labels = le.fit_transform(knownNames)
-        print(le.classes_)
-        print(labels)
+        #print(le.classes_)
+        #print(labels)
 
         clf = FaceClassifier(classifier)
         clf.fit(knownEmbeddings, labels)
@@ -229,7 +229,7 @@ class FaceEncoder_DLIBRESNET():
         if training == False:
             self.clf = pickle.loads(open(self.path_training + OUTPUT_DLIBRESNET_CLASSIFIER, "rb").read())
             self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_DLIBRESNET_LABELER, "rb").read())
-            print(self.label_encoder.classes_)
+            #print(self.label_encoder.classes_)
 
     def identify(self, frame, face_rect):
         face_id = "Unknown"
@@ -242,7 +242,7 @@ class FaceEncoder_DLIBRESNET():
 
         vec = np.array([vec])
         predictions_face = self.clf.predict(vec)[0]
-        print(predictions_face)
+        #print(predictions_face)
         id = np.argmax(predictions_face)
         confidence = predictions_face[id] * 100
         face_id = self.label_encoder.classes_[id]
@@ -256,9 +256,9 @@ class FaceEncoder_DLIBRESNET():
         imagePaths = sorted(list(paths.list_images(path_dataset)))
 
         for (j, imagePath) in enumerate(imagePaths):
-            print("[INFO] processing image {}/{}".format(j + 1, len(imagePaths)))
+            #print("[INFO] processing image {}/{}".format(j + 1, len(imagePaths)))
             name = imagePath.split(os.path.sep)[-2]
-            print(name)
+            #print(name)
 
             frame = cv2.imread(imagePath, cv2.IMREAD_COLOR)
             frame_rgb = frame[:, :, ::-1]
@@ -270,24 +270,24 @@ class FaceEncoder_DLIBRESNET():
 
                 shape = self.shaper(frame_rgb, rect)
                 vec = self.embedder.compute_face_descriptor(frame, shape)
-                print("vecshape={}".format(vec.shape))
+                #print("vecshape={}".format(vec.shape))
                 vec = np.array([vec])
-                print("NEW vecshape={}".format(vec.shape))
-                print("vec={}".format(vec))
+                #print("NEW vecshape={}".format(vec.shape))
+                #print("vec={}".format(vec))
 
                 knownNames.append(name)
                 knownEmbeddings.append(vec.flatten())
                 total += 1
 
-        print(len(knownNames))
-        print(len(knownEmbeddings))
-        print("[INFO] Number of images = {}".format(total))
-        print("[INFO] Number of classes = {}".format(knownNames))
+        #print(len(knownNames))
+        #print(len(knownEmbeddings))
+        #print("[INFO] Number of images = {}".format(total))
+        #print("[INFO] Number of classes = {}".format(knownNames))
 
         le = LabelEncoder()
         labels = le.fit_transform(knownNames)
-        print(le.classes_)
-        print(labels)
+        #print(le.classes_)
+        #print(labels)
 
         clf = FaceClassifier(classifier)
         clf.fit(knownEmbeddings, labels)

@@ -37,11 +37,6 @@ def cam_init(cam_index, width, height):
     return cap
 
 
-def cam_release(cap):
-    cap.release()
-    cv2.destroyAllWindows()
-
-
 def label_face(frame, face_rect, face_id, confidence):
     (x, y, w, h) = face_rect
     cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 255), 1)
@@ -55,11 +50,11 @@ def process_facerecognition(model_detector, model_recognizer, cam_index, cam_res
     # Initialize the camera
     camera = cam_init(cam_index, cam_resolution[0], cam_resolution[1])
 
-    # Initialize face detection
-    face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION, optimize=True)
-
-    # Initialize face recognizer
     try:
+        # Initialize face detection
+        face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)
+
+        # Initialize face recognizer
         face_encoder = FaceEncoder(model=model_recognizer, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
     except:
         face_encoder = None
@@ -71,12 +66,12 @@ def process_facerecognition(model_detector, model_recognizer, cam_index, cam_res
 
         # Capture frame from webcam
         ret, frame = camera.read()
-        if ret == 0:
-            print("Unexpected error! " + image)
+        if frame is None:
+            print("Error, check if camera is connected!")
             break
 
 
-        # Detect faces in the frame
+        # Detect and identify faces in the frame
         faces = face_detector.detect(frame)
         for (index, face) in enumerate(faces):
             (x, y, w, h) = face
@@ -95,7 +90,8 @@ def process_facerecognition(model_detector, model_recognizer, cam_index, cam_res
             break
 
     # Release the camera
-    cam_release(camera)
+    camera.release()
+    cv2.destroyAllWindows()
 
 
 def run(cam_index, cam_resolution):
