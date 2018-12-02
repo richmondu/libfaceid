@@ -13,6 +13,8 @@
     In addition, the library also contains models for predicting face pose, age, gender and emotion.
 </p>
 
+![](https://github.com/richmondu/libfaceid/blob/master/libfaceid.jpg)
+
 
 ### Compatibility:
 
