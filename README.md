@@ -2,17 +2,25 @@
 <p>
     libfaceid is a python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
     It enables beginners to learn various models. 
-    It also simplifies prototyping of facial recognition systems by providing different models to choose from.
+    and simplifies prototyping of facial recognition solutions by providing different models to choose from.
     Multiple models for detection and encoding/embedding including classification models are supported.
     The models are seamlessly integrated so that user can mix and match detection models.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
-    The library and example applications have been tested on Windows 7 and Raspberry Pi 3B+.
+</p>
+
+
+### Compatibility:
+
+<p>
+    The library and example applications have been tested on Windows 7 (Python 3.6.6) and Raspberry Pi 3B+ (Python 3.5.3)
+    using OpenCV 3.4.3 and Tensorflow 1.8.0. For complete dependencies, refer to requirements.txt.
 </p>
 
 
 ### Supported Models:
 
+<p>
     Face Detector models for detecting face locations
         - Haar Cascade Classifier via OpenCV
         - Histogram of Oriented Gradients (HOG) via DLIB
@@ -43,6 +51,7 @@
           https://github.com/davidsandberg/facenet
         - OpenFace via Torch
           https://github.com/cmusatyalab/openface
+</p>
 
 
 ### Usage:
@@ -60,6 +69,7 @@
             datasets/coni - contain .jpeg images of person named coni 
             ...
             datasets/xyz - contain .jpeg images of person named xyz 
+
 
     Examples:
 
@@ -81,15 +91,16 @@
 
         from libfaceid.detector import FaceDetectorModels, FaceDetector
         from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
+        from libfaceid.classifier  import FaceClassifierModels
 
         INPUT_DIR_DATASET         = "datasets"
         INPUT_DIR_MODEL_DETECTION = "models/detection/"
         INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
         INPUT_DIR_MODEL_TRAINING  = "models/training/"
 
-        face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)
-        face_encoder = FaceEncoder(model=model_encoder, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
-        face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify)
+        face_detector = FaceDetector(model=FaceDetectorModels.HAARCASCADE, path=INPUT_DIR_MODEL_DETECTION)
+        face_encoder = FaceEncoder(model=FaceEncoderModels.LBPH, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
+        face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=FaceClassifierModels.NAIVE_BAYES)
 
 
     Face Recognition on images:
@@ -149,6 +160,7 @@
 
 ### Links to valuable resoures:
 
+<p>
         Special thanks to these guys for sharing their work on Face Recognition.
         1. OpenCV by Adrian Rosebrock <https://www.pyimagesearch.com/>
         2. Dlib by Davis King <https://github.com/davisking/dlib>
@@ -156,3 +168,5 @@
         4. FaceNet by David Sandberg <https://github.com/davidsandberg/facenet>
         5. OpenFace <https://github.com/cmusatyalab/openface> 
         6. VGG-Face <https://github.com/rcmalli/keras-vggface>
+</p>
+
