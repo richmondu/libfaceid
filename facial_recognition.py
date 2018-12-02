@@ -10,6 +10,7 @@ from libfaceid.liveness import FaceLivenessDetectorModels, FaceLiveness
 from libfaceid.pose import FacePoseEstimatorModels, FacePoseEstimator
 from libfaceid.age import FaceAgeEstimatorModels, FaceAgeEstimator
 from libfaceid.gender import FaceGenderEstimatorModels, FaceGenderEstimator
+from libfaceid.emotion import FaceEmotionEstimatorModels, FaceEmotionEstimator
 
 
 
@@ -21,9 +22,7 @@ INPUT_DIR_DATASET               = "datasets"
 INPUT_DIR_MODEL_DETECTION       = "models/detection/"
 INPUT_DIR_MODEL_ENCODING        = "models/encoding/"
 INPUT_DIR_MODEL_TRAINING        = "models/training/"
-INPUT_DIR_MODEL_ESTIMATE_AGE    = "models/estimation/"
-INPUT_DIR_MODEL_ESTIMATE_GENDER = "models/estimation/"
-INPUT_DIR_MODEL                 = "models/"
+INPUT_DIR_MODEL_ESTIMATION      = "models/estimation/"
 
 # Set width and height
 RESOLUTION_QVGA   = (320, 240)
@@ -91,7 +90,7 @@ def process_webcam(cam_resolution, out_resolution, framecount):
     return fps
 
 def process_facedetection(cam_resolution, out_resolution, framecount, 
-    model_detector=0, model_poseestimator=None, model_ageestimator=None, model_genderestimator=None):
+    model_detector=0, model_poseestimator=None, model_ageestimator=None, model_genderestimator=None, model_emotionestimator=None):
 
     # Initialize the camera
     cap = cam_init(cam_resolution[0], cam_resolution[1])
@@ -103,16 +102,18 @@ def process_facedetection(cam_resolution, out_resolution, framecount,
     face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)#, optimize=True)
 
     ###############################################################################
-    # FACE POSE ESTIMATION
+    # FACE POSE/AGE/GENDER/EMOTION ESTIMATION
     ###############################################################################
     # Initialize face pose estimation
     if model_poseestimator is not None:
-        face_pose_estimator = FacePoseEstimator(model=model_poseestimator, path=INPUT_DIR_MODEL)
+        face_pose_estimator = FacePoseEstimator(model=model_poseestimator, path=INPUT_DIR_MODEL_ESTIMATION)
     if model_ageestimator is not None:
-        face_age_estimator = FaceAgeEstimator(model=model_ageestimator, path=INPUT_DIR_MODEL_ESTIMATE_AGE)
+        face_age_estimator = FaceAgeEstimator(model=model_ageestimator, path=INPUT_DIR_MODEL_ESTIMATION)
     if model_genderestimator is not None:
-        face_gender_estimator = FaceGenderEstimator(model=model_genderestimator, path=INPUT_DIR_MODEL_ESTIMATE_GENDER)
-    (age, gender) = (None, None)
+        face_gender_estimator = FaceGenderEstimator(model=model_genderestimator, path=INPUT_DIR_MODEL_ESTIMATION)
+    if model_emotionestimator is not None:
+        face_emotion_estimator = FaceEmotionEstimator(model=model_emotionestimator, path=INPUT_DIR_MODEL_ESTIMATION)
+    (age, gender, emotion) = (None, None, None)
 
 
     # Initialize fps counter
@@ -139,30 +140,34 @@ def process_facedetection(cam_resolution, out_resolution, framecount,
             (x, y, w, h) = face
 
             ###############################################################################
-            # FACE AGE ESTIMATION
+            # FACE AGE/GENDER/EMOTION ESTIMATION
             ###############################################################################
             face_image = frame[y:y+h, h:h+w]
             if model_ageestimator is not None:
                 age = face_age_estimator.estimate(frame, face_image)
             if model_genderestimator is not None:
                 gender = face_gender_estimator.estimate(frame, face_image)
+            if model_emotionestimator is not None:
+                emotion = face_emotion_estimator.estimate(frame, face_image)
 
             ###############################################################################
             # FACE POSE ESTIMATION
             ###############################################################################
-            # Detect face pose locations
+            # Detect and draw face pose locations
             if model_poseestimator is not None:
                 shape = face_pose_estimator.detect(frame, face)
                 face_pose_estimator.apply(frame, shape)
             else:
                 cv2.rectangle(frame, (x,y), (x+w,y+h), (255,255,255), 1)
 
-            if gender is not None:
-#            if age is not None and gender is not None:
+            # Display age, gender, emotion
+            if age is not None and gender is not None and emotion is not None:
+                cv2.putText(frame, "Age: {}".format(age), 
+                    (x, y-45), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
                 cv2.putText(frame, "Gender: {}".format(gender), 
+                    (x, y-30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, "Emotion: {}".format(emotion), 
                     (x, y-15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-                cv2.putText(frame, "Age range {}: ".format(age), 
-                    (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
 
         # Display the resulting frame
@@ -347,7 +352,7 @@ def process_facerecognition_livenessdetection(cam_resolution, out_resolution, fr
     # EYE BLINKING DETECTOR
     ###############################################################################
     # Initialize detector for blinking eyes
-    face_liveness = FaceLiveness(model=FaceLivenessDetectorModels.EYEBLINKING, path=INPUT_DIR_MODEL)
+    face_liveness = FaceLiveness(model=FaceLivenessDetectorModels.EYEBLINKING, path=INPUT_DIR_MODEL_ESTIMATION)
     face_liveness.initialize()
     eye_counter = 0
     total_eye_blinks = 0
@@ -517,19 +522,17 @@ def run():
     poseestimator   = FacePoseEstimatorModels.DLIB68
     ageestimator    = FaceAgeEstimatorModels.CV2CAFFE
     genderestimator = FaceGenderEstimatorModels.CV2CAFFE
+    emotionestimator = FaceEmotionEstimatorModels.KERAS
 
     # train the models based on selected models
     train_recognition(detector, encoder, classifier, True)
 
     # check face detection with pose estimation and age/gender classification
     #fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector)
-    fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector, 
-        model_poseestimator=poseestimator, 
-        model_ageestimator=ageestimator, 
-        model_genderestimator=genderestimator)
+    #fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector, model_poseestimator=poseestimator, model_ageestimator=ageestimator, model_genderestimator=genderestimator, model_emotionestimator=emotionestimator)
 
     # check face recognition
-    #fps = process_facerecognition( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
+    fps = process_facerecognition( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
     #fps = process_facerecognition_livenessdetection( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
     print( "resolution = {}x{}\tfps = {:.2f}".format(RESOLUTION_QVGA[0], RESOLUTION_QVGA[1], fps) )
 
