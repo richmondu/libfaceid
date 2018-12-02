@@ -12,9 +12,9 @@
 ### Compatibility:
 
 <p>
-    The library and example applications have been tested on Windows 7 (Python 3.6.6) and Raspberry Pi 3B+ (Python 3.5.3)
+    The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6).
     using OpenCV 3.4.3 and Tensorflow 1.8.0. For complete dependencies, refer to requirements.txt. 
-    Tested with a Logitech C922 Full-HD webcam.
+    Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
 </p>
 
 
@@ -31,9 +31,6 @@
 - Local Binary Patterns Histograms (LBPH) via OpenCV
 - OpenFace via OpenCV
 - ResNet via DLIB
-
-#### Face Pose Estimator for face landmark detection
-- DLIB 68 face landmarks
 
 #### Classifier models for face embedding classification to identify the face
 - Naïve Bayes
@@ -53,6 +50,9 @@
   https://github.com/davidsandberg/facenet
 - OpenFace via Torch
   https://github.com/cmusatyalab/openface
+
+#### Bonus: Face Pose Estimator models for face landmark detection
+- DLIB 68 face landmarks
 
 
 ### Usage:
