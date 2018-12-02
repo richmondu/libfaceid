@@ -6,6 +6,7 @@
     The models are seamlessly integrated so that user can mix and match detection models.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
+    In addition, the library also contains models for predicting face pose, age and gender.
 </p>
 
 
@@ -51,8 +52,8 @@
 - OpenFace via Torch
   https://github.com/cmusatyalab/openface
 
-#### Bonus: Face Pose Estimator models for face landmark detection
-- DLIB 68 face landmarks
+#### Bonus: Face Pose estimator models for face landmark detection
+#### Bonus: Face Age/Gender estimator models for predicting age and gender
 
 
 ### Usage:

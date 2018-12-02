@@ -7,7 +7,9 @@ from libfaceid.detector import FaceDetectorModels, FaceDetector
 from libfaceid.encoder import FaceEncoderModels, FaceEncoder
 from libfaceid.classifier import FaceClassifierModels
 from libfaceid.liveness import FaceLivenessDetectorModels, FaceLiveness
-from libfaceid.pose     import FacePoseEstimatorModels, FacePoseEstimator
+from libfaceid.pose import FacePoseEstimatorModels, FacePoseEstimator
+from libfaceid.age import FaceAgeEstimatorModels, FaceAgeEstimator
+from libfaceid.gender import FaceGenderEstimatorModels, FaceGenderEstimator
 
 
 
@@ -15,11 +17,13 @@ from libfaceid.pose     import FacePoseEstimatorModels, FacePoseEstimator
 WINDOW_NAME = "Facial Recognition"
 
 # Set the input directories
-INPUT_DIR_DATASET         = "datasets"
-INPUT_DIR_MODEL_DETECTION = "models/detection/"
-INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
-INPUT_DIR_MODEL_TRAINING  = "models/training/"
-INPUT_DIR_MODEL           = "models/"
+INPUT_DIR_DATASET               = "datasets"
+INPUT_DIR_MODEL_DETECTION       = "models/detection/"
+INPUT_DIR_MODEL_ENCODING        = "models/encoding/"
+INPUT_DIR_MODEL_TRAINING        = "models/training/"
+INPUT_DIR_MODEL_ESTIMATE_AGE    = "models/estimation/"
+INPUT_DIR_MODEL_ESTIMATE_GENDER = "models/estimation/"
+INPUT_DIR_MODEL                 = "models/"
 
 # Set width and height
 RESOLUTION_QVGA   = (320, 240)
@@ -86,7 +90,8 @@ def process_webcam(cam_resolution, out_resolution, framecount):
     
     return fps
 
-def process_facedetection(cam_resolution, out_resolution, framecount, model_detector=0, model_poseestimator=None):
+def process_facedetection(cam_resolution, out_resolution, framecount, 
+    model_detector=0, model_poseestimator=None, model_ageestimator=None, model_genderestimator=None):
 
     # Initialize the camera
     cap = cam_init(cam_resolution[0], cam_resolution[1])
@@ -103,6 +108,11 @@ def process_facedetection(cam_resolution, out_resolution, framecount, model_dete
     # Initialize face pose estimation
     if model_poseestimator is not None:
         face_pose_estimator = FacePoseEstimator(model=model_poseestimator, path=INPUT_DIR_MODEL)
+    if model_ageestimator is not None:
+        face_age_estimator = FaceAgeEstimator(model=model_ageestimator, path=INPUT_DIR_MODEL_ESTIMATE_AGE)
+    if model_genderestimator is not None:
+        face_gender_estimator = FaceGenderEstimator(model=model_genderestimator, path=INPUT_DIR_MODEL_ESTIMATE_GENDER)
+    (age, gender) = (None, None)
 
 
     # Initialize fps counter
@@ -127,6 +137,16 @@ def process_facedetection(cam_resolution, out_resolution, framecount, model_dete
         faces = face_detector.detect(frame)
         for (index, face) in enumerate(faces):
             (x, y, w, h) = face
+
+            ###############################################################################
+            # FACE AGE ESTIMATION
+            ###############################################################################
+            face_image = frame[y:y+h, h:h+w]
+            if model_ageestimator is not None:
+                age = face_age_estimator.estimate(frame, face_image)
+            if model_genderestimator is not None:
+                gender = face_gender_estimator.estimate(frame, face_image)
+
             ###############################################################################
             # FACE POSE ESTIMATION
             ###############################################################################
@@ -136,6 +156,13 @@ def process_facedetection(cam_resolution, out_resolution, framecount, model_dete
                 face_pose_estimator.apply(frame, shape)
             else:
                 cv2.rectangle(frame, (x,y), (x+w,y+h), (255,255,255), 1)
+
+            if gender is not None:
+#            if age is not None and gender is not None:
+                cv2.putText(frame, "Gender: {}".format(gender), 
+                    (x, y-15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, "Age range {}: ".format(age), 
+                    (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
 
         # Display the resulting frame
@@ -487,13 +514,21 @@ def run():
 #    classifier=FaceClassifierModels.ADABOOST
 #    classifier=FaceClassifierModels.QDA
 
-    poseestimator=FacePoseEstimatorModels.DLIB68
+    poseestimator   = FacePoseEstimatorModels.DLIB68
+    ageestimator    = FaceAgeEstimatorModels.CV2CAFFE
+    genderestimator = FaceGenderEstimatorModels.CV2CAFFE
 
     # train the models based on selected models
     train_recognition(detector, encoder, classifier, True)
 
+    # check face detection with pose estimation and age/gender classification
+    #fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector)
+    fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector, 
+        model_poseestimator=poseestimator, 
+        model_ageestimator=ageestimator, 
+        model_genderestimator=genderestimator)
+
     # check face recognition
-    fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector, model_poseestimator=poseestimator )
     #fps = process_facerecognition( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
     #fps = process_facerecognition_livenessdetection( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
     print( "resolution = {}x{}\tfps = {:.2f}".format(RESOLUTION_QVGA[0], RESOLUTION_QVGA[1], fps) )

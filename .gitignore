@@ -1,5 +1,8 @@
 __pycache__
 models/training/*
-models/others/*
+models/others/facenet-master_recognition
+models/others/tensorflow_mobilenetssd_detection
+models/others/vggface_recognition
+models/others/*.zip
 datasets/coni/
 datasets/rico/
