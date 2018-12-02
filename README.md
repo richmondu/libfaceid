@@ -13,7 +13,8 @@
 
 <p>
     The library and example applications have been tested on Windows 7 (Python 3.6.6) and Raspberry Pi 3B+ (Python 3.5.3)
-    using OpenCV 3.4.3 and Tensorflow 1.8.0. For complete dependencies, refer to requirements.txt.
+    using OpenCV 3.4.3 and Tensorflow 1.8.0. For complete dependencies, refer to requirements.txt. 
+    Tested with a Logitech C922 Full-HD webcam.
 </p>
 
 
