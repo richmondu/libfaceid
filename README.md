@@ -21,6 +21,7 @@
 ### Supported Models:
 
 <p>
+
     Face Detector models for detecting face locations
         - Haar Cascade Classifier via OpenCV
         - Histogram of Oriented Gradients (HOG) via DLIB
@@ -160,13 +161,10 @@
 
 ### Links to valuable resoures:
 
-<p>
-        Special thanks to these guys for sharing their work on Face Recognition.
-        1. OpenCV by Adrian Rosebrock <https://www.pyimagesearch.com/>
-        2. Dlib by Davis King <https://github.com/davisking/dlib>
-        3. Face Recognition by Adam Geitgey <https://github.com/ageitgey/face_recognition>
-        4. FaceNet by David Sandberg <https://github.com/davidsandberg/facenet>
-        5. OpenFace <https://github.com/cmusatyalab/openface> 
-        6. VGG-Face <https://github.com/rcmalli/keras-vggface>
-</p>
+- [OpenCV tutorials by Adrian Rosebrock](https://www.pyimagesearch.com/)
+- [Dlib by Davis King](https://github.com/davisking/dlib)
+- [Face Recognition (Dlib wrapper) by Adam Geitgey](https://github.com/ageitgey/face_recognition)
+- [FaceNet implementation by David Sandberg](https://github.com/davidsandberg/facenet)
+- [OpenFace (FaceNet implementation) by Satyanarayanan](https://github.com/cmusatyalab/openface)
+- [VGG-Face implementation by Refik Can Malli](https://github.com/rcmalli/keras-vggface)
 
