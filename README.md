@@ -199,6 +199,7 @@
                 (x, y, w, h) = face
                 age = face_age_estimator.estimate(frame, face_image)
                 gender = face_gender_estimator.estimate(frame, face_image)
+                emotion = face_emotion_estimator.estimate(frame, face_image)
                 shape = face_pose_estimator.detect(frame, face)
                 face_pose_estimator.apply(frame, shape)
                 label_face(age, gender, emotion)
