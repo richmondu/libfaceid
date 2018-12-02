@@ -151,5 +151,5 @@
         2. Dlib by Davis King <https://github.com/davisking/dlib>
         3. Face Recognition by Adam Geitgey <https://github.com/ageitgey/face_recognition>
         4. FaceNet by David Sandberg <https://github.com/davidsandberg/facenet>
-        5. OpenFace <https://github.com/richmondu/openface>      
+        5. OpenFace <https://github.com/cmusatyalab/openface> 
         6. VGG-Face <https://github.com/rcmalli/keras-vggface>
