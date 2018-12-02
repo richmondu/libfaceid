@@ -22,11 +22,12 @@ class FaceClassifierModels(Enum):
     NEURAL_NET          = 6
     ADABOOST            = 7
     QDA                 = 8
+    DEFAULT = NAIVE_BAYES
 
 
 class FaceClassifier():
 
-    def __init__(self, classifier):
+    def __init__(self, classifier=FaceClassifierModels.DEFAULT):
         self._clf = None
         if classifier == FaceClassifierModels.NAIVE_BAYES:
             self._clf = GaussianNB()

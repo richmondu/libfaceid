@@ -1,6 +1,6 @@
-import numpy as np
 from enum import Enum
 import cv2
+import numpy as np
 import dlib # for FacePoseEstimatorModels.DLIB68
 
 
@@ -20,11 +20,12 @@ color_white  = (0,0,0)
 class FacePoseEstimatorModels(Enum):
 
     DLIB68 = 0
+    DEFAULT = DLIB68
 
 
 class FacePoseEstimator():
 
-    def __init__(self, model=FacePoseEstimatorModels.DLIB68, path=None):
+    def __init__(self, model=FacePoseEstimatorModels.DEFAULT, path=None):
         self.path = path
         self.detector = None
         self.connection = None

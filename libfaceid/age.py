@@ -7,12 +7,13 @@ import cv2
 
 class FaceAgeEstimatorModels(Enum):
 
-    CV2CAFFE            = 0
+    CV2CAFFE = 0
+    DEFAULT = CV2CAFFE
 
 
 class FaceAgeEstimator:
 
-    def __init__(self, model=FaceAgeEstimatorModels.CV2CAFFE, path=None):
+    def __init__(self, model=FaceAgeEstimatorModels.DEFAULT, path=None):
         self._base = None
         if model == FaceAgeEstimatorModels.CV2CAFFE:
             self._base = FaceAgeEstimator_CV2CAFFE(path)

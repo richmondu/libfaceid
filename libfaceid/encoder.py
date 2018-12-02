@@ -31,11 +31,12 @@ class FaceEncoderModels(Enum):
     # VGGFACE1_VGG16    = 3    # Refer to models\others\vggface_recognition
     # VGGFACE2_RESNET50 = 4    # Refer to models\others\vggface_recognition
     # FACENET           = 5    # Refer to models\others\facenet-master_recognition
+    DEFAULT = LBPH
 
 
 class FaceEncoder():
 
-    def __init__(self, model=FaceEncoderModels.LBPH, path=None, path_training=None, training=False):
+    def __init__(self, model=FaceEncoderModels.DEFAULT, path=None, path_training=None, training=False):
         self._base = None
         if model == FaceEncoderModels.LBPH:
             self._base = FaceEncoder_LBPH(path, path_training, training)

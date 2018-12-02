@@ -7,12 +7,13 @@ import cv2
 
 class FaceGenderEstimatorModels(Enum):
 
-    CV2CAFFE            = 0
+    CV2CAFFE = 0
+    DEFAULT = CV2CAFFE
 
 
 class FaceGenderEstimator:
 
-    def __init__(self, model=FaceGenderEstimatorModels.CV2CAFFE, path=None):
+    def __init__(self, model=FaceGenderEstimatorModels.DEFAULT, path=None):
         self._base = None
         if model == FaceGenderEstimatorModels.CV2CAFFE:
             self._base = FaceGenderEstimator_CV2CAFFE(path)

@@ -13,11 +13,12 @@ class FaceDetectorModels(Enum):
     DLIBCNN             = 2    # [DL] DLIB CNN // Slow without GPU.
     SSDRESNET           = 3    # [DL] OpenCV SSD with ResNet-10
     MTCNN               = 4    # [DL] Tensorflow Multi-task Cascaded CNN (MTCNN)
+    DEFAULT = HAARCASCADE
 
 
 class FaceDetector:
 
-    def __init__(self, model=FaceDetectorModels.HAARCASCADE, path=None, optimize=False, minfacesize=20):
+    def __init__(self, model=FaceDetectorModels.DEFAULT, path=None, optimize=False, minfacesize=20):
         if optimize:
             minfacesize = max(180, minfacesize)
         else:
