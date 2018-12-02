@@ -1,13 +1,15 @@
 # libfaceid
 <p>
     libfaceid is a python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
-    It simplifies prototyping of facial recognition systems by providing different models.
+    It enables beginners to learn various models. 
+    It also simplifies prototyping of facial recognition systems by providing different models to choose from.
     Multiple models for detection and encoding/embedding including classification models are supported.
     The models are seamlessly integrated so that user can mix and match detection models.
-    This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
+    This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
     The library and example applications have been tested on Windows 7 and Raspberry Pi 3B+.
 </p>
+
 
 ### Supported Models:
 
@@ -23,7 +25,7 @@
         - OpenFace via OpenCV
         - ResNet via DLIB
 
-    Face Classifier models for face classification based on face embeddings
+    Classifier models for face embedding classification
         - Naïve Bayes
         - Linear SVM
         - RVF SVM
@@ -36,8 +38,11 @@
         
     Other models can be integrated to libfaceid in the future.
         - VGG-Face (VGG-16, ResNet-50) via Keras
+          https://github.com/rcmalli/keras-vggface
         - FaceNet (Inception ResNet v1) via Tensorflow
+          https://github.com/davidsandberg/facenet
         - OpenFace via Torch
+          https://github.com/cmusatyalab/openface
 
 
 ### Usage:
@@ -144,7 +149,7 @@
 
 ### Links to valuable resoures:
 
-        Special thanks to these guys for sharing their work and helping me understand Face Recognition.
+        Special thanks to these guys for sharing their work on Face Recognition.
         1. OpenCV by Adrian Rosebrock <https://www.pyimagesearch.com/>
         2. Dlib by Davis King <https://github.com/davisking/dlib>
         3. Face Recognition by Adam Geitgey <https://github.com/ageitgey/face_recognition>
