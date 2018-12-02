@@ -18,7 +18,7 @@
 
 <p>
     The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6).
-    using OpenCV 3.4.3, Tensorflow 1.8.0 and Keras 2.2.0. For complete dependencies, refer to requirements.txt. 
+    using OpenCV 3.4.3, Tensorflow 1.8.0 and Keras 2.0.8. For complete dependencies, refer to requirements.txt. 
     Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
 </p>
 
