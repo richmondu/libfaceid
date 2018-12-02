@@ -6,7 +6,7 @@
     The models are seamlessly integrated so that user can mix and match detection models.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
-    In addition, the library also contains models for predicting face pose, age and gender.
+    In addition, the library also contains models for predicting face pose, age, gender and emotion.
 </p>
 
 
@@ -14,7 +14,7 @@
 
 <p>
     The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6).
-    using OpenCV 3.4.3 and Tensorflow 1.8.0. For complete dependencies, refer to requirements.txt. 
+    using OpenCV 3.4.3, Tensorflow 1.8.0 and Keras 2.2.0. For complete dependencies, refer to requirements.txt. 
     Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
 </p>
 
@@ -56,6 +56,7 @@
 - Face Pose estimator models for predicting face landmarks (face landmark detection)
 - Face Age estimator models for predicting age (age detection)
 - Face Gender estimator models for predicting gender (gender detection)
+- Face Emotion estimator models for predicting facial expression (emotion detection)
 
 
 ### Usage:
@@ -89,8 +90,8 @@
             Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
         3. facial_recognition_testing_webcam.py
             Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 0
-        4. facial_poseagegender_estimation_webcam.py
-            Usage: python facial_poseagegender_estimation_webcam.py --detector 0 --webcam 0 --resolution 0
+        4. facial_estimation_poseagegenderemotion_webcam.py
+            Usage: python facial_estimation_poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
 
 
 #### Training models with dataset of images:
