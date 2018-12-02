@@ -161,6 +161,44 @@
         cv2.destroyAllWindows()
 
 
+#### Real-Time Face Pose/Age/Gender Estimation w/a webcam:
+
+        import cv2
+        from libfaceid.detector import FaceDetectorModels, FaceDetector
+        from libfaceid.pose import FacePoseEstimatorModels, FacePoseEstimator
+        from libfaceid.age import FaceAgeEstimatorModels, FaceAgeEstimator
+        from libfaceid.gender import FaceGenderEstimatorModels, FaceGenderEstimator
+
+        INPUT_DIR_MODEL_DETECTION       = "models/detection/"
+        INPUT_DIR_MODEL_ENCODING        = "models/encoding/"
+        INPUT_DIR_MODEL_TRAINING        = "models/training/"
+        INPUT_DIR_MODEL_ESTIMATE_AGE    = "models/estimation/"
+        INPUT_DIR_MODEL_ESTIMATE_GENDER = "models/estimation/"
+        INPUT_DIR_MODEL                 = "models/"
+
+        camera = cv2.VideoCapture(webcam_index)
+        face_detector = FaceDetector(model=FaceDetectorModels.HAARCASCADE, path=INPUT_DIR_MODEL_DETECTION)
+        face_pose_estimator = FacePoseEstimator(model=FacePoseEstimatorModels.DLIB68, path=INPUT_DIR_MODEL)
+        face_age_estimator = FaceAgeEstimator(model=FaceAgeEstimatorModels.CV2CAFFE, path=INPUT_DIR_MODEL_ESTIMATE_AGE)
+        face_gender_estimator = FaceGenderEstimator(model=FaceGenderEstimatorModels.CV2CAFFE, path=INPUT_DIR_MODEL_ESTIMATE_GENDER)
+        
+        while True:
+            frame = camera.read()
+            faces = face_detector.detect(frame)
+            for (index, face) in enumerate(faces):
+                (x, y, w, h) = face
+                age = face_age_estimator.estimate(frame, face_image)
+                gender = face_gender_estimator.estimate(frame, face_image)
+                shape = face_pose_estimator.detect(frame, face)
+                face_pose_estimator.apply(frame, shape)
+                label_face(age, gender)
+            cv2.imshow(window_name, frame)
+            cv2.waitKey(1)
+
+        camera.release()
+        cv2.destroyAllWindows()
+
+
 ### Links to valuable resoures:
 
 Special thanks to these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
