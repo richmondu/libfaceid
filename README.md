@@ -31,6 +31,9 @@
 - OpenFace via OpenCV
 - ResNet via DLIB
 
+#### Face Pose Estimator for face landmark detection
+- DLIB 68 face landmarks
+
 #### Classifier models for face embedding classification to identify the face
 - Naïve Bayes
 - Linear SVM
@@ -41,7 +44,7 @@
 - Neural Net
 - Adaboost
 - QDA
-        
+
 #### Other models can be integrated to libfaceid in the future.
 - VGG-Face (VGG-16, ResNet-50) via Keras
   https://github.com/rcmalli/keras-vggface

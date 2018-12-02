@@ -7,6 +7,7 @@ from libfaceid.detector import FaceDetectorModels, FaceDetector
 from libfaceid.encoder import FaceEncoderModels, FaceEncoder
 from libfaceid.classifier import FaceClassifierModels
 from libfaceid.liveness import FaceLivenessDetectorModels, FaceLiveness
+from libfaceid.pose     import FacePoseEstimatorModels, FacePoseEstimator
 
 
 
@@ -85,7 +86,7 @@ def process_webcam(cam_resolution, out_resolution, framecount):
     
     return fps
 
-def process_facedetection(cam_resolution, out_resolution, framecount, model_detector=0):
+def process_facedetection(cam_resolution, out_resolution, framecount, model_detector=0, model_poseestimator=None):
 
     # Initialize the camera
     cap = cam_init(cam_resolution[0], cam_resolution[1])
@@ -94,7 +95,15 @@ def process_facedetection(cam_resolution, out_resolution, framecount, model_dete
     # FACE DETECTION
     ###############################################################################
     # Initialize face detection
-    face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION, optimize=True)
+    face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)#, optimize=True)
+
+    ###############################################################################
+    # FACE POSE ESTIMATION
+    ###############################################################################
+    # Initialize face pose estimation
+    if model_poseestimator is not None:
+        face_pose_estimator = FacePoseEstimator(model=model_poseestimator, path=INPUT_DIR_MODEL)
+
 
     # Initialize fps counter
     fps_frames = 0
@@ -118,7 +127,16 @@ def process_facedetection(cam_resolution, out_resolution, framecount, model_dete
         faces = face_detector.detect(frame)
         for (index, face) in enumerate(faces):
             (x, y, w, h) = face
-            cv2.rectangle(frame, (x,y), (x+w,y+h), (255,255,255), 1)
+            ###############################################################################
+            # FACE POSE ESTIMATION
+            ###############################################################################
+            # Detect face pose locations
+            if model_poseestimator is not None:
+                shape = face_pose_estimator.detect(frame, face)
+                face_pose_estimator.apply(frame, shape)
+            else:
+                cv2.rectangle(frame, (x,y), (x+w,y+h), (255,255,255), 1)
+
 
         # Display the resulting frame
         cv2.imshow(WINDOW_NAME, frame)
@@ -469,12 +487,14 @@ def run():
 #    classifier=FaceClassifierModels.ADABOOST
 #    classifier=FaceClassifierModels.QDA
 
+    poseestimator=FacePoseEstimatorModels.DLIB68
+
     # train the models based on selected models
     train_recognition(detector, encoder, classifier, True)
 
     # check face recognition
-    #fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector )
-    fps = process_facerecognition( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
+    fps = process_facedetection( RESOLUTION_QVGA, None, 0, model_detector=detector, model_poseestimator=poseestimator )
+    #fps = process_facerecognition( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
     #fps = process_facerecognition_livenessdetection( RESOLUTION_QVGA, None, 0, model_detector=detector, model_recognizer=encoder)
     print( "resolution = {}x{}\tfps = {:.2f}".format(RESOLUTION_QVGA[0], RESOLUTION_QVGA[1], fps) )
 
