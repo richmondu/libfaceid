@@ -1,6 +1,8 @@
 # libfaceid for Face Recognition
 <p>
     libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
+</p>
+<p>
     It enables beginners to learn various models and simplifies prototyping of facial recognition solutions by providing different models to choose from.
     Multiple models for detection and encoding/embedding including classification models are supported.
     The models are seamlessly integrated so that user can mix and match detection models.
@@ -107,8 +109,8 @@
         INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
         INPUT_DIR_MODEL_TRAINING  = "models/training/"
 
-        face_detector = FaceDetector(model=FaceDetectorModels.HAARCASCADE, path=INPUT_DIR_MODEL_DETECTION)
-        face_encoder = FaceEncoder(model=FaceEncoderModels.LBPH, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
+        face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
+        face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
         face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=FaceClassifierModels.NAIVE_BAYES)
 
 
@@ -123,8 +125,8 @@
         INPUT_DIR_MODEL_TRAINING  = "models/training/"
 
         image = cv2.VideoCapture(imagePath)
-        face_detector = FaceDetector(model=FaceDetectorModels.HAARCASCADE, path=INPUT_DIR_MODEL_DETECTION)
-        face_encoder = FaceEncoder(model=FaceEncoderModels.LBPH, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
+        face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
+        face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
 
         frame = image.read()
         faces = face_detector.detect(frame)
@@ -150,8 +152,8 @@
         INPUT_DIR_MODEL_TRAINING  = "models/training/"
 
         camera = cv2.VideoCapture(webcam_index)
-        face_detector = FaceDetector(model=FaceDetectorModels.HAARCASCADE, path=INPUT_DIR_MODEL_DETECTION)
-        face_encoder = FaceEncoder(model=FaceEncoderModels.LBPH, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
+        face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
+        face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
 
         while True:
             frame = camera.read()
@@ -167,27 +169,27 @@
         cv2.destroyAllWindows()
 
 
-#### Real-Time Face Pose/Age/Gender Estimation w/a webcam:
+#### Real-Time Face Pose/Age/Gender/Emotion Estimation w/a webcam:
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
         from libfaceid.pose import FacePoseEstimatorModels, FacePoseEstimator
         from libfaceid.age import FaceAgeEstimatorModels, FaceAgeEstimator
         from libfaceid.gender import FaceGenderEstimatorModels, FaceGenderEstimator
+        from libfaceid.emotion import FaceEmotionEstimatorModels, FaceEmotionEstimator
 
         INPUT_DIR_MODEL_DETECTION       = "models/detection/"
         INPUT_DIR_MODEL_ENCODING        = "models/encoding/"
         INPUT_DIR_MODEL_TRAINING        = "models/training/"
-        INPUT_DIR_MODEL_ESTIMATE_AGE    = "models/estimation/"
-        INPUT_DIR_MODEL_ESTIMATE_GENDER = "models/estimation/"
-        INPUT_DIR_MODEL                 = "models/"
+        INPUT_DIR_MODEL_ESTIMATION      = "models/estimation/"
 
         camera = cv2.VideoCapture(webcam_index)
-        face_detector = FaceDetector(model=FaceDetectorModels.HAARCASCADE, path=INPUT_DIR_MODEL_DETECTION)
-        face_pose_estimator = FacePoseEstimator(model=FacePoseEstimatorModels.DLIB68, path=INPUT_DIR_MODEL)
-        face_age_estimator = FaceAgeEstimator(model=FaceAgeEstimatorModels.CV2CAFFE, path=INPUT_DIR_MODEL_ESTIMATE_AGE)
-        face_gender_estimator = FaceGenderEstimator(model=FaceGenderEstimatorModels.CV2CAFFE, path=INPUT_DIR_MODEL_ESTIMATE_GENDER)
-        
+        face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
+        face_pose_estimator = FacePoseEstimator(model=FacePoseEstimatorModels.DEFAULT, path=INPUT_DIR_MODEL_ESTIMATION)
+        face_age_estimator = FaceAgeEstimator(model=FaceAgeEstimatorModels.DEFAULT, path=INPUT_DIR_MODEL_ESTIMATION)
+        face_gender_estimator = FaceGenderEstimator(model=FaceGenderEstimatorModels.DEFAULT, path=INPUT_DIR_MODEL_ESTIMATION)
+        face_emotion_estimator = FaceEmotionEstimator(model=FaceEmotionEstimatorModels.DEFAULT, path=INPUT_DIR_MODEL_ESTIMATION)
+
         while True:
             frame = camera.read()
             faces = face_detector.detect(frame)
@@ -197,7 +199,7 @@
                 gender = face_gender_estimator.estimate(frame, face_image)
                 shape = face_pose_estimator.detect(frame, face)
                 face_pose_estimator.apply(frame, shape)
-                label_face(age, gender)
+                label_face(age, gender, emotion)
             cv2.imshow(window_name, frame)
             cv2.waitKey(1)
 
