@@ -6,4 +6,4 @@ models/others/vggface_recognition
 models/others/*.zip
 datasets/coni/
 datasets/rico/
-*.jpg
+
