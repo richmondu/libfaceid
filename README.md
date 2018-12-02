@@ -1,13 +1,13 @@
 # libfaceid
-
+<p>
     libfaceid is a python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
-    It simplifies prototyping of facial recognition systems by providing different models for detection and identification/encoding.
+    It simplifies prototyping of facial recognition systems by providing different models.
     Multiple models for detection and encoding/embedding including classification models are supported.
-    The models are seamlessly integrated so that user can mix and match detection models with identification/encoder models.
-    Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
+    The models are seamlessly integrated so that user can mix and match detection models.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
+    Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     The library and example applications have been tested on Windows 7 and Raspberry Pi 3B+.
-
+</p>
 
 ### Supported Models:
 
@@ -44,17 +44,32 @@
 
     Pre-requisites:
 
-        - Install Python 3 and Python PIP
+        1. Install Python 3 and Python PIP
 
-        - Install the required Python PIP packages 
+        2. Install the required Python PIP packages 
             pip install -r requirements.txt
 
-        - Add the dataset of images under the datasets directory
+        3. Add the dataset of images under the datasets directory
             Example:
             datasets/rico - contain .jpeg images of person name rico
             datasets/coni - contain .jpeg images of person named coni 
             ...
             datasets/xyz - contain .jpeg images of person named xyz 
+
+    Examples:
+
+        detector models:       0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN
+        encoder models:        0-LBPH, 1-OPENFACE, 2-DLIBRESNET
+        classifier algorithms: 0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
+                               5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
+        camera resolution:     0-QVGA, 1-VGA, 2-HD, 3-FULLHD
+
+        1. facial_recognition_training.py
+            Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
+        2. facial_recognition_testing_image.py
+            Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
+        3. facial_recognition_testing_webcam.py
+            Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 2
 
 
     Training models with dataset of images:
@@ -125,23 +140,6 @@
 
         camera.release()
         cv2.destroyAllWindows()
-
-
-    Examples:
-
-        detector models:       0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN
-        encoder models:        0-LBPH, 1-OPENFACE, 2-DLIBRESNET
-        classifier algorithms: 0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
-                               5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
-        camera resolution:     0-QVGA, 1-VGA, 2-HD, 3-FULLHD
-
-        1. facial_recognition_training.py
-            Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
-        2. facial_recognition_testing_image.py
-            Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
-        3. facial_recognition_testing_webcam.py
-            Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 2
-
 
 
 ### Links to valuable resoures:
