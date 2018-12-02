@@ -53,8 +53,9 @@
   https://github.com/cmusatyalab/openface
 
 #### Additional models: 
-- Face Pose estimator models for face landmark detection
-- Face Age/Gender estimator models for predicting age and gender
+- Face Pose estimator models for predicting face landmarks (face landmark detection)
+- Face Age estimator models for predicting age (age detection)
+- Face Gender estimator models for predicting gender (gender detection)
 
 
 ### Usage:
