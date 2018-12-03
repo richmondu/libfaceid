@@ -89,7 +89,7 @@ def process_facedetection(model_detector, model_poseestimator, model_ageestimato
 
             # Detect and draw face pose locations
             shape = face_pose_estimator.detect(frame, face)
-            face_pose_estimator.apply(frame, shape)
+            face_pose_estimator.add_overlay(frame, shape)
 
             # Display age, gender, emotion
             cv2.putText(frame, "Age: {}".format(age), 

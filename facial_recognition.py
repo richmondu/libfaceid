@@ -167,7 +167,7 @@ def process_facedetection(cam_resolution, out_resolution, framecount, model_dete
             # Detect and draw face pose locations
             if model_poseestimator is not None:
                 shape = face_pose_estimator.detect(frame, face)
-                face_pose_estimator.apply(frame, shape)
+                face_pose_estimator.add_overlay(frame, shape)
             else:
                 cv2.rectangle(frame, (x,y), (x+w,y+h), (255,255,255), 1)
 
@@ -459,7 +459,7 @@ def process_facerecognition_livenessdetection_poseagegenderemotion(cam_resolutio
             # Detect and draw face pose locations
             if model_poseestimator is not None:
                 shape = face_pose_estimator.detect(frame, face)
-                face_pose_estimator.apply(frame, shape)
+                face_pose_estimator.add_overlay(frame, shape)
 
             # Display name, age, gender, emotion
             cv2.putText(frame, "Age: {}".format(age), 
