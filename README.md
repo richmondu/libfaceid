@@ -24,6 +24,8 @@
 ![](https://github.com/richmondu/libfaceid/blob/master/libfaceid.jpg)
 ![](https://github.com/richmondu/libfaceid/blob/master/libfaceid2.jpg)
 ![](https://github.com/richmondu/libfaceid/blob/master/libfaceid3.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/libfaceid4.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/libfaceid5.jpg)
 
 
 ### Compatibility:

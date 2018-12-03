@@ -39,7 +39,8 @@ class FacePoseEstimatorOverlay(Enum):
 
     ORIG   = 0
     OZ     = 1
-    DEFAULT = OZ
+    INT    = 2
+    DEFAULT = ORIG
 
 
 class FacePoseEstimator():
@@ -83,6 +84,14 @@ class FacePoseEstimator_DLIB68():
                 (60,61), (61,62), (62,63), (63,64), (64,65), (65,66), (66,67), (67,60), # inner lip
                 (31,32), (32,33), (33,34), (34,35), (27,28), (28,29), (29,30), (30,31), (30,35) # nose
             }
+        elif self._overlay == FacePoseEstimatorOverlay.INT:
+            self._connection = {(1,4), (4,7), (7,9), (9,12), (12, 15), (1, 36), (15,45), (1, 31), (15,45), (15,35), (39, 42),
+                (36,37), (37,38), (38,39), (39,40), (40,41), (41,36), # left eye
+                (42,43), (43,44), (44,45), (45,46), (46,47), (47,42), # right eye
+                (48,51), (51,54), (54,57), (57,48), (48, 4), (54,12), # outer lip
+                (30,31), (31,35), (35,30), (30,39), (30,42), (31,48), (35,54), # nose
+                (48, 7), (7, 57), (57, 9), (9,54),  (31, 39), (35, 42), (31, 36), (35, 45), (31, 51), (51, 35), (48, 1), (55,15),
+            }
 
     def detect(self, frame, face):
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -108,6 +117,11 @@ class FacePoseEstimator_DLIB68():
                 cv2.line(frame, (shape[conn[0]][0], shape[conn[0]][1]), (shape[conn[1]][0], shape[conn[1]][1]), color_yellow, 1)
         elif self._overlay == FacePoseEstimatorOverlay.ORIG:
             for conn in self._connection:
+                cv2.line(frame, (shape[conn[0]][0], shape[conn[0]][1]), (shape[conn[1]][0], shape[conn[1]][1]), self._color, 1)
+        elif self._overlay == FacePoseEstimatorOverlay.INT:
+#            cv2.polylines(frame, [np.array(self._connection.values, np.int32)], True, color_white, thickness=3)
+            for conn in self._connection:
+                cv2.circle(frame, (shape[conn[0]][0], shape[conn[0]][1]), 3, self._color, -1)
                 cv2.line(frame, (shape[conn[0]][0], shape[conn[0]][1]), (shape[conn[1]][0], shape[conn[1]][1]), self._color, 1)
 
     # private function
