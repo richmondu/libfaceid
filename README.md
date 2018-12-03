@@ -101,10 +101,18 @@
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
         2. facial_recognition_testing_image.py
             Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
+
         3. facial_recognition_testing_webcam.py
             Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 0
-        4. facial_estimation_poseagegenderemotion_webcam.py
+        4. facial_recognition_testing_webcam_flask.py
+            Usage: python facial_recognition_testing_webcam_flask.py
+                   Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
+
+        5. facial_estimation_poseagegenderemotion_webcam.py
             Usage: python facial_estimation_poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
+        6. facial_estimation_poseagegenderemotion_webcam_flask.py
+            Usage: python facial_estimation_poseagegenderemotion_webcam_flask.py
+                   Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
 
 
 #### Training models with dataset of images:

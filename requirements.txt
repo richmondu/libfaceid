@@ -8,3 +8,4 @@ scikit-learn==0.20.0
 mtcnn==0.0.8
 tensorflow==1.8.0
 keras==2.0.8
+flask==1.0.2
