@@ -37,6 +37,8 @@
 
 ### Supported Models:
 
+libfaceid supports the following models below. You can mix and match the models for your specific use-case and system requirements. 
+
 #### Face Detector models for detecting face locations
 - [Haar Cascade Classifier via OpenCV](https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py)
 - [Histogram of Oriented Gradients (HOG) via DLIB](http://dlib.net/face_detector.py.html)
