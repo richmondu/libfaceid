@@ -22,6 +22,8 @@
 </p>
 
 ![](https://github.com/richmondu/libfaceid/blob/master/libfaceid.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/libfaceid2.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/libfaceid3.jpg)
 
 
 ### Compatibility:
@@ -78,20 +80,22 @@
 #### Installation:
 
         1. Install Python 3 and Python PIP
-
-        2. Install the required Python PIP packages 
-            pip install -r requirements.txt
-
+           Use Python 3.5.3 for Raspberry Pi 3B+ and Python 3.6.6 for Windows
+        2. Install the required Python PIP package dependencies
+           pip install -r requirements.txt
+           
 
 #### Pre-requisites:
 
         1. Add the dataset of images under the datasets directory
-           The datasets folder should be in the same location as the test applications
-            Example:
-            datasets/rico - contain .jpeg images of person name rico
-            datasets/coni - contain .jpeg images of person named coni 
-            ...
-            datasets/xyz - contain .jpeg images of person named xyz 
+           The datasets folder should be in the same location as the test applications.
+           Having more images per person makes accuracy much better.
+           If only 1 image is possible, then do data augmentation.
+             Example:
+             datasets/rico - contain .jpeg images of person name rico
+             datasets/coni - contain .jpeg images of person named coni 
+             ...
+             datasets/xyz - contain .jpeg images of person named xyz 
         2. Train the model using the datasets. 
            Can use facial_recognition_training.py
            Make sure the models used for training is the same for actual testing for better accuracy.
@@ -224,7 +228,7 @@
                 gender = face_gender_estimator.estimate(frame, face_image)
                 emotion = face_emotion_estimator.estimate(frame, face_image)
                 shape = face_pose_estimator.detect(frame, face)
-                face_pose_estimator.apply(frame, shape)
+                face_pose_estimator.add_overlay(frame, shape)
                 label_face(age, gender, emotion)
             cv2.imshow(window_name, frame)
             cv2.waitKey(1)
@@ -244,7 +248,7 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 - Update the library and configure the parameters directly.
 
 #### Accuracy
-- Add more datasets if possible. More images per person will often result to higher accuracy.
+- Add more datasets if possible (ex. do data augmentation). More images per person will often result to higher accuracy.
 - Add face alignment if faces in the datasets are not aligned or when faces may be unaligned in actual deployment.
 - Update the library and configure the parameters directly.
 
