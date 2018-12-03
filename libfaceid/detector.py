@@ -49,6 +49,7 @@ class FaceDetector_HAARCASCADE:
 
     def detect(self, frame):
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        frame_gray = cv2.equalizeHist(frame_gray)
         faces = self._detector.detectMultiScale(frame_gray, 1.1, 5, minSize=(self._minfacesize, self._minfacesize))
         return faces
 
