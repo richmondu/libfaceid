@@ -54,27 +54,29 @@ def process_facedetection(model_detector, model_poseestimator, model_ageestimato
     # Initialize the camera
     camera = cam_init(cam_index, cam_resolution[0], cam_resolution[1])
 
-    # Initialize face detection
-    face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)#, optimize=True)
-
-    # Initialize face pose/age/gender estimation
-    face_pose_estimator = FacePoseEstimator(model=model_poseestimator, path=INPUT_DIR_MODEL_ESTIMATION)
-    face_age_estimator = FaceAgeEstimator(model=model_ageestimator, path=INPUT_DIR_MODEL_ESTIMATION)
-    face_gender_estimator = FaceGenderEstimator(model=model_genderestimator, path=INPUT_DIR_MODEL_ESTIMATION)
-    face_emotion_estimator = FaceEmotionEstimator(model=model_emotionestimator, path=INPUT_DIR_MODEL_ESTIMATION)
-    (age, gender) = (None, None)
+    try:
+        # Initialize face detection
+        face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)#, optimize=True)
+        # Initialize face pose/age/gender estimation
+        face_pose_estimator = FacePoseEstimator(model=model_poseestimator, path=INPUT_DIR_MODEL_ESTIMATION)
+        face_age_estimator = FaceAgeEstimator(model=model_ageestimator, path=INPUT_DIR_MODEL_ESTIMATION)
+        face_gender_estimator = FaceGenderEstimator(model=model_genderestimator, path=INPUT_DIR_MODEL_ESTIMATION)
+        face_emotion_estimator = FaceEmotionEstimator(model=model_emotionestimator, path=INPUT_DIR_MODEL_ESTIMATION)
+    except:
+        print("Warning, check if models and trained dataset models exists!")
+    (age, gender, emotion) = (None, None, None)
 
 
     while (True):
-       
-        # Capture frame-by-frame
+
+        # Capture frame from webcam
         ret, frame = camera.read()
         if frame is None:
             print("Error, check if camera is connected!")
             break
 
 
-        # Detect faces and set bounding boxes
+        # Detect and identify faces in the frame
         faces = face_detector.detect(frame)
         for (index, face) in enumerate(faces):
             (x, y, w, h) = face

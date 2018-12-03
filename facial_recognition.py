@@ -616,6 +616,7 @@ def main(args):
         return
     run()
 
+
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--detector', required=False,

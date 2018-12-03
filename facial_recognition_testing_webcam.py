@@ -10,11 +10,11 @@ from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
 WINDOW_NAME = "Facial_Recognition"
 
 # Set the input directories
-INPUT_DIR_DATASET         = "datasets"
-INPUT_DIR_MODEL_DETECTION = "models/detection/"
-INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
-INPUT_DIR_MODEL_TRAINING  = "models/training/"
-INPUT_DIR_MODEL           = "models/"
+INPUT_DIR_DATASET               = "datasets"
+INPUT_DIR_MODEL_DETECTION       = "models/detection/"
+INPUT_DIR_MODEL_ENCODING        = "models/encoding/"
+INPUT_DIR_MODEL_TRAINING        = "models/training/"
+INPUT_DIR_MODEL_ESTIMATION      = "models/estimation/"
 
 # Set width and height
 RESOLUTION_QVGA   = (320, 240)
