@@ -1,9 +1,9 @@
 # libfaceid for Face Recognition
 <p>
-    FaceRecognition Made Easy. libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
+    <b> FaceRecognition Made Easy.</b> libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
 </p>
 <p>
-    From Zero to Hero. Learn the basics of Face Recognition and experiment with different models.
+    <b> From Zero to Hero.</b> Learn the basics of Face Recognition and experiment with different models.
     libfaceid enables beginners to learn various models and simplifies prototyping of facial recognition solutions by providing different models to choose from.
     Multiple models for detection and encoding/embedding including classification models are supported.
     The models are seamlessly integrated so that user can mix and match detection models.
@@ -11,13 +11,13 @@
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
 </p>
 <p>
-    Awesome Design. The library is designed so that it is easy to use, modular and robust.
+    <b> Awesome Design.</b> The library is designed so that it is easy to use, modular and robust.
     Selection of model is done via the constructors while the expose function is simply detect() or estimate() making usage very easy.
     The files are organized into modules so it is very intuitive to understand and debug.
     The robust design allows supporting new models in the future to be very easy.
 </p> 
 <p>
-    In addition, the library also contains models for predicting face pose, age, gender and emotion.
+    <b> Have Some Fun.</b> In addition, the library also contains models for predicting face pose, age, gender and emotion.
 </p>
 
 ![](https://github.com/richmondu/libfaceid/blob/master/libfaceid.jpg)
@@ -26,8 +26,8 @@
 ### Compatibility:
 
 <p>
-    The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6).
-    using OpenCV 3.4.3, Tensorflow 1.8.0 and Keras 2.0.8. For complete dependencies, refer to requirements.txt. 
+    The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6)
+    using <b>OpenCV</b> 3.4.3, <b>Tensorflow</b> 1.8.0 and <b>Keras</b> 2.0.8. For complete dependencies, refer to requirements.txt. 
     Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
 </p>
 
@@ -66,10 +66,10 @@
   https://github.com/cmusatyalab/openface
 
 #### Additional models: 
-- Face Pose estimator models for predicting face landmarks (face landmark detection)
-- Face Age estimator models for predicting age (age detection)
-- Face Gender estimator models for predicting gender (gender detection)
-- Face Emotion estimator models for predicting facial expression (emotion detection)
+- Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
+- Face Age estimator models for predicting age <b>(age detection)</b>
+- Face Gender estimator models for predicting gender <b>(gender detection)</b>
+- Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
 
 
 ### Usage:
