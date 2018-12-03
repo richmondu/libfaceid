@@ -48,7 +48,7 @@
 - [ResNet via DLIB](http://dlib.net/face_recognition.py.html)
 
 #### Classifier models for face embedding classification to identify the face
-- Naïve Bayes https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/
+- [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
 - Linear SVM
 - RVF SVM
 - Nearest Neighbors
