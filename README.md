@@ -53,7 +53,7 @@ Face Recognition is a multi-step pipeline. At a minimum, a simple system is comp
 2. Generating embeddings on each faces in the frame image.
 3. Classifying each face embedding with known face embeddings in a database.
 
-More complex systems include features such as face liveness detection, face alignment, face augmentation, face verification to improve accuracy.
+More complex systems include features such as face liveness detection (to counter spoofing attacks via photo, video or 3d mask), face alignment, face augmentation, face verification to improve accuracy.
 </p>
 
 
