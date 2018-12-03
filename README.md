@@ -39,7 +39,7 @@
 - Haar Cascade Classifier via OpenCV https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py
 - Histogram of Oriented Gradients (HOG) via DLIB http://dlib.net/face_detector.py.html
 - Deep Neural Network via DLIB http://dlib.net/cnn_face_detector.py.html
-- Single Shot Detector with ResNet-10 via OpenCV https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/
+- Single Shot Detector with ResNet-10 via OpenCV https://github.com/opencv/opencv/blob/3.4.0/samples/dnn/resnet_ssd_face_python.py
 - Multi-task Cascaded CNN (MTCNN) via Tensorflow https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py
 
 #### Face Encoder models for generating face embeddings on detected faces
