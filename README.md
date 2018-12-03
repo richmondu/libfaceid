@@ -18,6 +18,7 @@
 </p> 
 <p>
     <b> Have Some Fun.</b> In addition, the library also contains models for predicting face pose, age, gender and emotion.
+    Web app is supported for some test applications so you would be able to run view the video capture remotely via a web browser. 
 </p>
 
 ![](https://github.com/richmondu/libfaceid/blob/master/libfaceid.jpg)
