@@ -43,7 +43,7 @@
 - [Multi-task Cascaded CNN (MTCNN) via Tensorflow](https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py)
 
 #### Face Encoder models for generating face embeddings on detected faces
-- [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826)
+- [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.python36.com/face-recognition-using-opencv-part-3/)
 - [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [ResNet via DLIB](http://dlib.net/face_recognition.py.html)
 
