@@ -68,7 +68,7 @@ libfaceid supports the following models below. You can mix and match the models 
 - VGG-Face (VGG-16, ResNet-50) via Keras https://github.com/rcmalli/keras-vggface
 - OpenFace via Torch and Lua https://github.com/cmusatyalab/openface
 
-#### Additional models: 
+#### Additional models (bonus features for marketability): 
 - Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
