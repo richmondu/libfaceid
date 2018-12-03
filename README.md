@@ -38,7 +38,7 @@ Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
 ### Background:
 
 <p>
-With Apple incorporating face recognition technology in iPhone last year, 2017 and with China implementing nation-wide surveillance for social credit system, Face Recognition has become one of the most popular technologies. Face Recognition technology is used for identity authentication, access control, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more.
+With Apple incorporating face recognition technology in iPhone X last year, 2017 and with China implementing nation-wide surveillance for social credit system, Face Recognition has become one of the most popular technologies. It is used for identity authentication, access control, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more. Modern solutions leverages GPU power and utilizes Deep Learning, specifically Convolutional Neural Networks (CNN) which is designed for Computer Vision, to improve recognition accuracy.
 </p>
 
 
@@ -51,13 +51,13 @@ Face Recognition is a multi-step pipeline. At a minimum, a simple system is comp
 2. Generating embeddings on each faces in the frame image.
 3. Classifying each face embedding with known face embeddings in a database.
 
-More complex systems include features such as face alignment, face augmentation, etc to improve accuracy.
+More complex systems include features such as face alignment, face augmentation and face verification to improve accuracy.
 </p>
 
 
 ### Features:
 
-libfaceid supports the following models below. You can mix and match the models for your specific use-case and system requirements. 
+libfaceid library supports the following models below. You can mix and match the models for your specific use-case and system requirements. 
 
 #### Face Detector models for detecting face locations
 - [Haar Cascade Classifier via OpenCV](https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py)
