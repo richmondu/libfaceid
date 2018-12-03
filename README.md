@@ -36,19 +36,19 @@
 ### Supported Models:
 
 #### Face Detector models for detecting face locations
-- Haar Cascade Classifier via OpenCV
-- Histogram of Oriented Gradients (HOG) via DLIB
-- Deep Neural Network via DLIB 
-- Single Shot Detector with ResNet-10 via OpenCV
-- Multi-task Cascaded CNN (MTCNN) via Tensorflow
+- Haar Cascade Classifier via OpenCV https://docs.opencv.org/3.3.0/d7/d8b/tutorial_py_face_detection.html
+- Histogram of Oriented Gradients (HOG) via DLIB http://dlib.net/face_detector.py.html
+- Deep Neural Network via DLIB http://dlib.net/cnn_face_detector.py.html
+- Single Shot Detector with ResNet-10 via OpenCV https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/
+- Multi-task Cascaded CNN (MTCNN) via Tensorflow https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py
 
 #### Face Encoder models for generating face embeddings on detected faces
-- Local Binary Patterns Histograms (LBPH) via OpenCV
-- OpenFace via OpenCV
-- ResNet via DLIB
+- Local Binary Patterns Histograms (LBPH) via OpenCV https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826
+- OpenFace via OpenCV https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/
+- ResNet via DLIB http://dlib.net/face_recognition.py.html
 
 #### Classifier models for face embedding classification to identify the face
-- Naïve Bayes
+- Naïve Bayes https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/
 - Linear SVM
 - RVF SVM
 - Nearest Neighbors
