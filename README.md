@@ -74,19 +74,26 @@
 
 ### Usage:
 
-#### Pre-requisites:
+#### Installation:
 
         1. Install Python 3 and Python PIP
 
         2. Install the required Python PIP packages 
             pip install -r requirements.txt
 
-        3. Add the dataset of images under the datasets directory
+
+#### Pre-requisites:
+
+        1. Add the dataset of images under the datasets directory
+           The datasets folder should be in the same location as the test applications
             Example:
             datasets/rico - contain .jpeg images of person name rico
             datasets/coni - contain .jpeg images of person named coni 
             ...
             datasets/xyz - contain .jpeg images of person named xyz 
+        2. Train the model using the datasets. 
+           Can use facial_recognition_training.py
+           Make sure the models used for training is the same for actual testing for better accuracy.
 
 
 #### Examples:
