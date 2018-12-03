@@ -233,6 +233,22 @@
         cv2.destroyAllWindows()
 
 
+### Performance Optimizations:
+
+Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Below are some suggestions.
+
+#### Speed
+- Reduce the frame size for face detection.
+- Perform face recognition every X frames only
+- Use threading in reading camera source frames or in processing the camera frames.
+- Update the library and configure the parameters directly.
+
+#### Accuracy
+- Add more datasets if possible. More images per person will often result to higher accuracy.
+- Add face alignment if faces in the datasets are not aligned or when faces may be unaligned in actual deployment.
+- Update the library and configure the parameters directly.
+
+
 ### Credits:
 
 Below are links to valuable resoures. Special thanks to all of these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
