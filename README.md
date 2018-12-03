@@ -18,7 +18,7 @@
 </p> 
 <p>
     <b> Have Some Fun.</b> In addition, the library also contains models for predicting face pose, age, gender and emotion.
-    Web app is supported for some test applications so you would be able to run view the video capture remotely via a web browser. 
+    Web app is supported for some test applications using Flask so you would be able to run view the video capture remotely via a web browser. 
 </p>
 
 ![](https://github.com/richmondu/libfaceid/blob/master/libfaceid.jpg)
@@ -233,9 +233,9 @@
         cv2.destroyAllWindows()
 
 
-### Links to valuable resoures:
+### Credits:
 
-Special thanks to these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
+Below are links to valuable resoures. Special thanks to all of these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
 - [OpenCV tutorials by Adrian Rosebrock](https://www.pyimagesearch.com/)
 - [Dlib by Davis King](https://github.com/davisking/dlib)
 - [Face Recognition (Dlib wrapper) by Adam Geitgey](https://github.com/ageitgey/face_recognition)
