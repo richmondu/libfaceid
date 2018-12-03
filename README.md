@@ -36,7 +36,7 @@
 ### Supported Models:
 
 #### Face Detector models for detecting face locations
-- Haar Cascade Classifier via OpenCV https://docs.opencv.org/3.3.0/d7/d8b/tutorial_py_face_detection.html
+- Haar Cascade Classifier via OpenCV https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py
 - Histogram of Oriented Gradients (HOG) via DLIB http://dlib.net/face_detector.py.html
 - Deep Neural Network via DLIB http://dlib.net/cnn_face_detector.py.html
 - Single Shot Detector with ResNet-10 via OpenCV https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/
