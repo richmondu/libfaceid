@@ -46,6 +46,7 @@ With Apple incorporating face recognition technology in iPhone last year, 2017 a
 
 <p>
 Face Recognition is a multi-step pipeline. At a minimum, a simple system is composed of the following steps:
+    
 1. Detecting faces in a frame image.
 2. Generating embeddings on each faces in the frame image.
 3. Classifying each face embedding with known face embeddings in a database.
