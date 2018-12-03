@@ -36,16 +36,16 @@
 ### Supported Models:
 
 #### Face Detector models for detecting face locations
-- Haar Cascade Classifier via OpenCV https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py
-- Histogram of Oriented Gradients (HOG) via DLIB http://dlib.net/face_detector.py.html
-- Deep Neural Network via DLIB http://dlib.net/cnn_face_detector.py.html
-- Single Shot Detector with ResNet-10 via OpenCV https://github.com/opencv/opencv/blob/3.4.0/samples/dnn/resnet_ssd_face_python.py
-- Multi-task Cascaded CNN (MTCNN) via Tensorflow https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py
+- [Haar Cascade Classifier via OpenCV](https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py)
+- [Histogram of Oriented Gradients (HOG) via DLIB](http://dlib.net/face_detector.py.html)
+- [Deep Neural Network via DLIB](http://dlib.net/cnn_face_detector.py.html)
+- [Single Shot Detector with ResNet-10 via OpenCV](https://github.com/opencv/opencv/blob/3.4.0/samples/dnn/resnet_ssd_face_python.py)
+- [Multi-task Cascaded CNN (MTCNN) via Tensorflow](https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py)
 
 #### Face Encoder models for generating face embeddings on detected faces
-- Local Binary Patterns Histograms (LBPH) via OpenCV https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826
-- OpenFace via OpenCV https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/
-- ResNet via DLIB http://dlib.net/face_recognition.py.html
+- [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.hackster.io/mjrobot/real-time-face-recognition-an-end-to-end-project-a10826)
+- [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
+- [ResNet via DLIB](http://dlib.net/face_recognition.py.html)
 
 #### Classifier models for face embedding classification to identify the face
 - Naïve Bayes https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/
