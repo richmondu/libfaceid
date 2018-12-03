@@ -29,13 +29,31 @@
 ### Compatibility:
 
 <p>
-    The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6)
-    using <b>OpenCV</b> 3.4.3, <b>Tensorflow</b> 1.8.0 and <b>Keras</b> 2.0.8. For complete dependencies, refer to requirements.txt. 
-    Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
+The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6)
+using <b>OpenCV</b> 3.4.3, <b>Tensorflow</b> 1.8.0 and <b>Keras</b> 2.0.8. For complete dependencies, refer to requirements.txt. 
+Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
 </p>
 
 
-### Supported Models:
+### Background:
+
+<p>
+With Apple incorporating face recognition technology in iPhone last year, 2017 and with China implementing nation-wide surveillance for social credit system, Face Recognition has become one of the most popular technologies. Face Recognition technology is used for identity authentication, access control, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more.
+</p>
+
+
+### Introduction:
+
+<p>
+Face Recognition is a multi-step pipeline. At a minimum, a simple system is composed of the following steps:
+1. Detecting faces in a frame image.
+2. Generating embeddings on each faces in the frame image.
+3. Classifying each face embedding with known face embeddings in a database.
+More complex systems include features such as face alignment, face augmentation, etc to improve accuracy.
+</p>
+
+
+### Features:
 
 libfaceid supports the following models below. You can mix and match the models for your specific use-case and system requirements. 
 
