@@ -11,7 +11,7 @@
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
 </p>
 <p>
-    The library is designed so that it is easy to use, modular and robust.
+    Awesome Design. The library is designed so that it is easy to use, modular and robust.
     Selection of model is done via the constructors while the expose function is simply detect() or estimate() making usage very easy.
     The files are organized into modules so it is very intuitive to understand and debug.
     The robust design allows supporting new models in the future to be very easy.
