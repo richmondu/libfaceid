@@ -1,6 +1,6 @@
 # libfaceid for Face Recognition
 <p>
-    libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
+    FaceRecognition Made Easy. libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
 </p>
 <p>
     It enables beginners to learn various models and simplifies prototyping of facial recognition solutions by providing different models to choose from.
