@@ -235,7 +235,7 @@
 
 ### Performance Optimizations:
 
-Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Below are some suggestions.
+Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Some models are optimized for speed while others are optimized for accuracy. Be sure to test all the provided models. Below are additional suggestions to optimize performance.
 
 #### Speed
 - Reduce the frame size for face detection.
