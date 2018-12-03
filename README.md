@@ -243,3 +243,8 @@ Below are links to valuable resoures. Special thanks to all of these guys for sh
 - [OpenFace (FaceNet implementation) by Satyanarayanan](https://github.com/cmusatyalab/openface)
 - [VGG-Face implementation by Refik Can Malli](https://github.com/rcmalli/keras-vggface)
 
+
+### Contribute:
+
+Have a good idea for improving libfaceid? Found a bug? Then create a new ticket. 
+If you just want to chat, then message me in [twitter](https://twitter.com/richmond_umagat).
