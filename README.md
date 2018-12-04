@@ -28,15 +28,6 @@
 ![](https://github.com/richmondu/libfaceid/blob/master/libfaceid5.jpg)
 
 
-### Compatibility:
-
-<p>
-The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6)
-using <b>OpenCV</b> 3.4.3, <b>Tensorflow</b> 1.8.0 and <b>Keras</b> 2.0.8. For complete dependencies, refer to requirements.txt. 
-Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
-</p>
-
-
 ### Background:
 
 <p>
@@ -103,6 +94,15 @@ libfaceid library supports several models for each step of the Face Recognition 
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
 - Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
+
+
+### Compatibility:
+
+<p>
+The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6)
+using <b>OpenCV</b> 3.4.3, <b>Tensorflow</b> 1.8.0 and <b>Keras</b> 2.0.8. For complete dependencies, refer to requirements.txt. 
+Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
+</p>
 
 
 ### Usage:
