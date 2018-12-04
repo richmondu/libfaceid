@@ -47,13 +47,14 @@ With Apple incorporating face recognition technology in iPhone X last year, 2017
 ### Introduction:
 
 <p>
-Face Recognition is a multi-step pipeline. At a minimum, a simple system is composed of the following steps:
+Facial Recognition is a multi-step pipeline. At a minimum, a simple real-time facial recognition system is composed of the following steps:
     
-1. Detecting faces in a frame image.
-2. Generating embeddings on each faces in the frame image.
-3. Classifying each face embedding with known face embeddings in a database.
+1. Reading a frame image from a camera source.
+2. Face Detection. Detecting faces in a frame image.
+3. Face Encoding/Embedding. Generating embeddings on each faces in the frame image.
+4. Face Identification. Classifying each face embedding with face embeddings of known people in a database.
 
-More complex systems include features such as face liveness detection (to counter spoofing attacks via photo, video or 3d mask), face alignment, face augmentation, face verification to improve accuracy.
+More complex systems include features such as face liveness detection (to counter spoofing attacks via photo, video or 3d mask), face alignment, face augmentation and face verification to improve accuracy.
 </p>
 
 
@@ -73,7 +74,7 @@ libfaceid library supports the following models below. You can mix and match the
 - [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [ResNet via DLIB](http://dlib.net/face_recognition.py.html)
 
-#### Classifier models for face embedding classification to identify the face
+#### Classifier algorithms for face embedding classification to identify the face
 - [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
 - Linear SVM
 - RVF SVM
