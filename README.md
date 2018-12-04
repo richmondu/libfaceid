@@ -307,4 +307,4 @@ Below are links to valuable resoures. Special thanks to all of these guys for sh
 
 Have a good idea for improving libfaceid? Found a bug? Then create a new ticket. 
 I'd love to hear what I missed out. I would like to learn from you too.
-If you just want to chat, then message me in [twitter](https://twitter.com/richmond_umagat).
+Message me in [twitter](https://twitter.com/richmond_umagat).
