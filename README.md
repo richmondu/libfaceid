@@ -288,7 +288,7 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 ### Credits:
 
 Below are links to valuable resoures. Special thanks to all of these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
-- [OpenCV tutorials by Adrian Rosebrock](https://www.pyimagesearch.com/)
+- [OpenCV tutorials by Adrian Rosebrock](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [Dlib by Davis King](https://github.com/davisking/dlib)
 - [Face Recognition (Dlib wrapper) by Adam Geitgey](https://github.com/ageitgey/face_recognition)
 - [FaceNet implementation by David Sandberg](https://github.com/davidsandberg/facenet)
