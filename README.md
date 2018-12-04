@@ -58,9 +58,16 @@ More complex systems include features such as face liveness detection (to counte
 </p>
 
 
+### Problem:
+
+<p>
+libfaceid democratizes learning Face Recognition. Popular models such as FaceNet and OpenFace are not straightforward to use and don't provide easy-to-follow guidelines on how to install and setup. So far, dlib has been the best in terms of documentation and usage but it is slow on CPU. Simple models such as OpenCV has been great so far but there's not much documentation of the parameter settings and on classification algorithms. libfaceid was created to somehow address these problems by seamlessly integrating multiple models for each step of the pipeline enabling anybody to learn and experiment with different models. 
+</p>
+
+
 ### Features:
 
-libfaceid library supports the following models below. You can mix and match the models for your specific use-case and system requirements. 
+libfaceid library supports the following models below. Some models are faster while some models are more accurate. You can mix and match the models for your specific use-case and system requirements. 
 
 #### Face Detector models for detecting face locations
 - [Haar Cascade Classifier via OpenCV](https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py)
