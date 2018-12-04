@@ -91,7 +91,7 @@ libfaceid library supports several models for each step of the Face Recognition 
 - VGG-Face (VGG-16, ResNet-50) via Keras https://github.com/rcmalli/keras-vggface
 - OpenFace via Torch and Lua https://github.com/cmusatyalab/openface
 
-#### Additional models (bonus features for marketability): 
+#### Additional models (bonus features for PR): 
 - Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
