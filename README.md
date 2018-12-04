@@ -58,6 +58,13 @@ libfaceid was created to somehow address these problems and fill-in the gaps fro
 </p>
 
 
+### Design:
+
+<p>
+libfaceid is designed so that it is easy to use, modular and robust. Selection of model is done via the constructors while the expose function is simply detect() or estimate() making usage very easy. The files are organized into modules so it is very intuitive to understand and debug. The robust design allows supporting new models in the future to be very straightforward.
+</p>
+
+
 ### Features:
 
 libfaceid library supports several models for each step of the Face Recognition pipeline. Some models are faster while some models are more accurate. You can mix and match the models for your specific use-case and system requirements. 
