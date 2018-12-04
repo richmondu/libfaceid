@@ -14,7 +14,7 @@
     <b> Awesome Design.</b> The library is designed so that it is easy to use, modular and robust.
     Selection of model is done via the constructors while the expose function is simply detect() or estimate() making usage very easy.
     The files are organized into modules so it is very intuitive to understand and debug.
-    The robust design allows supporting new models in the future to be very easy.
+    The robust design allows supporting new models in the future to be very straightforward.
 </p> 
 <p>
     <b> Have Some Fun.</b> In addition, the library also contains models for predicting face pose, age, gender and emotion.
