@@ -31,7 +31,7 @@
 ### Background:
 
 <p>
-With Apple incorporating face recognition technology in iPhone X last year, 2017 and with China implementing nation-wide surveillance for social credit system, Face Recognition has become one of the most popular technologies. It is used for identity authentication, access control, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more. Modern solutions leverages GPU power and utilizes Deep Learning, specifically Convolutional Neural Networks (CNN) which is designed for Computer Vision, to improve recognition accuracy.
+With Apple incorporating face recognition technology in iPhone X last year, 2017 and with China implementing nation-wide surveillance for social credit system, Face Recognition has become one of the most popular technologies. It is used for identity authentication, access control, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more. Modern solutions leverages GPU power and utilizes Deep Learning, specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
 </p>
 
 
