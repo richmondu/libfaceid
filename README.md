@@ -67,7 +67,9 @@ libfaceid is designed so that it is easy to use, modular and robust. Selection o
 
 ### Features:
 
-libfaceid library supports several models for each step of the Face Recognition pipeline. Some models are faster while some models are more accurate. You can mix and match the models for your specific use-case and system requirements. 
+Having several dataset of images per person is not possible for some use cases of Face Recognition. So finding the appropriate model for that balances accuracy and speed on target hardware platform (CPU, GPU, embedded system) is necessary. libfaceid allows selecting each model in the pipeline.
+
+libfaceid library supports several models for each step of the Face Recognition pipeline. Some models are faster while some models are more accurate. You can mix and match the models for your specific use-case, hardware platform and system requirements. 
 
 #### Face Detector models for detecting face locations
 - [Haar Cascade Classifier via OpenCV](https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py)
