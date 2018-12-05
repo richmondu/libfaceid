@@ -109,8 +109,13 @@ libfaceid library supports several models for each step of the Face Recognition 
 
 <p>
 The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6)
-using <b>OpenCV</b> 3.4.3, <b>Tensorflow</b> 1.8.0 and <b>Keras</b> 2.0.8. For complete dependencies, refer to requirements.txt. 
+using <b>OpenCV</b> 3.4.3.18, <b>Tensorflow</b> 1.8.0 and <b>Keras</b> 2.0.8. 
+For complete dependencies, refer to requirements.txt. 
 Tested with built-in laptop camera and with a Logitech C922 Full-HD USB webcam.
+
+I encountered DLL issue with OpenCV 3.4.3.18 on my Windows 7 laptop. 
+If you encounter such issue, use OpenCV 3.4.1.15 or 3.3.1.11 instead.
+Also note that opencv-python and opencv-contrib-python must always have the same version.
 </p>
 
 
