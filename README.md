@@ -31,7 +31,7 @@
 ### Background:
 
 <p>
-With Apple incorporating face recognition technology in iPhone X last year, 2017 and with China implementing nation-wide surveillance for social credit system, Face Recognition has become one of the most popular technologies. It is used for identity authentication, access control, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more. Modern solutions leverages GPU power and utilizes Deep Learning, specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
+With Apple incorporating face recognition technology in iPhone X last year, 2017 and with China implementing nation-wide surveillance for social credit system, Face Recognition has become one of the most popular technologies where Deep Learning and Machine learning is used. Face recognition is used for identity authentication, access control, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more. Modern solutions leverages GPU power and utilizes Deep Learning, specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
 </p>
 
 
@@ -39,8 +39,9 @@ With Apple incorporating face recognition technology in iPhone X last year, 2017
 
 <p>
 Facial Recognition is a multi-step pipeline. At a minimum, a simple real-time facial recognition system is composed of the following steps:
-    
-1. Reading a frame image from a camera source.
+
+0. Face Enrollment. Registering faces to a database which includes pre-computing the face embeddings. 
+1. Face Capture. Reading a frame image from a camera source.
 2. Face Detection. Detecting faces in a frame image.
 3. Face Encoding/Embedding. Generating embeddings on each faces in the frame image.
 4. Face Identification. Classifying each face embedding with face embeddings of known people in a database.
@@ -297,6 +298,11 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 - Add more datasets if possible (ex. do data augmentation). More images per person will often result to higher accuracy.
 - Add face alignment if faces in the datasets are not aligned or when faces may be unaligned in actual deployment.
 - Update the library and configure the parameters directly.
+
+
+### Case Study: Face Recognition for Identity Authentication:
+
+TODO
 
 
 ### Credits:
