@@ -38,7 +38,8 @@ With Apple incorporating face recognition technology in iPhone X last year, 2017
 ### Introduction:
 
 <p>
-Facial Recognition is a multi-step pipeline. At a minimum, a simple real-time facial recognition system is composed of the following steps:
+    
+A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. At a minimum, a simple real-time facial recognition system is composed of the following pipeline:
 
 0. Face Enrollment. Registering faces to a database which includes pre-computing the face embeddings. 
 1. Face Capture. Reading a frame image from a camera source.
