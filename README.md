@@ -355,6 +355,6 @@ Below are links to valuable resoures. Special thanks to all of these guys for sh
 
 ### Contribute:
 
-Have a good idea for improving libfaceid? Found a bug? Then create a new ticket. 
-I'd love to hear what I missed out. I would like to learn from you too.
-Message me in [twitter](https://twitter.com/richmond_umagat).
+Have a good idea for improving libfaceid? Please message me in [twitter](https://twitter.com/richmond_umagat).
+Found a bug? Please file an issue. 
+Has libfaceid helped you in your learning and prototyping of face recognition system? Please give this repository a 'Like'.
