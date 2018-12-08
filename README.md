@@ -21,11 +21,11 @@
     Web app is supported for some test applications using Flask so you would be able to view the video capture remotely on another computer in the same network via a web browser. 
 </p>
 
-![](https://github.com/richmondu/libfaceid/blob/master/libfaceid.jpg)
-![](https://github.com/richmondu/libfaceid/blob/master/libfaceid2.jpg)
-![](https://github.com/richmondu/libfaceid/blob/master/libfaceid3.jpg)
-![](https://github.com/richmondu/libfaceid/blob/master/libfaceid4.jpg)
-![](https://github.com/richmondu/libfaceid/blob/master/libfaceid5.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid2.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid3.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid4.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid5.jpg)
 
 
 ### Background:
@@ -301,9 +301,33 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 - Update the library and configure the parameters directly.
 
 
-### Case Study: Face Recognition for Identity Authentication:
+### Case Study - Face Recognition for Identity Authentication:
 
-TODO
+One of the use cases of face recognition is for security identity authentication.
+This is a convenience feature to authenticate with system using one's face instead of inputting passcode or fingerprint scanning.
+
+0. Face Enrollment. 
+- Should support dynamic enrollment of faces. Tied up with the maximum number of users the existing system supports.
+- Should ask user to move face in order to capture different angles of the face. 
+- How many images should be captured? Estimate based on size of 1 picture and the maximum number of users.
+- Use Iphone X Face ID enrollment procedure as a baseline reference.
+
+1. Face Capture. 
+- Camera will be about 1 foot away from user.
+- Camera resolution will depend on display panel size and display resolutions. QVGA size is acceptable for embedded solutions. 
+
+2. Face Detection. 
+- Only 1 face per frame is detected.
+- Face is expected to be within a certain location (inside a fixed box or circular region).
+- Detection of faces will be triggered by a user action - clicking some button. (Not automatic detection).
+
+3. Face Encoding/Embedding. 
+- Speed is not a big factor. Face embedding and face identification can take 3-5 seconds.
+- Accuracy is critically important.
+
+4. Face Identification. 
+- Classification model should consider the maximum number of users to support.
+- Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
 
 
 ### Credits:
