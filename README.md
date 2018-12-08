@@ -354,6 +354,8 @@ Below are links to valuable resoures. Special thanks to all of these guys for sh
 - [OpenFace (FaceNet implementation) by Satyanarayanan](https://github.com/cmusatyalab/openface)
 - [VGG-Face implementation by Refik Can Malli](https://github.com/rcmalli/keras-vggface)
 
+Google and Facebook have access to large database of pictures being the best search engine and social media platform, respectively. Below are the face recognition models they have designed for their own system. Be sure to take time to read these papers for better understanding of high-quality face recognition models. 
+
 #### Papers
 - [FaceNet paper by Google](https://arxiv.org/pdf/1503.03832.pdf)
 - [DeepFace paper by Facebook](https://research.fb.com/wp-content/uploads/2016/11/deepface-closing-the-gap-to-human-level-performance-in-face-verification.pdf)
