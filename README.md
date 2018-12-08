@@ -306,28 +306,40 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 One of the use cases of face recognition is for security identity authentication.
 This is a convenience feature to authenticate with system using one's face instead of inputting passcode or fingerprint scanning.
 
-0. Face Enrollment. 
-- Should support dynamic enrollment of faces. Tied up with the maximum number of users the existing system supports.
-- Should ask user to move face in order to capture different angles of the face. 
-- How many images should be captured? Estimate based on size of 1 picture and the maximum number of users.
-- Use Iphone X Face ID enrollment procedure as a baseline reference.
+#### Face Enrollment
 
-1. Face Capture. 
+- Should support dynamic enrollment of faces. Tied up with the maximum number of users the existing system supports.
+- Should ask user to move/rotate face (in a circular motion) in order to capture different angles of the face. 
+- How many images should be captured? Estimate based on size of 1 picture and the maximum number of users.
+- Use IPhone X' Face ID enrollment procedure as a baseline reference.
+
+
+#### Face Capture
+
 - Camera will be about 1 foot away from user.
 - Camera resolution will depend on display panel size and display resolutions. QVGA size is acceptable for embedded solutions. 
+- Take into consideration a bad lighting. Should camera have a good flash/LED lighting.
 
-2. Face Detection. 
+
+#### Face Detection
+
 - Only 1 face per frame is detected.
 - Face is expected to be within a certain location (inside a fixed box or circular region).
 - Detection of faces will be triggered by a user action - clicking some button. (Not automatic detection).
+- Should verify if face is alive via anti-spoofing techniques against picture-based attacks, video-based attacks and 3D mask attacks.
 
-3. Face Encoding/Embedding. 
+
+#### Face Encoding/Embedding
+
 - Speed is not a big factor. Face embedding and face identification can take 3-5 seconds.
-- Accuracy is critically important.
+- Accuracy is critically important. (Do multiple predictions and get the highest count. Or apply different models for predictions for double checking.)
 
-4. Face Identification. 
+
+#### Face Identification
+
 - Classification model should consider the maximum number of users to support.
 - Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
+- Set the number of consecutive failed attempts allowed before disabling face recognition feature.
 
 
 ### Credits:
