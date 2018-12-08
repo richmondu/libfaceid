@@ -342,9 +342,11 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 - Update the library and configure the parameters directly.
 
 
-### Credits:
+### References:
 
 Below are links to valuable resoures. Special thanks to all of these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
+
+#### Codes
 - [OpenCV tutorials by Adrian Rosebrock](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [Dlib by Davis King](https://github.com/davisking/dlib)
 - [Face Recognition (Dlib wrapper) by Adam Geitgey](https://github.com/ageitgey/face_recognition)
@@ -352,6 +354,9 @@ Below are links to valuable resoures. Special thanks to all of these guys for sh
 - [OpenFace (FaceNet implementation) by Satyanarayanan](https://github.com/cmusatyalab/openface)
 - [VGG-Face implementation by Refik Can Malli](https://github.com/rcmalli/keras-vggface)
 
+#### Papers
+- [FaceNet paper by Google](https://arxiv.org/pdf/1503.03832.pdf)
+- [DeepFace paper by Facebook](https://research.fb.com/wp-content/uploads/2016/11/deepface-closing-the-gap-to-human-level-performance-in-face-verification.pdf)
 
 ### Contribute:
 
