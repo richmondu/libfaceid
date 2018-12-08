@@ -303,7 +303,7 @@ This is a convenience feature to authenticate with system using one's face inste
 
 #### Face Capture
 
-- Camera will be about 1 foot away from user.
+- Camera will be about 1 foot away from user (Apple Face ID: 10-20 inches).
 - Camera resolution will depend on display panel size and display resolutions. QVGA size is acceptable for embedded solutions. 
 - Take into consideration a bad lighting. Should camera have a good flash/LED lighting.
 
