@@ -290,6 +290,9 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 One of the use cases of face recognition is for security identity authentication.
 This is a convenience feature to authenticate with system using one's face instead of inputting passcode or fingerprint scanning.
 
+[Apple's Face ID technology](https://support.apple.com/en-us/HT208108) will be used as baseline in identity authentication use case of face recognition.
+
+
 #### Face Enrollment
 
 - Should support dynamic enrollment of faces. Tied up with the maximum number of users the existing system supports.
