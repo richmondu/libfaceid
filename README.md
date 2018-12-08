@@ -97,10 +97,10 @@ libfaceid library supports several models for each step of the Face Recognition 
 - QDA
 
 #### Other models can be integrated to libfaceid in the future.
-- FaceNet (Inception ResNet v1) via Tensorflow https://github.com/davidsandberg/facenet
+- [FaceNet (Inception ResNet v1) via Tensorflow](https://github.com/davidsandberg/facenet)
   Refer to my fork for instructions on how to use FaceNet https://github.com/richmondu/facenet/tree/master/usage
-- VGG-Face (VGG-16, ResNet-50) via Keras https://github.com/rcmalli/keras-vggface
-- OpenFace via Torch and Lua https://github.com/cmusatyalab/openface
+- [VGG-Face (VGG-16, ResNet-50) via Keras](https://github.com/rcmalli/keras-vggface)
+- [OpenFace via Torch and Lua](https://github.com/cmusatyalab/openface)
 
 #### Additional models (bonus features for PR): 
 - Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
