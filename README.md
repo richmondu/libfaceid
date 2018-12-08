@@ -41,14 +41,14 @@ With Apple incorporating face recognition technology in iPhone X last year, 2017
     
 A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. At a minimum, a simple real-time facial recognition system is composed of the following pipeline:
 
-0. Face Enrollment. Registering faces to a database which includes pre-computing the face embeddings. 
-1. Face Capture. Reading a frame image from a camera source.
-2. Face Detection. Detecting faces in a frame image.
-3. Face Encoding/Embedding. Generating embeddings on each faces in the frame image.
-4. Face Identification. Classifying each face embedding with face embeddings of known people in a database.
+0. <b>Face Enrollment.</b> Registering faces to a database which includes pre-computing the face embeddings. 
+1. <b>Face Capture.</b> Reading a frame image from a camera source.
+2. <b>Face Detection.</b> Detecting faces in a frame image.
+3. <b>Face Encoding/Embedding.</b> Generating embeddings on each faces in the frame image.
+4. <b>Face Identification.</b> Classifying each face embedding with face embeddings of known people in a database.
 
-More complex systems include features such as face liveness detection (to counter spoofing attacks via photo, video or 3d mask), face alignment, face augmentation and face verification to improve accuracy.
-</p>
+More complex systems include features such as .<b>face liveness detection</b> (to counter spoofing attacks via photo, video or 3d mask), <b>face alignment</b>, face augmentation and face verification to improve accuracy.
+</p>.
 
 
 ### Problem:
