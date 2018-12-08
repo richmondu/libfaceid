@@ -285,22 +285,6 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         cv2.destroyAllWindows()
 
 
-### Performance Optimizations:
-
-Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Some models are optimized for speed while others are optimized for accuracy. Be sure to test all the provided models. Below are additional suggestions to optimize performance.
-
-#### Speed
-- Reduce the frame size for face detection.
-- Perform face recognition every X frames only
-- Use threading in reading camera source frames or in processing the camera frames.
-- Update the library and configure the parameters directly.
-
-#### Accuracy
-- Add more datasets if possible (ex. do data augmentation). More images per person will often result to higher accuracy.
-- Add face alignment if faces in the datasets are not aligned or when faces may be unaligned in actual deployment.
-- Update the library and configure the parameters directly.
-
-
 ### Case Study - Face Recognition for Identity Authentication:
 
 One of the use cases of face recognition is for security identity authentication.
@@ -340,6 +324,22 @@ This is a convenience feature to authenticate with system using one's face inste
 - Classification model should consider the maximum number of users to support.
 - Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
 - Set the number of consecutive failed attempts allowed before disabling face recognition feature.
+
+
+### Performance Optimizations:
+
+Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Some models are optimized for speed while others are optimized for accuracy. Be sure to test all the provided models. Below are additional suggestions to optimize performance.
+
+#### Speed
+- Reduce the frame size for face detection.
+- Perform face recognition every X frames only
+- Use threading in reading camera source frames or in processing the camera frames.
+- Update the library and configure the parameters directly.
+
+#### Accuracy
+- Add more datasets if possible (ex. do data augmentation). More images per person will often result to higher accuracy.
+- Add face alignment if faces in the datasets are not aligned or when faces may be unaligned in actual deployment.
+- Update the library and configure the parameters directly.
 
 
 ### Credits:
