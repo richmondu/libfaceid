@@ -289,7 +289,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 One of the use cases of face recognition is for security identity authentication.
 This is a convenience feature to authenticate with system using one's face instead of inputting passcode or fingerprint scanning.
 
-[Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as baseline in identity authentication use case of face recognition.
+[Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as baseline in identity authentication use case of face recognition. Refer to this [white paper](https://www.apple.com/business/site/docs/FaceID_Security_Guide.pdf) 
 
 
 #### Face Enrollment
@@ -327,7 +327,7 @@ This is a convenience feature to authenticate with system using one's face inste
 - Classification model should consider the maximum number of users to support.
 - Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
 - Set the number of consecutive failed attempts allowed before disabling face recognition feature. Should fallback to passcode authentication if identification encounters trouble recognizing people.
-- Images used for successful scan should be added to the existing dataset images during face enrollment making it adaptive and updated so that a person can be recognized with better accuracy in the future even with changes in the face.
+- Images used for successful scan should be added to the existing dataset images during face enrollment making it adaptive and updated so that a person can be recognized with better accuracy in the future even with changes in the face appearance.
 
 
 ### Performance Optimizations:
