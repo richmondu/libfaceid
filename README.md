@@ -326,7 +326,8 @@ This is a convenience feature to authenticate with system using one's face inste
 
 - Classification model should consider the maximum number of users to support.
 - Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
-- Set the number of consecutive failed attempts allowed before disabling face recognition feature.
+- Set the number of consecutive failed attempts allowed before disabling face recognition feature. Should fallback to passcode authentication if identification encounters trouble recognizing people.
+- Images used for successful scan should be added to the existing dataset images during face enrollment making it adaptive and updated so that a person can be recognized with better accuracy in the future even with changes in the face.
 
 
 ### Performance Optimizations:
