@@ -289,7 +289,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 One of the use cases of face recognition is for security identity authentication.
 This is a convenience feature to authenticate with system using one's face instead of inputting passcode or fingerprint scanning.
 
-[Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as baseline in identity authentication use case of face recognition. Refer to this [white paper](https://www.apple.com/business/site/docs/FaceID_Security_Guide.pdf) 
+[Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as baseline in identity authentication use case of face recognition. Refer to this [white paper](https://www.apple.com/business/site/docs/FaceID_Security_Guide.pdf)  for more information.
 
 
 #### Face Enrollment
@@ -298,8 +298,8 @@ This is a convenience feature to authenticate with system using one's face inste
 - Should ask user to move/rotate face (in a circular motion) in order to capture different angles of the face. 
 - IPhone X Face ID face enrollment is done twice for some reason.
 - How many images should be captured? Estimate based on size of 1 picture and the maximum number of users.
-- Use IPhone X' Face ID enrollment procedure as a baseline reference.
-
+- For security purposes and memory related efficiency, images used during enrollment should not be saved. 
+Only the mathematical representations of the face should be used.
 
 #### Face Capture
 
