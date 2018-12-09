@@ -296,6 +296,7 @@ This is a convenience feature to authenticate with system using one's face inste
 
 - Should support dynamic enrollment of faces. Tied up with the maximum number of users the existing system supports.
 - Should ask user to move/rotate face (in a circular motion) in order to capture different angles of the face. 
+- IPhone X Face ID face enrollment is done twice for some reason.
 - How many images should be captured? Estimate based on size of 1 picture and the maximum number of users.
 - Use IPhone X' Face ID enrollment procedure as a baseline reference.
 
