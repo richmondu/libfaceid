@@ -305,7 +305,7 @@ This is a convenience feature to authenticate with system using one's face inste
 
 - Camera will be about 1 foot away from user (Apple Face ID: 10-20 inches).
 - Camera resolution will depend on display panel size and display resolutions. QVGA size is acceptable for embedded solutions. 
-- Take into consideration a bad lighting and extremely dark situation. Should camera have a good flash/LED to emit some light.
+- Take into consideration a bad lighting and extremely dark situation. Should camera have a good flash/LED to emit some light. Iphone X has an infrared light to better perform on dark settings.
 
 
 #### Face Detection
