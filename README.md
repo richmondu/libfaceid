@@ -31,7 +31,7 @@
 ### Background:
 
 <p>
-With Apple incorporating face recognition technology in iPhone X last year, 2017 and with China implementing nation-wide wide-spread surveillance for social credit system in a grand scale, Face Recognition has become one of the most popular technologies where Deep Learning and Machine learning is used. Face recognition is used for identity authentication, access control, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more. Modern solutions leverages GPU power and utilizes Deep Learning, specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
+With Apple incorporating face recognition technology in iPhone X last year, 2017 and with China implementing nation-wide wide-spread surveillance for social credit system in a grand scale, Face Recognition has become one of the most popular technologies where Deep Learning and Machine learning is used. Face recognition is used for identity authentication, access control, passport verification in airports, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more. Modern solutions leverages GPU power and utilizes Deep Learning, specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
 </p>
 
 
@@ -287,16 +287,17 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 ### Case Study - Face Recognition for Identity Authentication:
 
 One of the use cases of face recognition is for security identity authentication.
-This is a convenience feature to authenticate with system using one's face instead of inputting passcode or fingerprint scanning.
+This is a convenience feature to authenticate with system using one's face instead of inputting passcode or scanning fingerprint.
 
 [Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as baseline in identity authentication use case of face recognition. Refer to this [white paper](https://www.apple.com/business/site/docs/FaceID_Security_Guide.pdf)  for more information.
 
+Below are guidelines for drafting specifications for your face recognition solution.
 
 #### Face Enrollment
 
 - Should support dynamic enrollment of faces. Tied up with the maximum number of users the existing system supports.
 - Should ask user to move/rotate face (in a circular motion) in order to capture different angles of the face. 
-- IPhone X Face ID face enrollment is done twice for some reason.
+- IPhone X Face ID face enrollment is done twice for some reason. It is possible that the first scan is for liveness detection only.
 - How many images should be captured? Estimate based on size of 1 picture and the maximum number of users.
 - For security purposes and memory related efficiency, images used during enrollment should not be saved. 
 Only the mathematical representations of the face should be used.
@@ -319,7 +320,8 @@ Only the mathematical representations of the face should be used.
 #### Face Encoding/Embedding
 
 - Speed is not a big factor. Face embedding and face identification can take 3-5 seconds.
-- Accuracy is critically important. (Do multiple predictions and get the highest count. Or apply different models for predictions for double checking.)
+- Accuracy is critically important. False match rate should be low as much as possible. 
+- Can do multiple predictions and get the highest count. Or apply different models for predictions for double checking.
 
 
 #### Face Identification
