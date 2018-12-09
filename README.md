@@ -289,7 +289,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 One of the use cases of face recognition is for security identity authentication.
 This is a convenience feature to authenticate with system using one's face instead of inputting passcode or scanning fingerprint. Passcode is often limited by the maximum number of digits allowed while fingerprint scanning often has problems with wet fingers or dry skin. Face authentication offers a more secure way to authenticate.
 
-When used for identity authentication, face recognition specifications will differ a lot. Below are guidelines for drafting specifications for your face recognition solution. [Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as baseline in identity authentication use case of face recognition. Refer to this [Apple's Face ID white paper](https://www.apple.com/business/site/docs/FaceID_Security_Guide.pdf) for more information.
+When used for identity authentication, face recognition specifications will differ a lot. Below are guidelines for drafting specifications for your face recognition solution. Note that [Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as the primary baseline in this case study of identity authentication use case of face recognition. Refer to this [Apple's Face ID white paper](https://www.apple.com/business/site/docs/FaceID_Security_Guide.pdf) for more information.
 
 
 #### Face Enrollment
@@ -300,6 +300,7 @@ When used for identity authentication, face recognition specifications will diff
 - How many images should be captured? Estimate based on size of 1 picture and the maximum number of users.
 - For security purposes and memory related efficiency, images used during enrollment should not be saved. 
 Only the mathematical representations of the face should be used.
+
 
 #### Face Capture
 
@@ -329,6 +330,8 @@ Only the mathematical representations of the face should be used.
 - Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
 - Set the number of consecutive failed attempts allowed before disabling face recognition feature. Should fallback to passcode authentication if identification encounters trouble recognizing people.
 - Images used for successful scan should be added to the existing dataset images during face enrollment making it adaptive and updated so that a person can be recognized with better accuracy in the future even with natural changes in the face appearance (hairstyle, mustache, pimples, etc.)
+
+In addition to these guidelines, the face recognition solution should provide a way to disable/enable this feature as well as resetting the stored datasets during face enrollment.
 
 
 ### Performance Optimizations:
