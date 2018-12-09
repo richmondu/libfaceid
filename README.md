@@ -314,7 +314,8 @@ Only the mathematical representations of the face should be used.
 - Only 1 face per frame is detected.
 - Face is expected to be within a certain location (inside a fixed box or circular region).
 - Detection of faces will be triggered by a user action - clicking some button. (Not automatic detection).
-- Should verify if face is alive via anti-spoofing techniques against picture-based attacks, video-based attacks and 3D mask attacks.
+- Face alignment may not be helpful as users can be enforced or directed to have his face inside a fixed box or circular region so face is already expected to be aligned for the most cases. But if adding this feature does not affect speed performance, then face alignment ahould be added if possible.
+- Should verify if face is alive via anti-spoofing techniques against picture-based attacks, video-based attacks and 3D mask attacks. Two popular example of liveness detection is counting of eye blinks and dectecting smile. 
 
 
 #### Face Encoding/Embedding
