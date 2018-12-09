@@ -328,7 +328,7 @@ Only the mathematical representations of the face should be used.
 - Classification model should consider the maximum number of users to support.
 - Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
 - Set the number of consecutive failed attempts allowed before disabling face recognition feature. Should fallback to passcode authentication if identification encounters trouble recognizing people.
-- Images used for successful scan should be added to the existing dataset images during face enrollment making it adaptive and updated so that a person can be recognized with better accuracy in the future even with changes in the face appearance.
+- Images used for successful scan should be added to the existing dataset images during face enrollment making it adaptive and updated so that a person can be recognized with better accuracy in the future even with natural changes in the face appearance (hairstyle, mustache, pimples, etc.)
 
 
 ### Performance Optimizations:
