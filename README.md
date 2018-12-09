@@ -287,7 +287,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 ### Case Study - Face Recognition for Identity Authentication:
 
 One of the use cases of face recognition is for security identity authentication.
-This is a convenience feature to authenticate with system using one's face instead of inputting passcode or scanning fingerprint. When used for identity authentication, face recognition specifications will differ. Below are guidelines for drafting specifications for your face recognition solution.
+This is a convenience feature to authenticate with system using one's face instead of inputting passcode or scanning fingerprint. When used for identity authentication, face recognition specifications will differ a lot. Below are guidelines for drafting specifications for your face recognition solution.
 
 [Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as baseline in identity authentication use case of face recognition. Refer to this [Apple's Face ID white paper](https://www.apple.com/business/site/docs/FaceID_Security_Guide.pdf) for more information.
 
@@ -295,7 +295,7 @@ This is a convenience feature to authenticate with system using one's face inste
 #### Face Enrollment
 
 - Should support dynamic enrollment of faces. Tied up with the maximum number of users the existing system supports.
-- Should ask user to move/rotate face (in a circular motion) in order to capture different angles of the face. 
+- Should ask user to move/rotate face (in a circular motion) in order to capture different angles of the face. This gives the system enough flexbility to recognize you at different face angles.
 - IPhone X Face ID face enrollment is done twice for some reason. It is possible that the first scan is for liveness detection only.
 - How many images should be captured? Estimate based on size of 1 picture and the maximum number of users.
 - For security purposes and memory related efficiency, images used during enrollment should not be saved. 
