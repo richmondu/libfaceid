@@ -83,7 +83,7 @@ libfaceid library supports several models for each step of the Face Recognition 
 #### Face Encoding models for generating face embeddings on detected faces
 - [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.python36.com/face-recognition-using-opencv-part-3/)
 - [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
-- [ResNet via DLIB](http://dlib.net/face_recognition.py.html)
+- [ResNet-34 via DLIB](http://dlib.net/face_recognition.py.html)
 
 #### Classification algorithms for Face Identification using face embeddings
 - [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
