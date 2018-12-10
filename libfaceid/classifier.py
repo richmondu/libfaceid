@@ -47,7 +47,7 @@ class FaceClassifier():
             self._clf = AdaBoostClassifier()
         elif classifier == FaceClassifierModels.QDA:
             self._clf = QuadraticDiscriminantAnalysis()
-        print("classifier={}".format(classifier))
+        print("classifier={}".format(FaceClassifierModels(classifier)))
 
     def fit(self, embeddings, labels):
         self._clf.fit(embeddings, labels)

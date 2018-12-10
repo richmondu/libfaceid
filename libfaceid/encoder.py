@@ -46,7 +46,10 @@ class FaceEncoder():
             self._base = FaceEncoder_DLIBRESNET(path, path_training, training)
 
     def identify(self, frame, face_rect):
-        return self._base.identify(frame, face_rect)
+        try:
+            return self._base.identify(frame, face_rect)
+        except:
+            return "Unknown", 0
 
     def train(self, face_detector, path_dataset, verify=False, classifier=FaceClassifierModels.LINEAR_SVM):
         self._base.train(face_detector, path_dataset, verify, classifier)
@@ -74,14 +77,10 @@ class FaceEncoder_LBPH():
         (x, y, w, h) = face_rect
         frame_gray = frame[y:y+h, x:x+w]
         face = cv2.cvtColor(frame_gray, cv2.COLOR_BGR2GRAY)
-        try:
-            id, confidence = self.clf.predict(face)
-            if confidence > 99.99: 
-                confidence = 99.99
-            face_id = self.label_encoder.classes_[id]
-            #print("{} {}", self.names[id], face_id)
-        except:
-            print("except occurred")
+        id, confidence = self.clf.predict(face)
+        if confidence > 99.99: 
+            confidence = 99.99
+        face_id = self.label_encoder.classes_[id]
         return face_id, confidence
 
     def train(self, face_detector, path_dataset, verify, classifier):
@@ -157,6 +156,7 @@ class FaceEncoder_OPENFACE():
         vec = self.embedder.forward()
 
         predictions_face = self.clf.predict(vec)[0]
+        print(predictions_face)
         id = np.argmax(predictions_face)
         confidence = predictions_face[id] * 100
         face_id = self.label_encoder.classes_[id]
@@ -243,7 +243,7 @@ class FaceEncoder_DLIBRESNET():
 
         vec = np.array([vec])
         predictions_face = self.clf.predict(vec)[0]
-        #print(predictions_face)
+        print(predictions_face)
         id = np.argmax(predictions_face)
         confidence = predictions_face[id] * 100
         face_id = self.label_encoder.classes_[id]

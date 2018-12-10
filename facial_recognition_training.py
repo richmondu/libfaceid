@@ -54,7 +54,7 @@ def main(args):
         try:
             detector = FaceDetectorModels(int(args.detector))
             encoder = FaceEncoderModels(int(args.encoder))
-            classifier = FaceEncoderModels(int(args.classifier))
+            classifier = FaceClassifierModels(int(args.classifier))
             print( "Parameters: {} {} {}".format(detector, encoder, classifier) )
             train_recognition(detector, encoder, classifier, True)
             print( "Training completed!" )
