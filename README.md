@@ -73,19 +73,19 @@ Having several dataset of images per person is not possible for some use cases o
 
 libfaceid library supports several models for each step of the Face Recognition pipeline. Some models are faster while some models are more accurate. You can mix and match the models for your specific use-case, hardware platform and system requirements. 
 
-#### Face Detector models for detecting face locations
+#### Face Detection models for detecting face locations
 - [Haar Cascade Classifier via OpenCV](https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py)
 - [Histogram of Oriented Gradients (HOG) via DLIB](http://dlib.net/face_detector.py.html)
 - [Deep Neural Network via DLIB](http://dlib.net/cnn_face_detector.py.html)
 - [Single Shot Detector with ResNet-10 via OpenCV](https://github.com/opencv/opencv/blob/3.4.0/samples/dnn/resnet_ssd_face_python.py)
 - [Multi-task Cascaded CNN (MTCNN) via Tensorflow](https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py)
 
-#### Face Encoder models for generating face embeddings on detected faces
+#### Face Encoding models for generating face embeddings on detected faces
 - [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.python36.com/face-recognition-using-opencv-part-3/)
 - [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [ResNet via DLIB](http://dlib.net/face_recognition.py.html)
 
-#### Classifier algorithms for face embedding classification to identify the face
+#### Classification algorithms for Face Identification using face embeddings
 - [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
 - Linear SVM
 - RVF SVM
