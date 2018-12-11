@@ -130,6 +130,21 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         1. Install Python 3 and Python PIP
            Use Python 3.5.3 for Raspberry Pi 3B+ and Python 3.6.6 for Windows
         2. Install the required Python PIP package dependencies using requirements.txt
+           pip install -r requirements.txt           
+
+           This will install the following dependencies below:
+           opencv-python==3.4.3.18
+           opencv-contrib-python==3.4.3.18
+           numpy==1.15.4
+           imutils==0.5.1
+           dlib==19.16.0
+           scipy==1.1.0
+           scikit-learn==0.20.0
+           mtcnn==0.0.8
+           tensorflow==1.8.0
+           keras==2.0.8
+           h5py==2.8.0
+           flask==1.0.2
            
 
 #### Pre-requisites:
