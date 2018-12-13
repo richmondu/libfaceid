@@ -76,10 +76,12 @@ def run(image):
 #    detector=FaceDetectorModels.DLIBCNN
 #    detector=FaceDetectorModels.SSDRESNET
 #    detector=FaceDetectorModels.MTCNN
+#    detector=FaceDetectorModels.MTCNN
 
     encoder=FaceEncoderModels.LBPH
 #    encoder=FaceEncoderModels.OPENFACE
 #    encoder=FaceEncoderModels.DLIBRESNET
+#    encoder=FaceEncoderModels.FACENET
 
     # check face recognition
     process_facerecognition(detector, encoder, image)
@@ -104,9 +106,9 @@ def main(args):
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--detector', required=False,
-        help='Detector model to use. Options: 0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN.')
+        help='Detector model to use. Options: 0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET')
     parser.add_argument('--encoder', required=False,
-        help='Encoder model to use. Options: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET.')
+        help='Encoder model to use. Options: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET')
     parser.add_argument('--image', required=True, 
         help='Image to process.')
     return parser.parse_args(argv)

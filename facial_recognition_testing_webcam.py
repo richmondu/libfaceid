@@ -100,10 +100,12 @@ def run(cam_index, cam_resolution):
 #    detector=FaceDetectorModels.DLIBCNN
 #    detector=FaceDetectorModels.SSDRESNET
 #    detector=FaceDetectorModels.MTCNN
+#    detector=FaceDetectorModels.FACENET
 
     encoder=FaceEncoderModels.LBPH
 #    encoder=FaceEncoderModels.OPENFACE
 #    encoder=FaceEncoderModels.DLIBRESNET
+#    encoder=FaceEncoderModels.FACENET
 
     process_facerecognition(detector, encoder, cam_index, cam_resolution)
 
@@ -135,9 +137,9 @@ def main(args):
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--detector', required=False,
-        help='Detector model to use. Options: 0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN.')
+        help='Detector model to use. Options: 0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET')
     parser.add_argument('--encoder', required=False,
-        help='Encoder model to use. Options: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET.')
+        help='Encoder model to use. Options: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET')
     parser.add_argument('--webcam', required=False, default=0, 
         help='Camera index to use. Default is 0. Assume only 1 camera connected.)')
     parser.add_argument('--resolution', required=False, default=0,

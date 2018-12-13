@@ -1,4 +1,5 @@
 # libfaceid for Face Recognition
+
 <p>
     <b> FaceRecognition Made Easy.</b> libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
 </p>
@@ -28,10 +29,23 @@
 ![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid5.jpg)
 
 
+### News/Milestones:
+
+- 2018, Dec 13: Integrated FaceNet by David Sandberg
+- 2018, Nov 30: Committed to Github
+
+
 ### Background:
 
 <p>
-With Apple incorporating face recognition technology in iPhone X last year, 2017 and with China implementing nation-wide wide-spread surveillance for social credit system in a grand scale, Face Recognition has become one of the most popular technologies where Deep Learning and Machine learning is used. Face recognition is used for identity authentication, access control, passport verification in airports, law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, casino watchlists and many more. Modern solutions leverages GPU power and utilizes Deep Learning, specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
+With Apple incorporating face recognition technology in iPhone X last year, 2017 
+and with China implementing nation-wide wide-spread surveillance for social credit system in a grand scale, 
+Face Recognition has become one of the most popular technologies where Deep Learning and Machine learning is used. 
+Face recognition is used for identity authentication, access control, passport verification in airports, 
+law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, 
+casino watchlists and many more. 
+Modern solutions leverages GPU power and utilizes Deep Learning, 
+specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
 </p>
 
 
@@ -84,6 +98,11 @@ libfaceid library supports several models for each step of the Face Recognition 
 - [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.python36.com/face-recognition-using-opencv-part-3/)
 - [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [ResNet-34 via DLIB](http://dlib.net/face_recognition.py.html)
+- [FaceNet (Inception ResNet v1) via Tensorflow](https://github.com/davidsandberg/facenet)
+
+* Note, when using FaceNet model for face encoding,
+  - Download the pretrained '20180402-114759' model here (> 100MB): https://drive.google.com/open?id=1EXPBSXwTaqrSC0OhUdXNmKSh9qJUQ55-
+  - Then copy contents to libfaceid\models\encoding\facenet_20180402-114759
 
 #### Classification algorithms for Face Identification using face embeddings
 - [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
@@ -97,8 +116,6 @@ libfaceid library supports several models for each step of the Face Recognition 
 - QDA
 
 #### Other models can be integrated to libfaceid in the future.
-- [FaceNet (Inception ResNet v1) via Tensorflow](https://github.com/davidsandberg/facenet)
-  Refer to my fork for instructions on how to use FaceNet https://github.com/richmondu/facenet/tree/master/usage
 - [VGG-Face (VGG-16, ResNet-50) via Keras](https://github.com/rcmalli/keras-vggface)
 - [OpenFace via Torch and Lua](https://github.com/cmusatyalab/openface)
 
@@ -144,8 +161,9 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            tensorflow==1.8.0
            keras==2.0.8
            h5py==2.8.0
+           facenet==1.0.3
            flask==1.0.2
-           
+
 
 #### Pre-requisites:
 
@@ -165,8 +183,8 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 
 #### Examples:
 
-        detector models:       0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN
-        encoder models:        0-LBPH, 1-OPENFACE, 2-DLIBRESNET
+        detector models:       0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET
+        encoder models:        0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET
         classifier algorithms: 0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
                                5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
         camera resolution:     0-QVGA, 1-VGA, 2-HD, 3-FULLHD

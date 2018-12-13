@@ -55,9 +55,12 @@ def process_facerecognition():
 #    model_detector=FaceDetectorModels.DLIBCNN
 #    model_detector=FaceDetectorModels.SSDRESNET
 #    model_detector=FaceDetectorModels.MTCNN
+#    model_detector=FaceDetectorModels.FACENET
+
     model_recognizer=FaceEncoderModels.LBPH
 #    model_recognizer=FaceEncoderModels.OPENFACE
 #    model_recognizer=FaceEncoderModels.DLIBRESNET
+#    model_recognizer=FaceEncoderModels.FACENET
 
 
     # Initialize the camera

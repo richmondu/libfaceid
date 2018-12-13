@@ -573,10 +573,12 @@ def run():
 #    detector=FaceDetectorModels.DLIBCNN
 #    detector=FaceDetectorModels.SSDRESNET
 #    detector=FaceDetectorModels.MTCNN
+#    detector=FaceDetectorModels.FACENET
 
     encoder=FaceEncoderModels.LBPH
 #    encoder=FaceEncoderModels.OPENFACE
 #    encoder=FaceEncoderModels.DLIBRESNET
+#    encoder=FaceEncoderModels.FACENET
 
     classifier=FaceClassifierModels.NAIVE_BAYES
 #    classifier=FaceClassifierModels.LINEAR_SVM
@@ -620,9 +622,9 @@ def main(args):
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--detector', required=False,
-        help='Detector model to use.\nOptions: 0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN.')
+        help='Detector model to use.\nOptions: 0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET')
     parser.add_argument('--encoder', required=False,
-        help='Encoder model to use.\nOptions: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET.')
+        help='Encoder model to use.\nOptions: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET')
     parser.add_argument('--classifier', required=False,
         help='Classifier algorithm to use. Options: 0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA.')
     return parser.parse_args(argv)

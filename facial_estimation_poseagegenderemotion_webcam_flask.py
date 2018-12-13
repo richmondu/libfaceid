@@ -59,6 +59,8 @@ def process_facedetection():
 #    model_detector=FaceDetectorModels.DLIBCNN
 #    model_detector=FaceDetectorModels.SSDRESNET
 #    model_detector=FaceDetectorModels.MTCNN
+#    model_detector=FaceDetectorModels.FACENET
+
     model_poseestimator=FacePoseEstimatorModels.DEFAULT
     model_ageestimator=FaceAgeEstimatorModels.DEFAULT
     model_genderestimator=FaceGenderEstimatorModels.DEFAULT
