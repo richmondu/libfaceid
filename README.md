@@ -5,9 +5,9 @@
 </p>
 <p>
     <b> From Zero to Hero.</b> Learn the basics of Face Recognition and experiment with different models.
-    libfaceid enables beginners to learn various models and simplifies prototyping of facial recognition solutions by providing different models to choose from.
-    Multiple models for detection and encoding/embedding including classification models are supported.
-    The models are seamlessly integrated so that user can mix and match detection models.
+    libfaceid enables beginners to learn various models and simplifies prototyping of facial recognition solutions by providing a comprehensive list of models to choose from.
+    Multiple models for detection and encoding/embedding including classification models are supported from the basic models (Haar Cascades + LBPH) to the more advanced models (MTCNN + FaceNet).
+    The models are seamlessly integrated so that user can mix and match models. Each detector model has been made compatible with each embedding model.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
 </p>
