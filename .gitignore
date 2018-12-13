@@ -7,3 +7,4 @@ models/others/*.zip
 datasets/*
 greetingsystem/*
 *.avi
+models/encoding/facenet_20180402-114759/*
