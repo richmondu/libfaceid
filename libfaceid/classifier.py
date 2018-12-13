@@ -22,17 +22,17 @@ class FaceClassifierModels(Enum):
     NEURAL_NET          = 6
     ADABOOST            = 7
     QDA                 = 8
-    DEFAULT = NAIVE_BAYES
+    DEFAULT = LINEAR_SVM
 
 
 class FaceClassifier():
 
     def __init__(self, classifier=FaceClassifierModels.DEFAULT):
         self._clf = None
-        if classifier == FaceClassifierModels.NAIVE_BAYES:
-            self._clf = GaussianNB()
-        elif classifier == FaceClassifierModels.LINEAR_SVM:
+        if classifier == FaceClassifierModels.LINEAR_SVM:
             self._clf = SVC(C=1.0, kernel="linear", probability=True)
+        elif classifier == FaceClassifierModels.NAIVE_BAYES:
+            self._clf = GaussianNB()
         elif classifier == FaceClassifierModels.RBF_SVM:
             self._clf = SVC(C=1, kernel='rbf', probability=True, gamma=2)
         elif classifier == FaceClassifierModels.NEAREST_NEIGHBORS:
