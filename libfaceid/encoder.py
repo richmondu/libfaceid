@@ -7,6 +7,12 @@ from imutils import paths      # for FaceEncoderModels.LBPH
 from sklearn.preprocessing import LabelEncoder # for FaceEncoderModels
 import dlib                    # for FaceEncoderModels.DLIBRESNET
 from libfaceid.classifier import FaceClassifierModels, FaceClassifier
+import tensorflow as tf        # for FaceDetector_FACENET
+import facenet.src.facenet as facenet # for FaceDetector_FACENET
+import math # for FaceDetector_FACENET
+from scipy import misc # for FaceDetector_FACENET
+
+
 
 
 
@@ -22,15 +28,19 @@ INPUT_DLIBRESNET_MODEL2      = 'shape_predictor_5_face_landmarks.dat'
 OUTPUT_DLIBRESNET_CLASSIFIER = 'dlib_re.pickle'
 OUTPUT_DLIBRESNET_LABELER    = 'dlib_le.pickle'
 
+INPUT_FACENET_MODEL          = 'facenet_20180402-114759'
+OUTPUT_FACENET_CLASSIFIER    = 'facenet_re.pickle'
+OUTPUT_FACENET_LABELER       = 'facenet_le.pickle'
+
 
 class FaceEncoderModels(Enum):
 
     LBPH                = 0    # [ML] LBPH Local Binary Patterns Histograms
     OPENFACE            = 1    # [DL] OpenCV OpenFace
     DLIBRESNET          = 2    # [DL] DLIB ResNet
-    # VGGFACE1_VGG16    = 3    # Refer to models\others\vggface_recognition
-    # VGGFACE2_RESNET50 = 4    # Refer to models\others\vggface_recognition
-    # FACENET           = 5    # Refer to models\others\facenet-master_recognition
+    FACENET             = 3    # [DL] FaceNet implementation by David Sandberg
+    # VGGFACE1_VGG16    = 4    # Refer to models\others\vggface_recognition
+    # VGGFACE2_RESNET50 = 5    # Refer to models\others\vggface_recognition
     DEFAULT = LBPH
 
 
@@ -44,6 +54,8 @@ class FaceEncoder():
             self._base = FaceEncoder_OPENFACE(path, path_training, training)
         elif model == FaceEncoderModels.DLIBRESNET:
             self._base = FaceEncoder_DLIBRESNET(path, path_training, training)
+        elif model == FaceEncoderModels.FACENET:
+            self._base = FaceEncoder_FACENET(path, path_training, training)
 
     def identify(self, frame, face_rect):
         try:
@@ -55,10 +67,33 @@ class FaceEncoder():
         self._base.train(face_detector, path_dataset, verify, classifier)
 
 
+class FaceEncoder_Utils():
+
+    def save_training(self, classifier, knownNames, knownEmbeddings, output_clf, output_le):
+        #print(len(knownNames))
+        #print(len(knownEmbeddings))
+        #print("[INFO] Number of classes = {}".format(knownNames))
+
+        le = LabelEncoder()
+        labels = le.fit_transform(knownNames)
+        #print(le.classes_)
+        #print(labels)
+
+        clf = FaceClassifier(classifier)
+        clf.fit(knownEmbeddings, labels)
+
+        f = open(output_clf, "wb")
+        f.write(pickle.dumps(clf))
+        f.close()
+
+        f = open(output_le, "wb")
+        f.write(pickle.dumps(le))
+        f.close()
+
+
 class FaceEncoder_LBPH():
 
     def __init__(self, path=None, path_training=None, training=False):
-        self.path = path
         self.path_training = path_training
         self.clf = None
         self.embedder = None
@@ -133,14 +168,13 @@ class FaceEncoder_LBPH():
 class FaceEncoder_OPENFACE():
 
     def __init__(self, path=None, path_training=None, training=False):
-        self.path = path
         self.path_training = path_training
         self.clf = None
         self.embedder = None
         self.label_encoder = None
         self.shaper = None
 
-        self.embedder = cv2.dnn.readNetFromTorch(self.path + INPUT_OPENFACE_MODEL)
+        self.embedder = cv2.dnn.readNetFromTorch(path + INPUT_OPENFACE_MODEL)
         if training == False:
             self.clf = pickle.loads(open(self.path_training + OUTPUT_OPENFACE_CLASSIFIER, "rb").read())
             self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_OPENFACE_LABELER, "rb").read())
@@ -149,18 +183,19 @@ class FaceEncoder_OPENFACE():
     def identify(self, frame, face_rect):
         face_id = "Unknown"
         confidence = 99.99
-        (x, y, w, h) = face_rect
-        face = frame[y:y+h, x:x+w]
-        faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=False)
-        self.embedder.setInput(faceBlob)
-        vec = self.embedder.forward()
-
+        vec = self.encode(frame, face_rect)
         predictions_face = self.clf.predict(vec)[0]
-        print(predictions_face)
         id = np.argmax(predictions_face)
         confidence = predictions_face[id] * 100
         face_id = self.label_encoder.classes_[id]
         return face_id, confidence
+
+    def encode(self, frame, face_rect):
+        (x, y, w, h) = face_rect
+        face = frame[y:y+h, x:x+w]
+        faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=False)
+        self.embedder.setInput(faceBlob)
+        return self.embedder.forward()
 
     def train(self, face_detector, path_dataset, verify, classifier):
         knownEmbeddings = []
@@ -168,65 +203,33 @@ class FaceEncoder_OPENFACE():
         total = 0
 
         imagePaths = sorted(list(paths.list_images(path_dataset)))
-
         for (j, imagePath) in enumerate(imagePaths):
-            #print("[INFO] processing image {}/{}".format(j + 1, len(imagePaths)))
             name = imagePath.split(os.path.sep)[-2]
-            #print(name)
-
             frame = cv2.imread(imagePath, cv2.IMREAD_COLOR)
-            frame_rgb = frame[:, :, ::-1]
-
             faces = face_detector.detect(frame)
-            for (index, face) in enumerate(faces):
-                (x, y, w, h) = face
-                face = frame_rgb[y:y+h, x:x+w]
-                
-                faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=False)
-                self.embedder.setInput(faceBlob)
-                vec = self.embedder.forward()
-                #print("vecshape={}".format(vec.shape))
-                #print("vec={}".format(vec))
-                
+            for face in faces:
+                vec = self.encode(frame, face)
                 knownNames.append(name)
                 knownEmbeddings.append(vec.flatten())
                 total += 1
 
-        #print(len(knownNames))
-        #print(len(knownEmbeddings))
-        #print("[INFO] Number of images = {}".format(total))
-        #print("[INFO] Number of classes = {}".format(knownNames))
-
-        le = LabelEncoder()
-        labels = le.fit_transform(knownNames)
-        #print(le.classes_)
-        #print(labels)
-
-        clf = FaceClassifier(classifier)
-        clf.fit(knownEmbeddings, labels)
-
-        f = open(self.path_training + OUTPUT_OPENFACE_CLASSIFIER, "wb")
-        f.write(pickle.dumps(clf))
-        f.close()
-
-        f = open(self.path_training + OUTPUT_OPENFACE_LABELER, "wb")
-        f.write(pickle.dumps(le))
-        f.close()
+        FaceEncoder_Utils().save_training(classifier, knownNames, knownEmbeddings, 
+            self.path_training + OUTPUT_OPENFACE_CLASSIFIER, 
+            self.path_training + OUTPUT_OPENFACE_LABELER)
 
 
 class FaceEncoder_DLIBRESNET():
 
 
     def __init__(self, path=None, path_training=None, training=False):
-        self.path = path
         self.path_training = path_training
         self.clf = None
         self.embedder = None
         self.label_encoder = None
         self.shaper = None
 
-        self.embedder = dlib.face_recognition_model_v1(self.path + INPUT_DLIBRESNET_MODEL)
-        self.shaper = dlib.shape_predictor(self.path + INPUT_DLIBRESNET_MODEL2)
+        self.embedder = dlib.face_recognition_model_v1(path + INPUT_DLIBRESNET_MODEL)
+        self.shaper = dlib.shape_predictor(path + INPUT_DLIBRESNET_MODEL2)
         if training == False:
             self.clf = pickle.loads(open(self.path_training + OUTPUT_DLIBRESNET_CLASSIFIER, "rb").read())
             self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_DLIBRESNET_LABELER, "rb").read())
@@ -235,19 +238,21 @@ class FaceEncoder_DLIBRESNET():
     def identify(self, frame, face_rect):
         face_id = "Unknown"
         confidence = 99.99
+        vec = self.encode(frame, face_rect)
+        predictions_face = self.clf.predict(vec)[0]
+        #print(predictions_face)
+        id = np.argmax(predictions_face)
+        confidence = predictions_face[id] * 100
+        face_id = self.label_encoder.classes_[id]
+        return face_id, confidence
+
+    def encode(self, frame, face_rect):
         (x, y, w, h) = face_rect
         rect = dlib.rectangle(x, y, x+w, y+h)
         frame_rgb = frame[:, :, ::-1]
         shape = self.shaper(frame_rgb, rect)
         vec = self.embedder.compute_face_descriptor(frame_rgb, shape)
-
-        vec = np.array([vec])
-        predictions_face = self.clf.predict(vec)[0]
-        print(predictions_face)
-        id = np.argmax(predictions_face)
-        confidence = predictions_face[id] * 100
-        face_id = self.label_encoder.classes_[id]
-        return face_id, confidence
+        return np.array([vec])
 
     def train(self, face_detector, path_dataset, verify, classifier):
         knownEmbeddings = []
@@ -255,50 +260,70 @@ class FaceEncoder_DLIBRESNET():
         total = 0
 
         imagePaths = sorted(list(paths.list_images(path_dataset)))
-
         for (j, imagePath) in enumerate(imagePaths):
-            #print("[INFO] processing image {}/{}".format(j + 1, len(imagePaths)))
             name = imagePath.split(os.path.sep)[-2]
-            #print(name)
-
             frame = cv2.imread(imagePath, cv2.IMREAD_COLOR)
-            frame_rgb = frame[:, :, ::-1]
-
             faces = face_detector.detect(frame)
-            for (index, face) in enumerate(faces):
-                (x, y, w, h) = face
-                rect = dlib.rectangle(x, y, x+w, y+h)
-
-                shape = self.shaper(frame_rgb, rect)
-                vec = self.embedder.compute_face_descriptor(frame, shape)
-                #print("vecshape={}".format(vec.shape))
-                vec = np.array([vec])
-                #print("NEW vecshape={}".format(vec.shape))
-                #print("vec={}".format(vec))
-
+            for face in faces:
+                vec = self.encode(frame, face)
                 knownNames.append(name)
                 knownEmbeddings.append(vec.flatten())
                 total += 1
 
-        #print(len(knownNames))
-        #print(len(knownEmbeddings))
-        #print("[INFO] Number of images = {}".format(total))
-        #print("[INFO] Number of classes = {}".format(knownNames))
+        FaceEncoder_Utils().save_training(classifier, knownNames, knownEmbeddings, 
+            self.path_training + OUTPUT_DLIBRESNET_CLASSIFIER, 
+            self.path_training + OUTPUT_DLIBRESNET_LABELER)
 
-        le = LabelEncoder()
-        labels = le.fit_transform(knownNames)
-        #print(le.classes_)
-        #print(labels)
 
-        clf = FaceClassifier(classifier)
-        clf.fit(knownEmbeddings, labels)
+class FaceEncoder_FACENET():
 
-        f = open(self.path_training + OUTPUT_DLIBRESNET_CLASSIFIER, "wb")
-        f.write(pickle.dumps(clf))
-        f.close()
+    _face_crop_size=160
 
-        f = open(self.path_training + OUTPUT_DLIBRESNET_LABELER, "wb")
-        f.write(pickle.dumps(le))
-        f.close()
+    def __init__(self, path=None, path_training=None, training=False):
+        self.path_training = path_training
+        self._sess = tf.Session()
+        with self._sess.as_default():
+            facenet.load_model(path + INPUT_FACENET_MODEL)
+        if training == False:
+            self.clf = pickle.loads(open(self.path_training + OUTPUT_FACENET_CLASSIFIER, "rb").read())
+            self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_FACENET_LABELER, "rb").read())
+            #print(self.label_encoder.classes_)
 
+    def identify(self, frame, face_rect):
+        vec = self.encode(frame, face_rect)
+        predictions_face = self.clf.predict([vec])[0]
+        id = np.argmax(predictions_face)
+        confidence = predictions_face[id] * 100
+        face_id = self.label_encoder.classes_[id]
+        return face_id, confidence
+
+    def encode(self, frame, face_rect):
+        (x, y, w, h) = face_rect
+        face = misc.imresize(frame[y:y+h, x:x+w, :], (self._face_crop_size, self._face_crop_size), interp='bilinear')
+        images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
+        embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
+        phase_train_placeholder = tf.get_default_graph().get_tensor_by_name("phase_train:0")
+        prewhiten_face = facenet.prewhiten(face)
+        feed_dict = {images_placeholder: [prewhiten_face], phase_train_placeholder: False}
+        return self._sess.run(embeddings, feed_dict=feed_dict)[0]
+
+    def train(self, face_detector, path_dataset, verify, classifier):
+        knownEmbeddings = []
+        knownNames = []
+        total = 0
+
+        imagePaths = sorted(list(paths.list_images(path_dataset)))
+        for (j, imagePath) in enumerate(imagePaths):
+            name = imagePath.split(os.path.sep)[-2]
+            frame = cv2.imread(imagePath, cv2.IMREAD_COLOR)
+            faces = face_detector.detect(frame)
+            for face in faces:
+                vec = self.encode(frame, face)
+                knownNames.append(name)
+                knownEmbeddings.append(vec.flatten())
+                total += 1
+
+        FaceEncoder_Utils().save_training(classifier, knownNames, knownEmbeddings, 
+            self.path_training + OUTPUT_FACENET_CLASSIFIER, 
+            self.path_training + OUTPUT_FACENET_LABELER)
 
