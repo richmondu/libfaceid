@@ -7,7 +7,7 @@
     <b> From Zero to Hero.</b> Learn the basics of Face Recognition and experiment with different models.
     libfaceid enables beginners to learn various models and simplifies prototyping of facial recognition solutions by providing a comprehensive list of models to choose from.
     Multiple models for detection and encoding/embedding including classification models are supported from the basic models (Haar Cascades + LBPH) to the more advanced models (MTCNN + FaceNet).
-    The models are seamlessly integrated so that user can mix and match models. Each detector model has been made compatible with each embedding model.
+    The models are seamlessly integrated so that user can mix and match models. Each detector model has been made compatible with each embedding model to abstract you from the differences.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
 </p>
@@ -73,6 +73,8 @@ More complex systems include features such as <b>Face Liveness Detection</b> (to
 libfaceid democratizes learning Face Recognition. Popular models such as FaceNet and OpenFace are not straightforward to use and don't provide easy-to-follow guidelines on how to install and setup. So far, dlib has been the best in terms of documentation and usage but it is slow on CPU and has too many abstractions (abstracts OpenCV as well). Simple models such as OpenCV is good but too basic and lacks documentation of the parameter settings, on classification algorithms and end-to-end pipeline. Pyimagesearch has been great having several tutorials with easy to understand explanations but not much emphasis on model comparisons and seems to aim to sell books so intentions to help the community are not so pure after all (I hate the fact that you need to wait for 2 marketing emails to arrive just to download the source code for the tutorials. But I love the fact that he replies to all questions in the threads). With all this said, I've learned a lot from all these resources so I'm sure you will learn a lot too. 
 
 libfaceid was created to somehow address these problems and fill-in the gaps from these resources. It seamlessly integrates multiple models for each step of the pipeline enabling anybody specially beginners in Computer Vision and Deep Learning to easily learn and experiment with a comprehensive face recognition end-to-end pipeline models. No strings attached. Once you have experimented will all the models and have chosen specific models for your specific use-case and system requirements, you can explore the more advanced models like FaceNet.
+
+Only pretrained models are currently supported. Transfer learning will be applied on the pretrained models. Transfer learning is the practice of applying a pretrained model to a new dataset. It is one of the major factors in the explosion of popularity in Computer Vision. Just recently, transfer learning has been making good advances to Natural Language Processing (Bert by Google and ELMo by Allen Institute).
 </p>
 
 
