@@ -2,6 +2,6 @@
 :: encoder models:  0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET
 
 python facial_recognition_testing_image.py -h
-python facial_recognition_testing_image.py --detector 5 --encoder 3 --image datasets/rico/1.jpg
+python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
 
 pause

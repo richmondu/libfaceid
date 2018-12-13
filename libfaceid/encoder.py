@@ -7,21 +7,18 @@ from imutils import paths      # for FaceEncoderModels.LBPH
 from sklearn.preprocessing import LabelEncoder # for FaceEncoderModels
 import dlib                    # for FaceEncoderModels.DLIBRESNET
 from libfaceid.classifier import FaceClassifierModels, FaceClassifier
-import tensorflow as tf        # for FaceDetector_FACENET
-import facenet.src.facenet as facenet # for FaceDetector_FACENET
-import math # for FaceDetector_FACENET
-from scipy import misc # for FaceDetector_FACENET
+from scipy import misc         # for FaceDetector_FACENET
 
 
 
 
 
-OUTPUT_LBPH_CLASSIFIER     = 'lbph.yml'
-OUTPUT_LBPH_LABELER        = 'lbph_le.pickle'
+OUTPUT_LBPH_CLASSIFIER       = 'lbph.yml'
+OUTPUT_LBPH_LABELER          = 'lbph_le.pickle'
 
-INPUT_OPENFACE_MODEL       = 'openface_nn4.small2.v1.t7'
-OUTPUT_OPENFACE_CLASSIFIER = 'openface_re.pickle'
-OUTPUT_OPENFACE_LABELER    = 'openface_le.pickle'
+INPUT_OPENFACE_MODEL         = 'openface_nn4.small2.v1.t7'
+OUTPUT_OPENFACE_CLASSIFIER   = 'openface_re.pickle'
+OUTPUT_OPENFACE_LABELER      = 'openface_le.pickle'
 
 INPUT_DLIBRESNET_MODEL       = 'dlib_face_recognition_resnet_model_v1.dat'
 INPUT_DLIBRESNET_MODEL2      = 'shape_predictor_5_face_landmarks.dat'
@@ -280,6 +277,8 @@ class FaceEncoder_FACENET():
     _face_crop_size=160
 
     def __init__(self, path=None, path_training=None, training=False):
+        import tensorflow as tf               # lazy loading
+        import facenet.src.facenet as facenet # lazy loading
         self.path_training = path_training
         self._sess = tf.Session()
         with self._sess.as_default():
@@ -287,7 +286,6 @@ class FaceEncoder_FACENET():
         if training == False:
             self.clf = pickle.loads(open(self.path_training + OUTPUT_FACENET_CLASSIFIER, "rb").read())
             self.label_encoder = pickle.loads(open(self.path_training + OUTPUT_FACENET_LABELER, "rb").read())
-            #print(self.label_encoder.classes_)
 
     def identify(self, frame, face_rect):
         vec = self.encode(frame, face_rect)
@@ -298,6 +296,8 @@ class FaceEncoder_FACENET():
         return face_id, confidence
 
     def encode(self, frame, face_rect):
+        import tensorflow as tf               # lazy loading
+        import facenet.src.facenet as facenet # lazy loading
         (x, y, w, h) = face_rect
         face = misc.imresize(frame[y:y+h, x:x+w, :], (self._face_crop_size, self._face_crop_size), interp='bilinear')
         images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")

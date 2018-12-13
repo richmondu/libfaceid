@@ -1,6 +1,7 @@
 import sys
 import argparse
 import cv2
+import datetime
 from libfaceid.detector import FaceDetectorModels, FaceDetector
 from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
 from libfaceid.pose import FacePoseEstimatorModels, FacePoseEstimator
@@ -92,20 +93,24 @@ def process_facedetection(model_detector, model_poseestimator, model_ageestimato
             face_pose_estimator.add_overlay(frame, shape)
 
             # Display age, gender, emotion
-            cv2.putText(frame, "Age: {}".format(age), 
-                (x, y-45), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-            cv2.putText(frame, "Gender: {}".format(gender), 
-                (x, y-30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
-            cv2.putText(frame, "Emotion: {}".format(emotion), 
-                (x, y-15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+            if True: # Added condition to easily disable text
+                cv2.putText(frame, "Age: {}".format(age), 
+                    (x, y-45), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, "Gender: {}".format(gender), 
+                    (x, y-30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                cv2.putText(frame, "Emotion: {}".format(emotion), 
+                    (x, y-15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
 
         # Display the resulting frame
         cv2.imshow(WINDOW_NAME, frame)
 
         # Check for user actions
-        if cv2.waitKey(1) & 0xFF == 27: # ESC
+        keyPressed = cv2.waitKey(1) & 0xFF
+        if keyPressed == 27: # ESC
             break
+        elif keyPressed == 13: # Enter
+            cv2.imwrite(WINDOW_NAME + "_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + ".jpg", frame);
 
 
     # Release the camera

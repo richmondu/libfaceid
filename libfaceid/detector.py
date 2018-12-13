@@ -1,8 +1,6 @@
 import numpy as np
 from enum import Enum
 import cv2
-import tensorflow as tf # for FaceDetector_FACENET
-import facenet.src.align.detect_face as facenet # for FaceDetector_FACENET
 
 
 
@@ -144,6 +142,8 @@ class FaceDetector_FACENET:
     _factor = 0.709  # scale factor
 
     def __init__(self, path, optimize, minfacesize):
+        import tensorflow as tf                         # lazy loading
+        import facenet.src.align.detect_face as facenet # lazy loading
         self._optimize = optimize
         self._minfacesize = minfacesize
         with tf.Graph().as_default():
@@ -153,6 +153,7 @@ class FaceDetector_FACENET:
                 self._pnet, self._rnet, self._onet = facenet.create_mtcnn(sess, None)
 
     def detect(self, frame):
+        import facenet.src.align.detect_face as facenet # lazy loading
         faces, _ = facenet.detect_face(frame, self._minfacesize, 
             self._pnet, self._rnet, self._onet, self._threshold, self._factor)
         faces_updated = []
