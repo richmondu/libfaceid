@@ -97,6 +97,7 @@ libfaceid library supports several models for each step of the Face Recognition 
 - [Deep Neural Network via DLIB](http://dlib.net/cnn_face_detector.py.html)
 - [Single Shot Detector with ResNet-10 via OpenCV](https://github.com/opencv/opencv/blob/3.4.0/samples/dnn/resnet_ssd_face_python.py)
 - [Multi-task Cascaded CNN (MTCNN) via Tensorflow](https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py)
+- [FaceNet MTCNN via Tensorflow](https://github.com/davidsandberg/facenet)
 
 #### Face Encoding models for generating face embeddings on detected faces
 - [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.python36.com/face-recognition-using-opencv-part-3/)
