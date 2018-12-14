@@ -25,7 +25,7 @@ INPUT_DLIBRESNET_MODEL2      = 'shape_predictor_5_face_landmarks.dat'
 OUTPUT_DLIBRESNET_CLASSIFIER = 'dlib_re.pickle'
 OUTPUT_DLIBRESNET_LABELER    = 'dlib_le.pickle'
 
-INPUT_FACENET_MODEL          = 'facenet_20180402-114759'
+INPUT_FACENET_MODEL          = 'facenet_20180402-114759.pb'
 OUTPUT_FACENET_CLASSIFIER    = 'facenet_re.pickle'
 OUTPUT_FACENET_LABELER       = 'facenet_le.pickle'
 
@@ -70,19 +70,15 @@ class FaceEncoder_Utils():
         #print(len(knownNames))
         #print(len(knownEmbeddings))
         #print("[INFO] Number of classes = {}".format(knownNames))
-
         le = LabelEncoder()
         labels = le.fit_transform(knownNames)
         #print(le.classes_)
         #print(labels)
-
         clf = FaceClassifier(classifier)
         clf.fit(knownEmbeddings, labels)
-
         f = open(output_clf, "wb")
         f.write(pickle.dumps(clf))
         f.close()
-
         f = open(output_le, "wb")
         f.write(pickle.dumps(le))
         f.close()
@@ -131,7 +127,6 @@ class FaceEncoder_LBPH():
                 id = id + 1
             #print("name=%s id=%d" % (name, id))
 
-            # FACE DETECTION
             frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             faces = face_detector.detect(frame)
             for (index, face) in enumerate(faces):
@@ -197,8 +192,6 @@ class FaceEncoder_OPENFACE():
     def train(self, face_detector, path_dataset, verify, classifier):
         knownEmbeddings = []
         knownNames = []
-        total = 0
-
         imagePaths = sorted(list(paths.list_images(path_dataset)))
         for (j, imagePath) in enumerate(imagePaths):
             name = imagePath.split(os.path.sep)[-2]
@@ -208,8 +201,6 @@ class FaceEncoder_OPENFACE():
                 vec = self.encode(frame, face)
                 knownNames.append(name)
                 knownEmbeddings.append(vec.flatten())
-                total += 1
-
         FaceEncoder_Utils().save_training(classifier, knownNames, knownEmbeddings, 
             self.path_training + OUTPUT_OPENFACE_CLASSIFIER, 
             self.path_training + OUTPUT_OPENFACE_LABELER)
@@ -217,14 +208,11 @@ class FaceEncoder_OPENFACE():
 
 class FaceEncoder_DLIBRESNET():
 
-
     def __init__(self, path=None, path_training=None, training=False):
         self.path_training = path_training
         self.clf = None
-        self.embedder = None
         self.label_encoder = None
         self.shaper = None
-
         self.embedder = dlib.face_recognition_model_v1(path + INPUT_DLIBRESNET_MODEL)
         self.shaper = dlib.shape_predictor(path + INPUT_DLIBRESNET_MODEL2)
         if training == False:
@@ -254,8 +242,6 @@ class FaceEncoder_DLIBRESNET():
     def train(self, face_detector, path_dataset, verify, classifier):
         knownEmbeddings = []
         knownNames = []
-        total = 0
-
         imagePaths = sorted(list(paths.list_images(path_dataset)))
         for (j, imagePath) in enumerate(imagePaths):
             name = imagePath.split(os.path.sep)[-2]
@@ -265,8 +251,6 @@ class FaceEncoder_DLIBRESNET():
                 vec = self.encode(frame, face)
                 knownNames.append(name)
                 knownEmbeddings.append(vec.flatten())
-                total += 1
-
         FaceEncoder_Utils().save_training(classifier, knownNames, knownEmbeddings, 
             self.path_training + OUTPUT_DLIBRESNET_CLASSIFIER, 
             self.path_training + OUTPUT_DLIBRESNET_LABELER)
@@ -275,6 +259,7 @@ class FaceEncoder_DLIBRESNET():
 class FaceEncoder_FACENET():
 
     _face_crop_size=160
+    _face_crop_margin=0
 
     def __init__(self, path=None, path_training=None, training=False):
         import tensorflow as tf               # lazy loading
@@ -295,10 +280,20 @@ class FaceEncoder_FACENET():
         face_id = self.label_encoder.classes_[id]
         return face_id, confidence
 
+    def set_face_crop(self, crop_size, crop_margin):
+        self._face_crop_size = crop_size
+        self._face_crop_margin = crop_margin
+
     def encode(self, frame, face_rect):
         import tensorflow as tf               # lazy loading
         import facenet.src.facenet as facenet # lazy loading
         (x, y, w, h) = face_rect
+        if self._face_crop_margin:
+            (x, y, w, h) = (
+                max(x - int(self._face_crop_margin/2), 0), 
+                max(y - int(self._face_crop_margin/2), 0), 
+                min(x+w + self._face_crop_margin, frame.shape[1]) - x, 
+                min(y+h + self._face_crop_margin, frame.shape[0]) - y)
         face = misc.imresize(frame[y:y+h, x:x+w, :], (self._face_crop_size, self._face_crop_size), interp='bilinear')
         images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
         embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
@@ -310,8 +305,6 @@ class FaceEncoder_FACENET():
     def train(self, face_detector, path_dataset, verify, classifier):
         knownEmbeddings = []
         knownNames = []
-        total = 0
-
         imagePaths = sorted(list(paths.list_images(path_dataset)))
         for (j, imagePath) in enumerate(imagePaths):
             name = imagePath.split(os.path.sep)[-2]
@@ -321,8 +314,6 @@ class FaceEncoder_FACENET():
                 vec = self.encode(frame, face)
                 knownNames.append(name)
                 knownEmbeddings.append(vec.flatten())
-                total += 1
-
         FaceEncoder_Utils().save_training(classifier, knownNames, knownEmbeddings, 
             self.path_training + OUTPUT_FACENET_CLASSIFIER, 
             self.path_training + OUTPUT_FACENET_LABELER)
