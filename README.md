@@ -57,11 +57,11 @@ specifically Convolutional Neural Networks (CNN) architecture which is designed 
     
 A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. At a minimum, a simple real-time facial recognition system is composed of the following pipeline:
 
-0. <b>Face Enrollment.</b> Registering faces to a database which includes pre-computing the face embeddings. 
+0. <b>Face Enrollment.</b> Registering faces to a database which includes pre-computing the face embeddings and training a classifier on top of the face embeddings. 
 1. <b>Face Capture.</b> Reading a frame image from a camera source.
 2. <b>Face Detection.</b> Detecting faces in a frame image.
 3. <b>Face Encoding/Embedding.</b> Generating a mathematical representation of each face (coined as embedding) in the frame image.
-4. <b>Face Identification.</b> Classifying each face embedding with face embeddings of known people in a database.
+4. <b>Face Identification.</b> Infering each face embedding in an image with face embeddings of known people in a database.
 
 More complex systems include features such as <b>Face Liveness Detection</b> (to counter spoofing attacks via photo, video or 3d mask), <b>face alignment</b>, face augmentation (to increase the number of dataset of images) and face verification to improve accuracy.
 </p>
