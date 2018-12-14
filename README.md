@@ -105,10 +105,6 @@ libfaceid library supports several models for each step of the Face Recognition 
 - [ResNet-34 via DLIB](http://dlib.net/face_recognition.py.html)
 - [FaceNet (Inception ResNet v1) via Tensorflow](https://github.com/davidsandberg/facenet)
 
-  - Note, when using FaceNet model for face encoding,
-    - Download the pretrained '20180402-114759' model here (> 100MB): https://drive.google.com/open?id=1EXPBSXwTaqrSC0OhUdXNmKSh9qJUQ55-
-    - Then copy contents to libfaceid\models\encoding\facenet_20180402-114759
-
 #### Classification algorithms for Face Identification using face embeddings
 - [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
 - Linear SVM
