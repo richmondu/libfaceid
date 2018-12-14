@@ -411,4 +411,4 @@ Google and Facebook have access to large database of pictures being the best sea
 
 Have a good idea for improving libfaceid? Please message me in [twitter](https://twitter.com/richmond_umagat).
 Found a bug? Please file an issue. 
-Has libfaceid helped you in your learning and prototyping of face recognition system? Please give this repository a 'Like'.
+Has libfaceid helped you in your learning and prototyping of face recognition system? Please give this repository a 'Star'.
