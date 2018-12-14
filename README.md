@@ -74,7 +74,7 @@ libfaceid democratizes learning Face Recognition. Popular models such as FaceNet
 
 libfaceid was created to somehow address these problems and fill-in the gaps from these resources. It seamlessly integrates multiple models for each step of the pipeline enabling anybody specially beginners in Computer Vision and Deep Learning to easily learn and experiment with a comprehensive face recognition end-to-end pipeline models. No strings attached. Once you have experimented will all the models and have chosen specific models for your specific use-case and system requirements, you can explore the more advanced models like FaceNet.
 
-Only pretrained models are currently supported. Transfer learning will be applied on the pretrained models. Transfer learning is the practice of applying a pretrained model to a new dataset. It is one of the major factors in the explosion of popularity in Computer Vision. Just recently, transfer learning has been making good advances to Natural Language Processing (Bert by Google and ELMo by Allen Institute).
+Only pretrained models are currently supported. Transfer learning will be applied on the pretrained models. Transfer learning is the practice of applying a pretrained model to a new dataset. It is one of the major factors in the explosion of popularity in Computer Vision. Just recently, transfer learning has been making good advances to Natural Language Processing ( [BERT by Google](https://github.com/google-research/bert) and [ELMo by Allen Institute](https://allennlp.org/elmo) ).
 </p>
 
 
