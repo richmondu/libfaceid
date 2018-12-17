@@ -46,8 +46,7 @@ Face Recognition has become one of the most popular technologies where Deep Lear
 Face recognition is used for identity authentication, access control, passport verification in airports, 
 law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, 
 casino watchlists and many more. 
-Modern solutions leverages GPU power and utilizes Deep Learning, 
-specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
+Modern solutions leverages GPU which has dramatically improved over the decades. It utilizes Deep Learning which requires GPU power to perform extensive compute operations in parallel. More specifically, it uses Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
 </p>
 
 
