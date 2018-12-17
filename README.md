@@ -87,7 +87,7 @@ libfaceid is designed so that it is easy to use, modular and robust. Selection o
 
 ### Features:
 
-Having several dataset of images per person is not possible for some use cases of Face Recognition. So finding the appropriate model for that balances accuracy and speed on target hardware platform (CPU, GPU, embedded system) is necessary. libfaceid allows selecting each model in the pipeline.
+Having several dataset of images per person is not possible for some use cases of Face Recognition. So finding the appropriate model for that balances accuracy and speed on target hardware platform (CPU, GPU, embedded system) is necessary. The trinity of AI is Data, Algorithms and Compute. libfaceid allows selecting each model/algorithm in the pipeline.
 
 libfaceid library supports several models for each step of the Face Recognition pipeline. Some models are faster while some models are more accurate. You can mix and match the models for your specific use-case, hardware platform and system requirements. 
 
