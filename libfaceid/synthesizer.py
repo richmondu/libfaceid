@@ -42,7 +42,7 @@ class TextToSpeechSynthesizer:
 class TextToSpeechSynthesizer_TACOTRON:
 
     def __init__(self, path, path_output):
-        from tacotron.synthesizer import Synthesizer # lazy loading
+        from libfaceid.tacotron.synthesizer import Synthesizer # lazy loading
         self._path_output = path_output
         self._synthesizer = Synthesizer()
         self._synthesizer.load(path + INPUT_TACOTRON_MODEL)
@@ -50,11 +50,4 @@ class TextToSpeechSynthesizer_TACOTRON:
     def synthesize(self, text, outputfile):
         with open(self._path_output + outputfile, 'wb') as file:
             file.write(self._synthesizer.synthesize(text))
-
-
-# Tacotron Usage
-#synthesizer = TextToSpeechSynthesizer(model=TextToSpeechSynthesizerModels.DEFAULT, path="../models/synthesis/", path_output="../audiosets/")
-#synthesizer.synthesize_datasets("../datasets/")
-#synthesizer.synthesize_name("libfaceid")
-#synthesizer.synthesize("Hello World", "World.wav")
 

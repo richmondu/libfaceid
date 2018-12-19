@@ -1,6 +1,6 @@
 import re
-from tacotron.text import cleaners
-from tacotron.text.symbols import symbols
+from libfaceid.tacotron.text import cleaners
+from libfaceid.tacotron.text.symbols import symbols
 
 
 # Mappings from symbol to numeric ID and vice versa:

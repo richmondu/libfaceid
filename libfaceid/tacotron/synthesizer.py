@@ -1,11 +1,11 @@
 import io
 import numpy as np
 import tensorflow as tf
-from tacotron.hparams import hparams
+from libfaceid.tacotron.hparams import hparams
 from librosa import effects
-from tacotron.models import create_model
-from tacotron.text import text_to_sequence
-from tacotron.util import audio
+from libfaceid.tacotron.models import create_model
+from libfaceid.tacotron.text import text_to_sequence
+from libfaceid.tacotron.util import audio
 
 
 class Synthesizer:

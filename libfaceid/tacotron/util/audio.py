@@ -4,7 +4,7 @@ import math
 import numpy as np
 import tensorflow as tf
 import scipy
-from tacotron.hparams import hparams
+from libfaceid.tacotron.hparams import hparams
 
 
 def load_wav(path):
