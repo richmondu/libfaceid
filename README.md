@@ -534,17 +534,17 @@ and [Google's Tacotron](https://www.isca-speech.org/archive/Interspeech_2017/abs
 Speech Synthesis can be used for some use-cases of Face Recognition to enable voice capability feature.
 One example is to greet user as he approaches the terminal or kiosk system.
 Given some input text, the speech synthesizer can generate an audio which can be played upon recognizing a face.
-For example, upon detecting person arrival, it can be set to say 'Hello <Name>, welcome back...'. 
-Upon departure, it can be set to say 'Goodbye <Name>, see you again soon...'.
+For example, upon detecting person arrival, it can be set to say 'Hello PersonX, welcome back...'. 
+Upon departure, it can be set to say 'Goodbye PersonX, see you again soon...'.
 It can be used in smart homes, office lobbies, luxury hotel rooms, and modern airports. 
 
 #### Face Enrollment
 
-- For each person who registers/enrolls to the system, create an audio file "Name.wav" for some input text such as "Hello <Name>".
+- For each person who registers/enrolls to the system, create an audio file "PersonX.wav" for some input text such as "Hello PersonX".
   
 #### Face Identification
 
-- When a person is identified to be part of the database, we play the corresponding audio file "Name.wav". 
+- When a person is identified to be part of the database, we play the corresponding audio file "PersonX.wav". 
 
 
 
