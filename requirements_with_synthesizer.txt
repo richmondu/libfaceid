@@ -1,0 +1,16 @@
+opencv-python==3.4.3.18
+opencv-contrib-python==3.4.3.18
+numpy==1.15.4
+imutils==0.5.1
+dlib==19.16.0
+scipy==1.1.0
+scikit-learn==0.20.0
+mtcnn==0.0.8
+tensorflow==1.8.0
+keras==2.0.8
+h5py==2.8.0
+facenet==1.0.3
+flask==1.0.2
+inflect==0.2.5
+librosa==0.5.1
+unidecode==0.4.20
