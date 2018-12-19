@@ -292,8 +292,8 @@ class FaceEncoder_FACENET():
             (x, y, w, h) = (
                 max(x - int(self._face_crop_margin/2), 0), 
                 max(y - int(self._face_crop_margin/2), 0), 
-                min(x+w + self._face_crop_margin, frame.shape[1]) - x, 
-                min(y+h + self._face_crop_margin, frame.shape[0]) - y)
+                min(x+w + int(self._face_crop_margin/2), frame.shape[1]) - x, 
+                min(y+h + int(self._face_crop_margin/2), frame.shape[0]) - y)
         face = misc.imresize(frame[y:y+h, x:x+w, :], (self._face_crop_size, self._face_crop_size), interp='bilinear')
         images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
         embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
