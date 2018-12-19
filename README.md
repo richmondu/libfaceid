@@ -1,4 +1,4 @@
-# libfaceid for Face Recognition
+# libfaceid, a Face Recognition library for everyone
 
 <p>
     <b> FaceRecognition Made Easy.</b> libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
@@ -7,7 +7,7 @@
     <b> From Zero to Hero.</b> Learn the basics of Face Recognition and experiment with different models.
     libfaceid enables beginners to learn various models and simplifies prototyping of facial recognition solutions by providing a comprehensive list of models to choose from.
     Multiple models for detection and encoding/embedding including classification models are supported from the basic models (Haar Cascades + LBPH) to the more advanced models (MTCNN + FaceNet).
-    The models are seamlessly integrated so that user can mix and match models. Each detector model has been made compatible with each embedding model.
+    The models are seamlessly integrated so that user can mix and match models. Each detector model has been made compatible with each embedding model to abstract you from the differences.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
 </p>
@@ -46,8 +46,7 @@ Face Recognition has become one of the most popular technologies where Deep Lear
 Face recognition is used for identity authentication, access control, passport verification in airports, 
 law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, 
 casino watchlists and many more. 
-Modern solutions leverages GPU power and utilizes Deep Learning, 
-specifically Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
+Modern solutions leverages GPU which has dramatically improved over the decades. It utilizes Deep Learning which requires GPU power to perform extensive compute operations in parallel. More specifically, it uses Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
 </p>
 
 
@@ -57,11 +56,11 @@ specifically Convolutional Neural Networks (CNN) architecture which is designed 
     
 A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. At a minimum, a simple real-time facial recognition system is composed of the following pipeline:
 
-0. <b>Face Enrollment.</b> Registering faces to a database which includes pre-computing the face embeddings. 
+0. <b>Face Enrollment.</b> Registering faces to a database which includes pre-computing the face embeddings and training a classifier on top of the face embeddings of registered individuals. 
 1. <b>Face Capture.</b> Reading a frame image from a camera source.
 2. <b>Face Detection.</b> Detecting faces in a frame image.
 3. <b>Face Encoding/Embedding.</b> Generating a mathematical representation of each face (coined as embedding) in the frame image.
-4. <b>Face Identification.</b> Classifying each face embedding with face embeddings of known people in a database.
+4. <b>Face Identification.</b> Infering each face embedding in an image with face embeddings of known people in a database.
 
 More complex systems include features such as <b>Face Liveness Detection</b> (to counter spoofing attacks via photo, video or 3d mask), <b>face alignment</b>, face augmentation (to increase the number of dataset of images) and face verification to improve accuracy.
 </p>
@@ -73,6 +72,7 @@ More complex systems include features such as <b>Face Liveness Detection</b> (to
 libfaceid democratizes learning Face Recognition. Popular models such as FaceNet and OpenFace are not straightforward to use and don't provide easy-to-follow guidelines on how to install and setup. So far, dlib has been the best in terms of documentation and usage but it is slow on CPU and has too many abstractions (abstracts OpenCV as well). Simple models such as OpenCV is good but too basic and lacks documentation of the parameter settings, on classification algorithms and end-to-end pipeline. Pyimagesearch has been great having several tutorials with easy to understand explanations but not much emphasis on model comparisons and seems to aim to sell books so intentions to help the community are not so pure after all (I hate the fact that you need to wait for 2 marketing emails to arrive just to download the source code for the tutorials. But I love the fact that he replies to all questions in the threads). With all this said, I've learned a lot from all these resources so I'm sure you will learn a lot too. 
 
 libfaceid was created to somehow address these problems and fill-in the gaps from these resources. It seamlessly integrates multiple models for each step of the pipeline enabling anybody specially beginners in Computer Vision and Deep Learning to easily learn and experiment with a comprehensive face recognition end-to-end pipeline models. No strings attached. Once you have experimented will all the models and have chosen specific models for your specific use-case and system requirements, you can explore the more advanced models like FaceNet.
+
 </p>
 
 
@@ -80,12 +80,14 @@ libfaceid was created to somehow address these problems and fill-in the gaps fro
 
 <p>
 libfaceid is designed so that it is easy to use, modular and robust. Selection of model is done via the constructors while the expose function is simply detect() or estimate() making usage very easy. The files are organized into modules so it is very intuitive to understand and debug. The robust design allows supporting new models in the future to be very straightforward.
+
+Only pretrained models will be supported. Transfer learning is the practice of applying a pretrained model (that is trained on a very large dataset) to a new dataset. It basically means that it is able to generalize models from one dataset to another when it has been trained on a very large dataset, such that it is 'experienced' enough to generalize the learnings to new environment to new datasets. It is one of the major factors in the explosion of popularity in Computer Vision, not only for face recognition but most specially for object detection. And just recently, mid-2018 this year, transfer learning has been making good advances to Natural Language Processing ( [BERT by Google](https://github.com/google-research/bert) and [ELMo by Allen Institute](https://allennlp.org/elmo) ). Transfer learning is really useful and it is the main goal that the community working on Reinforcement Learning wants to achieve for robotics.
 </p>
 
 
 ### Features:
 
-Having several dataset of images per person is not possible for some use cases of Face Recognition. So finding the appropriate model for that balances accuracy and speed on target hardware platform (CPU, GPU, embedded system) is necessary. libfaceid allows selecting each model in the pipeline.
+Having several dataset of images per person is not possible for some use cases of Face Recognition. So finding the appropriate model for that balances accuracy and speed on target hardware platform (CPU, GPU, embedded system) is necessary. The trinity of AI is Data, Algorithms and Compute. libfaceid allows selecting each model/algorithm in the pipeline.
 
 libfaceid library supports several models for each step of the Face Recognition pipeline. Some models are faster while some models are more accurate. You can mix and match the models for your specific use-case, hardware platform and system requirements. 
 
@@ -95,16 +97,13 @@ libfaceid library supports several models for each step of the Face Recognition 
 - [Deep Neural Network via DLIB](http://dlib.net/cnn_face_detector.py.html)
 - [Single Shot Detector with ResNet-10 via OpenCV](https://github.com/opencv/opencv/blob/3.4.0/samples/dnn/resnet_ssd_face_python.py)
 - [Multi-task Cascaded CNN (MTCNN) via Tensorflow](https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py)
+- [FaceNet MTCNN via Tensorflow](https://github.com/davidsandberg/facenet)
 
 #### Face Encoding models for generating face embeddings on detected faces
 - [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.python36.com/face-recognition-using-opencv-part-3/)
 - [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [ResNet-34 via DLIB](http://dlib.net/face_recognition.py.html)
 - [FaceNet (Inception ResNet v1) via Tensorflow](https://github.com/davidsandberg/facenet)
-
-  - Note, when using FaceNet model for face encoding,
-    - Download the pretrained '20180402-114759' model here (> 100MB): https://drive.google.com/open?id=1EXPBSXwTaqrSC0OhUdXNmKSh9qJUQ55-
-    - Then copy contents to libfaceid\models\encoding\facenet_20180402-114759
 
 #### Classification algorithms for Face Identification using face embeddings
 - [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
@@ -372,7 +371,7 @@ In addition to these guidelines, the face recognition solution should provide a 
 
 ### Performance Optimizations:
 
-Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Some models are optimized for speed while others are optimized for accuracy. Be sure to test all the provided models. Below are additional suggestions to optimize performance.
+Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Some models are optimized for speed while others are optimized for accuracy. Be sure to test all the provided models to determine the appropriate model for your specific use-case, target platform (CPU, GPU or embedded) and specific requirements. Below are additional suggestions to optimize performance.
 
 #### Speed
 - Reduce the frame size for face detection.
@@ -408,4 +407,4 @@ Google and Facebook have access to large database of pictures being the best sea
 
 Have a good idea for improving libfaceid? Please message me in [twitter](https://twitter.com/richmond_umagat).
 Found a bug? Please file an issue. 
-Has libfaceid helped you in your learning and prototyping of face recognition system? Please give this repository a 'Like'.
+Has libfaceid helped you in your learning and prototyping of face recognition system? Please give this repository a 'Star'.
