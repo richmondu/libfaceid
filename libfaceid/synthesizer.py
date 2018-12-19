@@ -1,7 +1,11 @@
 from enum import Enum
+import os
 
 
 
+
+
+INPUT_TACOTRON_MODEL = "tacotron-20180906/model.ckpt"
 
 
 class TextToSpeechSynthesizerModels(Enum):
@@ -16,11 +20,23 @@ class TextToSpeechSynthesizer:
         self._base = None
         if model == TextToSpeechSynthesizerModels.TACOTRON:
             self._base = TextToSpeechSynthesizer_TACOTRON(path, path_output)
-            print("Synthesizer model loaded!")
+            print("Synthesizer loaded!")
 
     def synthesize(self, text, outputfile):
         self._base.synthesize(text, outputfile)
-        print("Synthesizer text synthesized! text={} output={}".format(text, outputfile))
+        print("Synthesized text={} output={}".format(text, outputfile))
+
+    def synthesize_name(self, name):
+        text = "Hello " + name
+        outputfile = name + ".wav"
+        self.synthesize(text, outputfile)
+
+    def synthesize_datasets(self, path_datasets):
+        for (_d, names, _f) in os.walk(path_datasets):
+            print("names " + str(names))
+            for name in names:
+                self.synthesize_name(name)
+            break
 
 
 class TextToSpeechSynthesizer_TACOTRON:
@@ -29,14 +45,16 @@ class TextToSpeechSynthesizer_TACOTRON:
         from tacotron.synthesizer import Synthesizer # lazy loading
         self._path_output = path_output
         self._synthesizer = Synthesizer()
-        self._synthesizer.load(path + "tacotron-20180906/model.ckpt")
+        self._synthesizer.load(path + INPUT_TACOTRON_MODEL)
 
     def synthesize(self, text, outputfile):
         with open(self._path_output + outputfile, 'wb') as file:
             file.write(self._synthesizer.synthesize(text))
 
-# Tacotron Usage
-#synthesizer = TextToSpeechSynthesizer(model=TextToSpeechSynthesizerModels.DEFAULT, path="../models/synthesis/", path_output="../datasets/")
-#synthesizer.synthesize("Hello Name", "Name.wav")
 
+# Tacotron Usage
+#synthesizer = TextToSpeechSynthesizer(model=TextToSpeechSynthesizerModels.DEFAULT, path="../models/synthesis/", path_output="../audiosets/")
+#synthesizer.synthesize_datasets("../datasets/")
+#synthesizer.synthesize_name("libfaceid")
+#synthesizer.synthesize("Hello World", "World.wav")
 

@@ -6,5 +6,6 @@ models/others/vggface_recognition
 models/others/*.zip
 datasets/*
 greetingsystem/*
+audiosets/*
 *.avi
 models/encoding/facenet_20180402-114759/*
