@@ -429,6 +429,7 @@ In addition to these guidelines, the face recognition solution should provide a 
 ### Case Study - Face Recognition for Home/Office/Hotel Greeting System:
 
 One of the use cases of face recognition is for greeting system used in smart homes, office and hotels.
+To enable voice capability feature, we use text-to-speech synthesis to dynamically create audio files given some input text. 
 
 #### Speech Synthesis
 
@@ -445,6 +446,14 @@ Given some input text, the speech synthesizer can generate an audio which can be
 For example, upon detecting person arrival, it can be set to say 'Hello <Name>, welcome back...'. 
 Upon departure, it can be set to say 'Goodbye <Name>, see you again soon...'.
 It can be used in smart homes, office lobbies, luxury hotel rooms, and modern airports. 
+
+#### Face Enrollment
+
+- For each person who registers/enrolls to the system, create an audio file "Name.wav" for some input text such as "Hello <Name>".
+  
+#### Face Identification
+
+- When a person is identified to be part of the database, we play the corresponding audio file "Name.wav". 
 
 
 
