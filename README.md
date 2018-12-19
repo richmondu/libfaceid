@@ -34,8 +34,8 @@
 
 | Date | Milestones |
 | --- | --- |
-| 2018, Dec 19 | Integrated Google's [Tacotron](https://github.com/keithito/tacotron) text-to-speech synthesizer (implementation by keithito) to libfaceid |
-| 2018, Dec 13 | Integrated Google's [FaceNet](https://github.com/davidsandberg/facenet) face embedding (implementation by David Sandberg) to libfaceid |
+| 2018, Dec 19 | Integrated Google's [Tacotron](https://github.com/keithito/tacotron) text-to-speech synthesizer (implementation by keithito) |
+| 2018, Dec 13 | Integrated Google's [FaceNet](https://github.com/davidsandberg/facenet) face embedding (implementation by David Sandberg) |
 | 2018, Nov 30 | Committed libfaceid to Github |
 
 
