@@ -172,6 +172,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            pip install -r requirements_with_synthesizer.txt
 
            This will install additional dependencies below:
+           playsound==1.2.2
            inflect==0.2.5
            librosa==0.5.1
            unidecode==0.4.20
@@ -272,7 +273,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         cv2.destroyAllWindows()
 
 
-#### Real-Time Face Recognition w/a webcam:
+#### Real-Time Face Recognition (w/a webcam):
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
@@ -300,7 +301,40 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         cv2.destroyAllWindows()
 
 
-#### Real-Time Face Pose/Age/Gender/Emotion Estimation w/a webcam:
+#### Voice-Enabled Real-Time Face Recognition (w/a webcam):
+
+        import cv2
+        from libfaceid.detector import FaceDetectorModels, FaceDetector
+        from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
+        from libfaceid.synthesizer import TextToSpeechSynthesizerUtils
+
+        INPUT_DIR_MODEL_DETECTION = "models/detection/"
+        INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
+        INPUT_DIR_MODEL_TRAINING  = "models/training/"
+
+        camera = cv2.VideoCapture(webcam_index)
+        face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
+        face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
+
+        frame_count = 0
+        while True:
+            frame = camera.read()
+            faces = face_detector.detect(frame)
+            for (index, face) in enumerate(faces):
+                (x, y, w, h) = face
+                face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
+                label_face(frame, (x, y, w, h), face_id, confidence)
+                if (frame_count % 120 == 0):
+                    TextToSpeechSynthesizerUtils().playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
+            cv2.imshow(window_name, frame)
+            cv2.waitKey(1)
+            frame_count += 1
+
+        camera.release()
+        cv2.destroyAllWindows()
+
+
+#### Real-Time Face Pose/Age/Gender/Emotion Estimation (w/a webcam):
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
