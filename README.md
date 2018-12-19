@@ -18,7 +18,8 @@
     The robust design allows supporting new models in the future to be very straightforward.
 </p> 
 <p>
-    <b> Have Some Fun.</b> In addition, the library also contains models for predicting face pose, age, gender and emotion.
+    <b> Have Some Fun.</b> The library contains models for predicting your age, gender, emotion and facial landmarks.
+    It also contains text-to-speech synthesizer to generate audio file for each person in the image dataset to enable system to play the generated audio to greet you after recognizing your face.
     Web app is supported for some test applications using Flask so you would be able to view the video capture remotely on another computer in the same network via a web browser. 
 </p>
 
@@ -167,7 +168,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            facenet==1.0.3
            flask==1.0.2
 
-        3. Optional: Install the required Python PIP package dependencies for text-to-speech synthesizer to voice capability 
+        3. Optional: Install the required Python PIP package dependencies for text-to-speech synthesizer for voice capability 
            pip install -r requirements_with_synthesizer.txt
 
            This will install additional dependencies below:
