@@ -1,5 +1,6 @@
 from enum import Enum
 import os
+from playsound import playsound
 
 
 
@@ -12,6 +13,22 @@ class TextToSpeechSynthesizerModels(Enum):
 
     TACOTRON            = 0
     DEFAULT = TACOTRON
+
+
+class TextToSpeechSynthesizerUtils:
+
+    def __init__(self):
+        pass
+
+    def playaudio(self, path, name, block=True):
+        try:
+            filename = self.getfile(path, name)
+            playsound(filename, block)
+        except:
+            pass
+
+    def getfile(self, path, name):
+        return path + "/" + name + ".wav"
 
 
 class TextToSpeechSynthesizer:
