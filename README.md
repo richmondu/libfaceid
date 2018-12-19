@@ -73,7 +73,6 @@ libfaceid democratizes learning Face Recognition. Popular models such as FaceNet
 
 libfaceid was created to somehow address these problems and fill-in the gaps from these resources. It seamlessly integrates multiple models for each step of the pipeline enabling anybody specially beginners in Computer Vision and Deep Learning to easily learn and experiment with a comprehensive face recognition end-to-end pipeline models. No strings attached. Once you have experimented will all the models and have chosen specific models for your specific use-case and system requirements, you can explore the more advanced models like FaceNet.
 
-Only pretrained models are currently supported. Transfer learning will be applied on the pretrained models. Transfer learning is the practice of applying a pretrained model (that is trained on a very large dataset) to a new dataset. It basically means that it is able to generalize models from one dataset to another when it has been trained on a very large dataset. It is one of the major factors in the explosion of popularity in Computer Vision for both image recognition and face recognition. Just recently, transfer learning has been making good advances to Natural Language Processing ( [BERT by Google](https://github.com/google-research/bert) and [ELMo by Allen Institute](https://allennlp.org/elmo) ). Transfer learning is the main goal in Reinforcement learning for robotics.
 </p>
 
 
@@ -81,6 +80,8 @@ Only pretrained models are currently supported. Transfer learning will be applie
 
 <p>
 libfaceid is designed so that it is easy to use, modular and robust. Selection of model is done via the constructors while the expose function is simply detect() or estimate() making usage very easy. The files are organized into modules so it is very intuitive to understand and debug. The robust design allows supporting new models in the future to be very straightforward.
+
+Only pretrained models will be supported. Transfer learning is the practice of applying a pretrained model (that is trained on a very large dataset) to a new dataset. It basically means that it is able to generalize models from one dataset to another when it has been trained on a very large dataset, such that it is 'experienced' enough to generalize the learnings to new environment to new datasets. It is one of the major factors in the explosion of popularity in Computer Vision, not only for face recognition but most specially for object detection. And just recently, mid-2018 this year, transfer learning has been making good advances to Natural Language Processing ( [BERT by Google](https://github.com/google-research/bert) and [ELMo by Allen Institute](https://allennlp.org/elmo) ). Transfer learning is really useful and it is the main goal that the community working on Reinforcement Learning wants to achieve for robotics.
 </p>
 
 
