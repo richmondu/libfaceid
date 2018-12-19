@@ -33,7 +33,8 @@
 
 | Date | Milestones |
 | --- | --- |
-| 2018, Dec 13 | Integrated FaceNet (implementation by David Sandberg) to libfaceid |
+| 2018, Dec 19 | Integrated [Tacotron](https://github.com/keithito/tacotron) text-to-speech synthesizer (implementation by keithito) to libfaceid |
+| 2018, Dec 13 | Integrated [FaceNet](https://github.com/davidsandberg/facenet) face embedding (implementation by David Sandberg) to libfaceid |
 | 2018, Nov 30 | Committed libfaceid to Github |
 
 
@@ -125,6 +126,7 @@ libfaceid library supports several models for each step of the Face Recognition 
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
 - Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
+- Text To Speech Synthesizer models for generating audio given some text
 
 
 ### Compatibility:
@@ -148,7 +150,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         1. Install Python 3 and Python PIP
            Use Python 3.5.3 for Raspberry Pi 3B+ and Python 3.6.6 for Windows
         2. Install the required Python PIP package dependencies using requirements.txt
-           pip install -r requirements.txt           
+           pip install -r requirements.txt
 
            This will install the following dependencies below:
            opencv-python==3.4.3.18
@@ -164,6 +166,14 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            h5py==2.8.0
            facenet==1.0.3
            flask==1.0.2
+
+        3. Optional: Install the required Python PIP package dependencies for text-to-speech synthesizer to voice capability 
+           pip install -r requirements_with_synthesizer.txt
+
+           This will install additional dependencies below:
+           inflect==0.2.5
+           librosa==0.5.1
+           unidecode==0.4.20
 
 
 #### Pre-requisites:
@@ -189,9 +199,12 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         classifier algorithms: 0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
                                5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
         camera resolution:     0-QVGA, 1-VGA, 2-HD, 3-FULLHD
+        synthesizer models:    0-TACOTRON
 
         1. facial_recognition_training.py
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
+            Usage: python facial_recognition_training.py --detector 0 --encoder 3 --classifier 1 --setsynthesizer True --synthesizer 0
+
         2. facial_recognition_testing_image.py
             Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
 
@@ -222,6 +235,13 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
         face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
         face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=FaceClassifierModels.NAIVE_BAYES)
+
+        // generate audio samples for image datasets using text to speech synthesizer
+        OUTPUT_DIR_AUDIOSET       = "audiosets/"
+        INPUT_DIR_MODEL_SYNTHESIS = "models/synthesis/"
+        from libfaceid.synthesizer import TextToSpeechSynthesizerModels, TextToSpeechSynthesizer
+        synthesizer = TextToSpeechSynthesizer(model=TextToSpeechSynthesizerModels.DEFAULT, path=INPUT_DIR_MODEL_SYNTHESIS, path_output=OUTPUT_DIR_AUDIOSET)
+        synthesizer.synthesize_datasets(INPUT_DIR_DATASET)
 
 
 #### Face Recognition on images:
@@ -318,6 +338,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         cv2.destroyAllWindows()
 
 
+
 ### Case Study - Face Recognition for Identity Authentication:
 
 One of the use cases of face recognition is for security identity authentication.
@@ -369,6 +390,29 @@ Only the mathematical representations (128-dimensional vector) of the face shoul
 In addition to these guidelines, the face recognition solution should provide a way to disable/enable this feature as well as resetting the stored datasets during face enrollment.
 
 
+
+### Case Study - Face Recognition for Home/Office/Hotel Greeting System:
+
+One of the use cases of face recognition is for greeting system used in smart homes, office and hotels.
+
+#### Speech Synthesis
+
+Speech synthesis is the artificial simulation of human speech by a computer device.
+It is mostly used for translating text into audio to make the system voice-enabled.
+Products such as Apple's Siri, Microsoft's Cortana, Amazon Echo and Google Assistant uses speech synthesis.
+A good speech synthesizer is one that produces accurate outputs that naturally sounds like a real human in near real-time.
+State-of-the-art speech synthesis includes [Deepmind's WaveNet](https://deepmind.com/blog/wavenet-generative-model-raw-audio/) 
+and [Google's Tacotron](https://www.isca-speech.org/archive/Interspeech_2017/abstracts/1452.html).
+
+Speech Synthesis can be used for some use-cases of Face Recognition to enable voice capability feature.
+One example is to greet user as he approaches the terminal or kiosk system.
+Given some input text, the speech synthesizer can generate an audio which can be played upon recognizing a face.
+For example, upon detecting person arrival, it can be set to say 'Hello <Name>, welcome back...'. 
+Upon departure, it can be set to say 'Goodbye <Name>, see you again soon...'.
+It can be used in smart homes, office lobbies, luxury hotel rooms, and modern airports. 
+
+
+
 ### Performance Optimizations:
 
 Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Some models are optimized for speed while others are optimized for accuracy. Be sure to test all the provided models to determine the appropriate model for your specific use-case, target platform (CPU, GPU or embedded) and specific requirements. Below are additional suggestions to optimize performance.
@@ -383,6 +427,7 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 - Add more datasets if possible (ex. do data augmentation). More images per person will often result to higher accuracy.
 - Add face alignment if faces in the datasets are not aligned or when faces may be unaligned in actual deployment.
 - Update the library and configure the parameters directly.
+
 
 
 ### References:
@@ -402,6 +447,8 @@ Google and Facebook have access to large database of pictures being the best sea
 #### Papers
 - [FaceNet paper by Google](https://arxiv.org/pdf/1503.03832.pdf)
 - [DeepFace paper by Facebook](https://research.fb.com/wp-content/uploads/2016/11/deepface-closing-the-gap-to-human-level-performance-in-face-verification.pdf)
+
+
 
 ### Contribute:
 
