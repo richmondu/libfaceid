@@ -19,7 +19,7 @@
 </p> 
 <p>
     <b> Have Some Fun.</b> The library contains models for predicting your age, gender, emotion and facial landmarks.
-    It also contains text-to-speech synthesizer to generate audio file for each person in the image dataset to enable system to play the generated audio to greet you after recognizing your face.
+    It also contains text-to-speech synthesizer to generate audio file for each person in the image dataset to enable system to play the generated audio to greet you after recognizing your face. Voice-enabled face recognition. How cool is that?
     Web app is supported for some test applications using Flask so you would be able to view the video capture remotely on another computer in the same network via a web browser. 
 </p>
 
