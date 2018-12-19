@@ -106,6 +106,8 @@ libfaceid library supports several models for each step of the Face Recognition 
 - [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [ResNet-34 via DLIB](http://dlib.net/face_recognition.py.html)
 - [FaceNet (Inception ResNet v1) via Tensorflow](https://github.com/davidsandberg/facenet)
+- [VGG-Face (VGG-16, ResNet-50) via Keras](https://github.com/rcmalli/keras-vggface) - TODO
+- [OpenFace via Torch and Lua](https://github.com/cmusatyalab/openface) - TODO
 
 #### Classification algorithms for Face Identification using face embeddings
 - [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
@@ -118,16 +120,15 @@ libfaceid library supports several models for each step of the Face Recognition 
 - Adaboost
 - QDA
 
-#### Other models can be integrated to libfaceid in the future.
-- [VGG-Face (VGG-16, ResNet-50) via Keras](https://github.com/rcmalli/keras-vggface)
-- [OpenFace via Torch and Lua](https://github.com/cmusatyalab/openface)
+#### Text To Speech synthesizer models for generating audio given some text
+- [PyTTSX3](https://pypi.org/project/pyttsx3/)
+- [Tacotron](https://github.com/keithito/tacotron)
 
 #### Additional models (bonus features for PR): 
 - Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
 - Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
-- Text To Speech Synthesizer models for generating audio given some text
 
 
 ### Compatibility:
@@ -176,6 +177,9 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            inflect==0.2.5
            librosa==0.5.1
            unidecode==0.4.20
+           pyttsx3==2.7
+           pypiwin32==223
+
 
 #### Folder structure:
 
@@ -397,15 +401,17 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
         from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
-        from libfaceid.synthesizer import TextToSpeechSynthesizerUtils
+        from libfaceid.synthesizer import TextToSpeechSynthesizerModels, TextToSpeechSynthesizer
 
         INPUT_DIR_MODEL_DETECTION = "models/detection/"
         INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
         INPUT_DIR_MODEL_TRAINING  = "models/training/"
+        INPUT_DIR_AUDIOSET        = "audiosets"
 
         camera = cv2.VideoCapture(webcam_index)
         face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
         face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
+        tts_synthesizer = TextToSpeechSynthesizer(model=model_synthesizer, path=None, path_output=None, training=False)
 
         frame_count = 0
         while True:
@@ -416,7 +422,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
                 face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
                 label_face(frame, (x, y, w, h), face_id, confidence)
                 if (frame_count % 120 == 0):
-                    TextToSpeechSynthesizerUtils().playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
+                    tts_synthesizer.playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
             cv2.imshow(window_name, frame)
             cv2.waitKey(1)
             frame_count += 1

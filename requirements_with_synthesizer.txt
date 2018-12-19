@@ -15,3 +15,5 @@ playsound==1.2.2
 inflect==0.2.5
 librosa==0.5.1
 unidecode==0.4.20
+pyttsx3==2.7
+pypiwin32==223
