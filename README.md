@@ -59,7 +59,8 @@ casino watchlists and many more.
 Modern state of the art Face Recognition solutions leverages graphics processor technologies, GPU, 
 which has dramatically improved over the decades. (In particular, Nvidia released the CUDA framework which allowed C and C++ applications to utilize the GPU for massive parallel computing.)
 It utilizes Deep Learning (aka Neural Networks) which requires GPU power to perform massive compute operations in parallel. 
-Deep Learning is one approach to Artificial Intelligence that simulates how the brain functions by teaching computer through examples, several examples (big data), instead of harcoding the logic rules and decision trees.
+Deep Learning is one approach to Artificial Intelligence that simulates how the brain functions by teaching computer through examples, several examples (big data), instead of harcoding the logic rules and decision trees. 
+(One important contribution in Deep Learning is the creation of ImageNet dataset. It pioneered the creation of millions of images, a big data collection of images that were labelled and classified to teach computer for image classifications.) 
 Neural networks are basically layers of nodes where each nodes are connected to nodes in the next layer feeding information. 
 Deepnets are very deep neural networks with several layers made possible using GPU compute power. 
 Many neural networks topologies exists such as Convolutional Neural Networks (CNN) architecture 
