@@ -24,7 +24,7 @@
 </p>
 
 <p>
-    <b> Easy Integration.</b> Still working on it. Facial recognition is often only a small part of a big system. It must be lightweight and compatible with multiple systems. If anyone in the community can assist me make libfaceid part of Python PIP package, then that would be awesome. This will make libfaceid, and face recognition, in general to be widely available to the Python community, thus democratizing face recognition. If you have the know-how, or can refer me to someone, please let me know.
+    <b> Easy Integration.</b> Still working on it. Facial recognition is often only a small part of a big system. It must be lightweight and compatible with latest libraries that may also exist in the system. If anyone in the community can assist me make libfaceid part of Python PIP package, then that would be awesome. This will make libfaceid, and face recognition in general, to be widely available to the Python community, democratizing face recognition. If you have the know-how, or can refer me to someone, please let me know.
 </p>
 
 
@@ -59,7 +59,7 @@ casino watchlists and many more.
 Modern state of the art Face Recognition solutions leverages graphics processor technologies, GPU, 
 which has dramatically improved over the decades. (In particular, Nvidia released the CUDA framework which allowed C and C++ applications to utilize the GPU for massive parallel computing.)
 It utilizes Deep Learning (aka Neural Networks) which requires GPU power to perform massive compute operations in parallel. 
-Deep Learning is one approach to Artificial Intelligence that simulates how the brain functions by teaching computer through examples, several examples (big data), instead of harcoding the logic rules and decision trees. 
+Deep Learning is one approach to Artificial Intelligence that simulates how the brain functions by teaching software through examples, several examples (big data), instead of harcoding the logic rules and decision trees in the software. 
 (One important contribution in Deep Learning is the creation of ImageNet dataset. It pioneered the creation of millions of images, a big data collection of images that were labelled and classified to teach computer for image classifications.) 
 Neural networks are basically layers of nodes where each nodes are connected to nodes in the next layer feeding information. 
 Deepnets are very deep neural networks with several layers made possible using GPU compute power. 
