@@ -49,11 +49,19 @@
 <p>
 With Apple incorporating face recognition technology in iPhone X last year, 2017 
 and with China implementing nation-wide wide-spread surveillance for social credit system in a grand scale, 
-Face Recognition has become one of the most popular technologies where Deep Learning and Machine learning is used. 
+Face Recognition has become one of the most popular technologies where Deep Learning is used. 
 Face recognition is used for identity authentication, access control, passport verification in airports, 
 law enforcement, forensic investigations, social media platforms, disease diagnosis, police surveillance, 
-casino watchlists and many more. 
-Modern solutions leverages GPU which has dramatically improved over the decades. It utilizes Deep Learning which requires GPU power to perform extensive compute operations in parallel. More specifically, it uses Convolutional Neural Networks (CNN) architecture which is designed for Computer Vision, to improve recognition accuracy.
+casino watchlists and many more.
+</p>
+
+<p>
+Modern state of the art Face Recognition solutions leverages graphics processor technologies, GPU, 
+which has dramatically improved over the decades. 
+It utilizes Deep Learning (aka Neural Networks) which requires GPU power to perform massive compute operations in parallel. 
+Deep Learning is one approach to Artificial Intelligence that simulates how the brain functions by teaching computer through examples, several examples, instead of harcoding the logic rules and decision trees.
+Neural networks are basically layers of nodes where each nodes are connected to nodes in the next layer feeding information.
+Many topologies exists such as Convolutional Neural Networks (CNN) architecture which particulary applies to Computer Vision, from image classification to face recognition.
 </p>
 
 
