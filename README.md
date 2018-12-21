@@ -103,13 +103,13 @@ Only pretrained models will be supported. Transfer learning is the practice of a
 </p>
 
 
-### Features:
+# Features:
 
 Having several dataset of images per person is not possible for some use cases of Face Recognition. So finding the appropriate model for that balances accuracy and speed on target hardware platform (CPU, GPU, embedded system) is necessary. The trinity of AI is Data, Algorithms and Compute. libfaceid allows selecting each model/algorithm in the pipeline.
 
 libfaceid library supports several models for each step of the Face Recognition pipeline. Some models are faster while some models are more accurate. You can mix and match the models for your specific use-case, hardware platform and system requirements. 
 
-#### Face Detection models for detecting face locations
+### Face Detection models for detecting face locations
 - [Haar Cascade Classifier via OpenCV](https://github.com/opencv/opencv/blob/master/samples/python/facedetect.py)
 - [Histogram of Oriented Gradients (HOG) via DLIB](http://dlib.net/face_detector.py.html)
 - [Deep Neural Network via DLIB](http://dlib.net/cnn_face_detector.py.html)
@@ -117,7 +117,7 @@ libfaceid library supports several models for each step of the Face Recognition 
 - [Multi-task Cascaded CNN (MTCNN) via Tensorflow](https://github.com/ipazc/mtcnn/blob/master/tests/test_mtcnn.py)
 - [FaceNet MTCNN via Tensorflow](https://github.com/davidsandberg/facenet)
 
-#### Face Encoding models for generating face embeddings on detected faces
+### Face Encoding models for generating face embeddings on detected faces
 - [Local Binary Patterns Histograms (LBPH) via OpenCV](https://www.python36.com/face-recognition-using-opencv-part-3/)
 - [OpenFace via OpenCV](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [ResNet-34 via DLIB](http://dlib.net/face_recognition.py.html)
@@ -125,7 +125,7 @@ libfaceid library supports several models for each step of the Face Recognition 
 - [VGG-Face (VGG-16, ResNet-50) via Keras](https://github.com/rcmalli/keras-vggface) - TODO
 - [OpenFace via Torch and Lua](https://github.com/cmusatyalab/openface) - TODO
 
-#### Classification algorithms for Face Identification using face embeddings
+### Classification algorithms for Face Identification using face embeddings
 - [Naïve Bayes](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
 - Linear SVM
 - RVF SVM
@@ -136,11 +136,11 @@ libfaceid library supports several models for each step of the Face Recognition 
 - Adaboost
 - QDA
 
-#### Text To Speech synthesizer models for generating audio given some text
+### Text To Speech synthesizer models for generating audio given some text
 - [PyTTSX3](https://pypi.org/project/pyttsx3/)
 - [Tacotron](https://github.com/keithito/tacotron)
 
-#### Additional models (bonus features for PR): 
+### Additional models (bonus features for PR): 
 - Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
@@ -163,7 +163,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 
 # Usage:
 
-#### Installation:
+### Installation:
 
         1. Install Python 3 and Python PIP
            Use Python 3.5.3 for Raspberry Pi 3B+ and Python 3.6.6 for Windows
@@ -197,19 +197,19 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            pypiwin32==223
 
 
-#### Quickstart (Dummy Guide):
+### Quickstart (Dummy Guide):
 
         1. Add your dataset
            ex. datasets/person1/1.jpg, datasets/person2/1.jpg
         2. Train your model with your dataset
-           Update facial_recognition_training.bat to specify your chosen model
+           Update facial_recognition_training.bat to specify your chosen models
            Run facial_recognition_training.bat
         3. Test your model
-           Update facial_recognition_testing_image.bat to specify your chosen model
+           Update facial_recognition_testing_image.bat to specify your chosen models
            Run facial_recognition_testing_image.bat
 
 
-#### Folder structure:
+### Folder structure:
 
         libfaceid
         |
@@ -301,7 +301,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         \---templates
 
 
-#### Pre-requisites:
+### Pre-requisites:
 
         1. Add the dataset of images under the datasets directory
            The datasets folder should be in the same location as the test applications.
@@ -317,7 +317,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            Make sure the models used for training is the same for actual testing for better accuracy.
 
 
-#### Examples:
+### Examples:
 
         detector models:       0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET
         encoder models:        0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET
@@ -346,7 +346,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
 
 
-#### Training models with dataset of images:
+### Training models with dataset of images:
 
         from libfaceid.detector import FaceDetectorModels, FaceDetector
         from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
@@ -369,7 +369,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         synthesizer.synthesize_datasets(INPUT_DIR_DATASET)
 
 
-#### Face Recognition on images:
+### Face Recognition on images:
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
@@ -396,7 +396,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         cv2.destroyAllWindows()
 
 
-#### Real-Time Face Recognition (w/a webcam):
+### Real-Time Face Recognition (w/a webcam):
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
@@ -424,7 +424,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         cv2.destroyAllWindows()
 
 
-#### Voice-Enabled Real-Time Face Recognition (w/a webcam):
+### Voice-Enabled Real-Time Face Recognition (w/a webcam):
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
@@ -459,7 +459,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         cv2.destroyAllWindows()
 
 
-#### Real-Time Face Pose/Age/Gender/Emotion Estimation (w/a webcam):
+### Real-Time Face Pose/Age/Gender/Emotion Estimation (w/a webcam):
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
@@ -507,7 +507,7 @@ This is a convenience feature to authenticate with system using one's face inste
 When used for identity authentication, face recognition specifications will differ a lot from general face recognition systems like Facebook's automated tagging and Google's search engine; it will be more like Apple's Face ID in IPhone X. Below are guidelines for drafting specifications for your face recognition solution. Note that [Apple's Face ID technology](https://support.apple.com/en-us/HT208109) will be used as the primary baseline in this case study of identity authentication use case of face recognition. Refer to this [Apple's Face ID white paper](https://www.apple.com/business/site/docs/FaceID_Security_Guide.pdf) for more information.
 
 
-#### Face Enrollment
+### Face Enrollment
 
 - Should support dynamic enrollment of faces. Tied up with the maximum number of users the existing system supports.
 - Should ask user to move/rotate face (in a circular motion) in order to capture different angles of the face. This gives the system enough flexbility to recognize you at different face angles.
@@ -517,14 +517,14 @@ When used for identity authentication, face recognition specifications will diff
 Only the mathematical representations (128-dimensional vector) of the face should be used.
 
 
-#### Face Capture
+### Face Capture
 
 - Camera will be about 1 foot away from user (Apple Face ID: 10-20 inches).
 - Camera resolution will depend on display panel size and display resolutions. QVGA size is acceptable for embedded solutions. 
 - Take into consideration a bad lighting and extremely dark situation. Should camera have a good flash/LED to emit some light. Iphone X has an infrared light to better perform on dark settings.
 
 
-#### Face Detection
+### Face Detection
 
 - Only 1 face per frame is detected.
 - Face is expected to be within a certain location (inside a fixed box or circular region).
@@ -533,14 +533,14 @@ Only the mathematical representations (128-dimensional vector) of the face shoul
 - Should verify if face is alive via anti-spoofing techniques against picture-based attacks, video-based attacks and 3D mask attacks. Two popular example of liveness detection is counting of eye blinks and dectecting smile. 
 
 
-#### Face Encoding/Embedding
+### Face Encoding/Embedding
 
 - Speed is not a big factor. Face embedding and face identification can take 3-5 seconds.
 - Accuracy is critically important. False match rate should be low as much as possible. 
 - Can do multiple predictions and get the highest count. Or apply different models for predictions for double checking.
 
 
-#### Face Identification
+### Face Identification
 
 - Classification model should consider the maximum number of users to support. For example, SVM is known to be good for less than 100 classes/persons only.
 - Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
@@ -556,7 +556,7 @@ In addition to these guidelines, the face recognition solution should provide a 
 One of the use cases of face recognition is for greeting system used in smart homes, office and hotels.
 To enable voice capability feature, we use text-to-speech synthesis to dynamically create audio files given some input text. 
 
-#### Speech Synthesis
+### Speech Synthesis
 
 Speech synthesis is the artificial simulation of human speech by a computer device.
 It is mostly used for translating text into audio to make the system voice-enabled.
@@ -572,11 +572,11 @@ For example, upon detecting person arrival, it can be set to say 'Hello PersonX,
 Upon departure, it can be set to say 'Goodbye PersonX, see you again soon...'.
 It can be used in smart homes, office lobbies, luxury hotel rooms, and modern airports. 
 
-#### Face Enrollment
+### Face Enrollment
 
 - For each person who registers/enrolls to the system, create an audio file "PersonX.wav" for some input text such as "Hello PersonX".
   
-#### Face Identification
+### Face Identification
 
 - When a person is identified to be part of the database, we play the corresponding audio file "PersonX.wav". 
 
@@ -586,13 +586,13 @@ It can be used in smart homes, office lobbies, luxury hotel rooms, and modern ai
 
 Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Some models are optimized for speed while others are optimized for accuracy. Be sure to test all the provided models to determine the appropriate model for your specific use-case, target platform (CPU, GPU or embedded) and specific requirements. Below are additional suggestions to optimize performance.
 
-#### Speed
+### Speed
 - Reduce the frame size for face detection.
 - Perform face recognition every X frames only
 - Use threading in reading camera source frames or in processing the camera frames.
 - Update the library and configure the parameters directly.
 
-#### Accuracy
+### Accuracy
 - Add more datasets if possible (ex. do data augmentation). More images per person will often result to higher accuracy.
 - Add face alignment if faces in the datasets are not aligned or when faces may be unaligned in actual deployment.
 - Update the library and configure the parameters directly.
@@ -603,7 +603,7 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 
 Below are links to valuable resoures. Special thanks to all of these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
 
-#### Codes
+### Codes
 - [OpenCV tutorials by Adrian Rosebrock](https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/)
 - [Dlib by Davis King](https://github.com/davisking/dlib)
 - [Face Recognition (Dlib wrapper) by Adam Geitgey](https://github.com/ageitgey/face_recognition)
@@ -613,7 +613,7 @@ Below are links to valuable resoures. Special thanks to all of these guys for sh
 
 Google and Facebook have access to large database of pictures being the best search engine and social media platform, respectively. Below are the face recognition models they have designed for their own system. Be sure to take time to read these papers for better understanding of high-quality face recognition models. 
 
-#### Papers
+### Papers
 - [FaceNet paper by Google](https://arxiv.org/pdf/1503.03832.pdf)
 - [DeepFace paper by Facebook](https://research.fb.com/wp-content/uploads/2016/11/deepface-closing-the-gap-to-human-level-performance-in-face-verification.pdf)
 
