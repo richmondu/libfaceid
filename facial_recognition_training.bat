@@ -4,6 +4,6 @@
 :: synthesizer models:    0-TTSX3, 1-TACOTRON
 
 python facial_recognition_training.py -h
-::python facial_recognition_training.py --detector 0 --encoder 3 --classifier 1
-python facial_recognition_training.py --detector 0 --encoder 3 --classifier 1 --setsynthesizer True --synthesizer 0
+::python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
+python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0 --setsynthesizer True --synthesizer 0
 pause

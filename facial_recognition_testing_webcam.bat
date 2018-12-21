@@ -3,6 +3,6 @@
 :: camera resolution: 0-QVGA, 1-VGA, 2-HD, 3-FULLHD
 
 python facial_recognition_testing_webcam.py -h
-python facial_recognition_testing_webcam.py --detector 0 --encoder 3 --webcam 0 --resolution 0
+python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 0
 
 pause
