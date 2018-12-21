@@ -23,10 +23,6 @@
     Web app is supported for some test applications using Flask so you would be able to view the video capture remotely on another computer in the same network via a web browser. 
 </p>
 
-<p>
-    <b> Easy Integration.</b> Still working on it. Facial recognition is often only a small part of a big system. It must be lightweight and compatible with latest libraries that may also exist in the system. If anyone in the community can assist me make libfaceid part of Python PIP package, then that would be awesome. This will make libfaceid, and face recognition in general, to be widely available to the Python community, democratizing face recognition. If you have the know-how, or can refer me to someone, please let me know.
-</p>
-
 
 ![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid.jpg)
 ![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid2.jpg)
@@ -622,5 +618,4 @@ Google and Facebook have access to large database of pictures being the best sea
 # Contribute:
 
 Have a good idea for improving libfaceid? Please message me in [twitter](https://twitter.com/richmond_umagat).
-Found a bug? Please file an issue. 
-Has libfaceid helped you in your learning and prototyping of face recognition system? Please give this repository a 'Star'.
+If libfaceid has helped you in learning or prototyping face recognition system, please be kind enough to give this repository a 'Star'.
