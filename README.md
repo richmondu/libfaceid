@@ -197,6 +197,18 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            pypiwin32==223
 
 
+#### Quickstart (Dummy Guide):
+
+        1. Add your dataset
+           ex. datasets/person1/1.jpg, datasets/person2/1.jpg
+        2. Train your model with your dataset
+           Update facial_recognition_training.bat to specify your chosen model
+           Run facial_recognition_training.bat
+        3. Test your model
+           Update facial_recognition_testing_image.bat to specify your chosen model
+           Run facial_recognition_testing_image.bat
+
+
 #### Folder structure:
 
         libfaceid
@@ -222,7 +234,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         |   |   synthesizer.py
         |   |   __init__.py
         |   |   
-        |   +---tacotron
+        |   \---tacotron
         |           
         +---models
         |   +---detection
