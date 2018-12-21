@@ -35,7 +35,7 @@
 ![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid5.jpg)
 
 
-### News:
+# News:
 
 | Date | Milestones |
 | --- | --- |
@@ -44,7 +44,7 @@
 | 2018, Nov 30 | Committed libfaceid to Github |
 
 
-### Background:
+# Background:
 
 <p>
 With Apple incorporating face recognition technology in iPhone X last year, 2017 
@@ -68,7 +68,7 @@ which particulary applies to Computer Vision, from image classification to face 
 </p>
 
 
-### Introduction:
+# Introduction:
 
 <p>
     
@@ -84,7 +84,7 @@ More complex systems include features such as <b>Face Liveness Detection</b> (to
 </p>
 
 
-### Problem:
+# Problem:
 
 <p>
 libfaceid democratizes learning Face Recognition. Popular models such as FaceNet and OpenFace are not straightforward to use and don't provide easy-to-follow guidelines on how to install and setup. So far, dlib has been the best in terms of documentation and usage but it is slow on CPU and has too many abstractions (abstracts OpenCV as well). Simple models such as OpenCV is good but too basic and lacks documentation of the parameter settings, on classification algorithms and end-to-end pipeline. Pyimagesearch has been great having several tutorials with easy to understand explanations but not much emphasis on model comparisons and seems to aim to sell books so intentions to help the community are not so pure after all (I hate the fact that you need to wait for 2 marketing emails to arrive just to download the source code for the tutorials. But I love the fact that he replies to all questions in the threads). With all this said, I've learned a lot from all these resources so I'm sure you will learn a lot too. 
@@ -94,7 +94,7 @@ libfaceid was created to somehow address these problems and fill-in the gaps fro
 </p>
 
 
-### Design:
+# Design:
 
 <p>
 libfaceid is designed so that it is easy to use, modular and robust. Selection of model is done via the constructors while the expose function is simply detect() or estimate() making usage very easy. The files are organized into modules so it is very intuitive to understand and debug. The robust design allows supporting new models in the future to be very straightforward.
@@ -147,7 +147,7 @@ libfaceid library supports several models for each step of the Face Recognition 
 - Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
 
 
-### Compatibility:
+# Compatibility:
 
 <p>
 The library and example applications have been tested on Raspberry Pi 3B+ (Python 3.5.3) and Windows 7 (Python 3.6.6)
@@ -161,7 +161,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 </p>
 
 
-### Usage:
+# Usage:
 
 #### Installation:
 
@@ -499,7 +499,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 
 
 
-### Case Study - Face Recognition for Identity Authentication:
+# Case Study - Face Recognition for Identity Authentication:
 
 One of the use cases of face recognition is for security identity authentication.
 This is a convenience feature to authenticate with system using one's face instead of inputting passcode or scanning fingerprint. Passcode is often limited by the maximum number of digits allowed while fingerprint scanning often has problems with wet fingers or dry skin. Face authentication offers a more reliable and secure way to authenticate.
@@ -582,7 +582,7 @@ It can be used in smart homes, office lobbies, luxury hotel rooms, and modern ai
 
 
 
-### Performance Optimizations:
+# Performance Optimizations:
 
 Speed and accuracy is often a trade-off. Performance can be optimized depending on your specific use-case and system requirements. Some models are optimized for speed while others are optimized for accuracy. Be sure to test all the provided models to determine the appropriate model for your specific use-case, target platform (CPU, GPU or embedded) and specific requirements. Below are additional suggestions to optimize performance.
 
@@ -599,7 +599,7 @@ Speed and accuracy is often a trade-off. Performance can be optimized depending 
 
 
 
-### References:
+# References:
 
 Below are links to valuable resoures. Special thanks to all of these guys for sharing their work on Face Recognition. Without them, learning Face Recognition would be difficult.
 
@@ -619,7 +619,7 @@ Google and Facebook have access to large database of pictures being the best sea
 
 
 
-### Contribute:
+# Contribute:
 
 Have a good idea for improving libfaceid? Please message me in [twitter](https://twitter.com/richmond_umagat).
 Found a bug? Please file an issue. 
