@@ -308,10 +308,10 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            Having more images per person makes accuracy much better.
            If only 1 image is possible, then do data augmentation.
              Example:
-             datasets/rico - contain .jpeg images of person name rico
-             datasets/coni - contain .jpeg images of person named coni 
+             datasets/Person1 - contain images of person name Person1
+             datasets/Person2 - contain images of person named Person2 
              ...
-             datasets/xyz - contain .jpeg images of person named xyz 
+             datasets/PersonX - contain images of person named PersonX 
         2. Train the model using the datasets. 
            Can use facial_recognition_training.py
            Make sure the models used for training is the same for actual testing for better accuracy.
