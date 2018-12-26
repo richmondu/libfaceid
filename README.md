@@ -495,7 +495,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         speech_synthesizer = SpeechSynthesizer(model=SpeechSynthesizerModels.DEFAULT, path=None, path_output=None, training=False)
         speech_recognizer  = SpeechRecognizer(model=SpeechRecognizerModels.DEFAULT, path=None)
 
-        // Wait for trigger word before starting face recognition
+        // Wait for trigger word/wake word/hot word before starting face recognition
         TRIGGER_WORDS = ["Hey Google", "Alexa", "Activate", "Open Sesame"]
         print("\nWaiting for a trigger word: {}".format(TRIGGER_WORDS))
         speech_recognizer.start(TRIGGER_WORDS, speech_recognizer_callback)
