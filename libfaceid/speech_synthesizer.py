@@ -8,21 +8,21 @@ import os
 INPUT_TACOTRON_MODEL = "tacotron-20180906/model.ckpt"
 
 
-class TextToSpeechSynthesizerModels(Enum):
+class SpeechSynthesizerModels(Enum):
 
     TTSX3               = 0
     TACOTRON            = 1
     DEFAULT = TTSX3
 
 
-class TextToSpeechSynthesizer:
+class SpeechSynthesizer:
 
-    def __init__(self, model=TextToSpeechSynthesizerModels.DEFAULT, path=None, path_output=None, training=True):
+    def __init__(self, model=SpeechSynthesizerModels.DEFAULT, path=None, path_output=None, training=True):
         self._base = None
-        if model == TextToSpeechSynthesizerModels.TTSX3:
-            self._base = TextToSpeechSynthesizer_TTSX3(path, path_output, training)
-        elif model == TextToSpeechSynthesizerModels.TACOTRON:
-            self._base = TextToSpeechSynthesizer_TACOTRON(path, path_output, training)
+        if model == SpeechSynthesizerModels.TTSX3:
+            self._base = SpeechSynthesizer_TTSX3(path, path_output, training)
+        elif model == SpeechSynthesizerModels.TACOTRON:
+            self._base = SpeechSynthesizer_TACOTRON(path, path_output, training)
         print("Synthesizer loaded!")
 
     def synthesize(self, text, outputfile):
@@ -42,10 +42,13 @@ class TextToSpeechSynthesizer:
             break
 
     def playaudio(self, path, name, block=True):
-        self._base.playaudio(path, name, block=True)
+        try:
+            self._base.playaudio(path, name, block)
+        except:
+            pass
 
 
-class TextToSpeechSynthesizer_TTSX3:
+class SpeechSynthesizer_TTSX3:
 
     def __init__(self, path, path_output, training):
         self._training = training
@@ -58,14 +61,24 @@ class TextToSpeechSynthesizer_TTSX3:
         pass
 
     def playaudio(self, path, name, block):
-        #print("TextToSpeechSynthesizer_TTSX3")
+        #print("SpeechSynthesizer_TTSX3")
         if not self._training:
             text = "Hello " + name
-            self._synthesizer.say(text)
-            self._synthesizer.runAndWait()
+            if block:
+                self._synthesizer.say(text)
+                self._synthesizer.runAndWait()
+            else:
+                from threading import Thread # lazy loading
+                self._thread = Thread(target=self.thread_play, kwargs=dict(text=text))
+                self._thread.setDaemon(True)
+                self._thread.start()
+
+    def thread_play(self, text="None"):
+        self._synthesizer.say(text)
+        self._synthesizer.runAndWait()
 
 
-class TextToSpeechSynthesizer_TACOTRON:
+class SpeechSynthesizer_TACOTRON:
 
     def __init__(self, path, path_output, training):
         self._training = training
@@ -81,11 +94,8 @@ class TextToSpeechSynthesizer_TACOTRON:
                 file.write(self._synthesizer.synthesize(text))
 
     def playaudio(self, path, name, block):
-        #print("TextToSpeechSynthesizer_TACOTRON")
+        #print("SpeechSynthesizer_TACOTRON")
         from playsound import playsound # lazy loading
-        try:
-            filename = path + "/" + name + ".wav"
-            playsound(filename, block)
-        except:
-            pass
+        filename = path + "/" + name + ".wav"
+        playsound(filename, block)
 
