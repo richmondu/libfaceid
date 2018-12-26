@@ -21,7 +21,7 @@
     <b> Have Some Fun.</b> The library contains models for predicting your age, gender, emotion and facial landmarks.
     It also contains text-to-speech synthesizer and speech recognition for voice-enabled and voice-activated capability.
     Voice-enabled feature allows system to speak your name after recognizing your face.
-    Voice-activated feature allows system to listen for a specified word or phrase to trigger the system to do something.
+    Voice-activated feature allows system to listen for a specified word or phrase to trigger the system to do something (wake-word/trigger-word/hotword detection).
     Web app is also supported for some test applications using Flask so you would be able to view the video capture remotely on another computer in the same network via a web browser. 
 </p>
 
@@ -37,7 +37,7 @@
 
 | Date | Milestones |
 | --- | --- |
-| 2018, Dec 26 | Integrated Google Cloud's speech recognizer for voice-activated capability (wake-word/trigger-word/hot-word detection) |
+| 2018, Dec 26 | Integrated Google Cloud's speech recognizer for voice-activated capability |
 | 2018, Dec 19 | Integrated Google's [Tacotron](https://github.com/keithito/tacotron) text-to-speech synthesizer for voice-enabled capability |
 | 2018, Dec 13 | Integrated Google's [FaceNet](https://github.com/davidsandberg/facenet) face embedding (implementation by David Sandberg) |
 | 2018, Nov 30 | Committed libfaceid to Github |
