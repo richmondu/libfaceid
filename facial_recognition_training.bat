@@ -5,5 +5,5 @@
 
 python facial_recognition_training.py -h
 ::python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
-python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0 --setsynthesizer True --synthesizer 0
+python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0 --set_speech_synthesizer True --speech_synthesizer 0
 pause

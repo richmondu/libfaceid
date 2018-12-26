@@ -29,14 +29,14 @@ def train_recognition(model_detector, model_encoder, model_classifier, verify):
     face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=model_classifier)
 
 # generate audio samples for image datasets using text to speech synthesizer
-def train_audiosets(model_synthesizer):
+def train_audiosets(model_speech_synthesizer):
 
     ensure_directory(OUTPUT_DIR_AUDIOSET)
-    from libfaceid.synthesizer import TextToSpeechSynthesizer # lazy loading
-    synthesizer = TextToSpeechSynthesizer(model=model_synthesizer, path=INPUT_DIR_MODEL_SYNTHESIS, path_output=OUTPUT_DIR_AUDIOSET)
-    synthesizer.synthesize_datasets(INPUT_DIR_DATASET)
-    #synthesizer.synthesize_name("libfaceid")
-    #synthesizer.synthesize("Hello World", "World.wav")
+    from libfaceid.speech_synthesizer import SpeechSynthesizer # lazy loading
+    speech_synthesizer = SpeechSynthesizer(model=model_speech_synthesizer, path=INPUT_DIR_MODEL_SYNTHESIS, path_output=OUTPUT_DIR_AUDIOSET)
+    speech_synthesizer.synthesize_datasets(INPUT_DIR_DATASET)
+    #speech_synthesizer.synthesize_name("libfaceid")
+    #speech_synthesizer.synthesize("Hello World", "World.wav")
 
 
 def run():
@@ -66,9 +66,9 @@ def run():
 
     # generate audio samples for image datasets using text to speech synthesizer
     if False: # Set true to enable generation of audio for each person in datasets folder 
-        from libfaceid.synthesizer import TextToSpeechSynthesizerModels # lazy loading
-        synthesizer = TextToSpeechSynthesizerModels.DEFAULT
-        train_audiosets(synthesizer)
+        from libfaceid.speech_synthesizer import SpeechSynthesizerModels # lazy loading
+        speech_synthesizer = SpeechSynthesizerModels.DEFAULT
+        train_audiosets(speech_synthesizer)
         print( "Audio samples created!" )
 
 
@@ -84,12 +84,12 @@ def main(args):
             print( "Training completed!" )
 
             # generate audio samples for image datasets using text to speech synthesizer
-            if args.setsynthesizer:
+            if args.set_speech_synthesizer:
                 print( "" )
-                from libfaceid.synthesizer import TextToSpeechSynthesizerModels # lazy loading
-                synthesizer= TextToSpeechSynthesizerModels(int(args.synthesizer))
-                print( "Parameters: {}".format(synthesizer) )
-                train_audiosets(synthesizer)
+                from libfaceid.speech_synthesizer import SpeechSynthesizerModels # lazy loading
+                speech_synthesizer= SpeechSynthesizerModels(int(args.speech_synthesizer))
+                print( "Parameters: {}".format(speech_synthesizer) )
+                train_audiosets(speech_synthesizer)
                 print( "Audio samples created!" )
         except:
             print( "Invalid parameter" )
@@ -105,10 +105,10 @@ def parse_arguments(argv):
         help='Encoder model to use. Options: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET')
     parser.add_argument('--classifier', required=False, default=0,
         help='Classifier algorithm to use. Options: 0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA.')
-    parser.add_argument('--setsynthesizer', required=False, default=False,
+    parser.add_argument('--set_speech_synthesizer', required=False, default=False,
         help='Use text to speech synthesizier.')
-    parser.add_argument('--synthesizer', required=False, default=0,
-        help='Synthesizier algorithm to use. Options: 0-TTSX3, 1-TACOTRON')
+    parser.add_argument('--speech_synthesizer', required=False, default=0,
+        help='Speech synthesizier algorithm to use. Options: 0-TTSX3, 1-TACOTRON')
     return parser.parse_args(argv)
 
 

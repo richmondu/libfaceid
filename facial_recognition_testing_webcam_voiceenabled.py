@@ -1,9 +1,9 @@
 import sys
 import argparse
 import cv2
-from libfaceid.detector    import FaceDetectorModels, FaceDetector
-from libfaceid.encoder     import FaceEncoderModels, FaceEncoder
-from libfaceid.synthesizer import TextToSpeechSynthesizerModels, TextToSpeechSynthesizer
+from libfaceid.detector import FaceDetectorModels, FaceDetector
+from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
+from libfaceid.speech_synthesizer import SpeechSynthesizerModels, SpeechSynthesizer
 
 
 
@@ -47,7 +47,7 @@ def label_face(frame, face_rect, face_id, confidence):
             (x+5,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
 
-def process_facerecognition(model_detector, model_recognizer, model_synthesizer, cam_index, cam_resolution):
+def process_facerecognition(model_detector, model_recognizer, model_speech_synthesizer, cam_index, cam_resolution):
 
     # Initialize the camera
     camera = cam_init(cam_index, cam_resolution[0], cam_resolution[1])
@@ -60,7 +60,7 @@ def process_facerecognition(model_detector, model_recognizer, model_synthesizer,
         face_encoder = FaceEncoder(model=model_recognizer, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
 
         # Initialize text-to-speech synthesizer
-        tts_synthesizer = TextToSpeechSynthesizer(model=model_synthesizer, path=None, path_output=None, training=False)
+        speech_synthesizer = SpeechSynthesizer(model=model_speech_synthesizer, path=None, path_output=None, training=False)
     except:
         face_encoder = None
         print("Warning, check if models and trained dataset models exists!")
@@ -90,7 +90,7 @@ def process_facerecognition(model_detector, model_recognizer, model_synthesizer,
             # Play audio file corresponding to the recognized name 
             if (frame_count % 30 == 0):
                 if len(faces) == 1 and (face_id is not None) and (face_id != "Unknown"):
-                    tts_synthesizer.playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
+                    speech_synthesizer.playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
 
 
         # Display updated frame
@@ -120,10 +120,10 @@ def run(cam_index, cam_resolution):
 #    encoder=FaceEncoderModels.DLIBRESNET
 #    encoder=FaceEncoderModels.FACENET
 
-    synthesizer=TextToSpeechSynthesizerModels.TTSX3
-#    synthesizer=TextToSpeechSynthesizerModels.TACOTRON
+    speech_synthesizer=SpeechSynthesizerModels.TTSX3
+#    speech_synthesizer=SpeechSynthesizerModels.TACOTRON
 
-    process_facerecognition(detector, encoder, synthesizer, cam_index, cam_resolution)
+    process_facerecognition(detector, encoder, speech_synthesizer, cam_index, cam_resolution)
 
 
 def main(args):
@@ -138,13 +138,13 @@ def main(args):
     except:
         cam_resolution = RESOLUTION_QVGA
 
-    if args.detector and args.encoder and args.synthesizer:
+    if args.detector and args.encoder and args.speech_synthesizer:
         try:
             detector = FaceDetectorModels(int(args.detector))
             encoder = FaceEncoderModels(int(args.encoder))
-            synthesizer = TextToSpeechSynthesizerModels(int(args.synthesizer))
-            print( "Parameters: {} {} {}".format(detector, encoder, synthesizer) )
-            process_facerecognition(detector, encoder, synthesizer, cam_index, cam_resolution)
+            speech_synthesizer = SpeechSynthesizerModels(int(args.speech_synthesizer))
+            print( "Parameters: {} {} {}".format(detector, encoder, speech_synthesizer) )
+            process_facerecognition(detector, encoder, speech_synthesizer, cam_index, cam_resolution)
         except:
             print( "Invalid parameter" )
         return
@@ -157,8 +157,8 @@ def parse_arguments(argv):
         help='Detector model to use. Options: 0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET')
     parser.add_argument('--encoder', required=False, default=0, 
         help='Encoder model to use. Options: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET')
-    parser.add_argument('--synthesizer', required=False, default=0, 
-        help='Synthesizer model to use. Options: 0-TTSX3, 1-TACOTRON')
+    parser.add_argument('--speech_synthesizer', required=False, default=0, 
+        help='Speech synthesizer model to use. Options: 0-TTSX3, 1-TACOTRON')
     parser.add_argument('--webcam', required=False, default=0, 
         help='Camera index to use. Default is 0. Assume only 1 camera connected.)')
     parser.add_argument('--resolution', required=False, default=0,

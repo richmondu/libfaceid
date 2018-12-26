@@ -216,7 +216,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         |   facial_recognition_testing_webcam_voiceenabled.py
         |   facial_recognition_training.py
         |   requirements.txt
-        |   requirements_with_synthesizer.txt
+        |   requirements_with_speechsynthesizer.txt
         |   
         +---libfaceid
         |   |   age.py
@@ -227,7 +227,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         |   |   gender.py
         |   |   liveness.py
         |   |   pose.py
-        |   |   synthesizer.py
+        |   |   speech_synthesizer.py
         |   |   __init__.py
         |   |   
         |   \---tacotron
@@ -315,12 +315,12 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 
 ### Examples:
 
-        detector models:       0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET
-        encoder models:        0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET
-        classifier algorithms: 0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
-                               5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
-        camera resolution:     0-QVGA, 1-VGA, 2-HD, 3-FULLHD
-        synthesizer models:    0-TACOTRON
+        detector models:           0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET
+        encoder models:            0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET
+        classifier algorithms:     0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
+                                   5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
+        camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
+        speech synthesizer models: 0-TTSX3, 1-TACOTRON
 
         1. facial_recognition_training.py
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
@@ -335,9 +335,12 @@ Also note that opencv-python and opencv-contrib-python must always have the same
             Usage: python facial_recognition_testing_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
 
-        5. facial_estimation_poseagegenderemotion_webcam.py
+        5. facial_recognition_testing_webcam_voiceenabled.py
+            Usage: python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 --resolution 0
+
+        6. facial_estimation_poseagegenderemotion_webcam.py
             Usage: python facial_estimation_poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
-        6. facial_estimation_poseagegenderemotion_webcam_flask.py
+        7. facial_estimation_poseagegenderemotion_webcam_flask.py
             Usage: python facial_estimation_poseagegenderemotion_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
 
@@ -360,9 +363,9 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         // generate audio samples for image datasets using text to speech synthesizer
         OUTPUT_DIR_AUDIOSET       = "audiosets/"
         INPUT_DIR_MODEL_SYNTHESIS = "models/synthesis/"
-        from libfaceid.synthesizer import TextToSpeechSynthesizerModels, TextToSpeechSynthesizer
-        synthesizer = TextToSpeechSynthesizer(model=TextToSpeechSynthesizerModels.DEFAULT, path=INPUT_DIR_MODEL_SYNTHESIS, path_output=OUTPUT_DIR_AUDIOSET)
-        synthesizer.synthesize_datasets(INPUT_DIR_DATASET)
+        from libfaceid.speech_synthesizer import SpeechSynthesizerModels, SpeechSynthesizer
+        speech_synthesizer = SpeechSynthesizer(model=SpeechSynthesizerModels.DEFAULT, path=INPUT_DIR_MODEL_SYNTHESIS, path_output=OUTPUT_DIR_AUDIOSET)
+        speech_synthesizer.synthesize_datasets(INPUT_DIR_DATASET)
 
 
 ### Face Recognition on images:
@@ -425,7 +428,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
         from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
-        from libfaceid.synthesizer import TextToSpeechSynthesizerModels, TextToSpeechSynthesizer
+        from libfaceid.speech_synthesizer import SpeechSynthesizerModels, SpeechSynthesizer
 
         INPUT_DIR_MODEL_DETECTION = "models/detection/"
         INPUT_DIR_MODEL_ENCODING  = "models/encoding/"
@@ -435,7 +438,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         camera = cv2.VideoCapture(webcam_index)
         face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
         face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
-        tts_synthesizer = TextToSpeechSynthesizer(model=model_synthesizer, path=None, path_output=None, training=False)
+        speech_synthesizer = SpeechSynthesizer(model=SpeechSynthesizerModels.DEFAULT, path=None, path_output=None, training=False)
 
         frame_count = 0
         while True:
@@ -446,7 +449,8 @@ Also note that opencv-python and opencv-contrib-python must always have the same
                 face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
                 label_face(frame, (x, y, w, h), face_id, confidence)
                 if (frame_count % 120 == 0):
-                    tts_synthesizer.playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
+                    # speak the person's name
+                    speech_synthesizer.playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
             cv2.imshow(window_name, frame)
             cv2.waitKey(1)
             frame_count += 1
