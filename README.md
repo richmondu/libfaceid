@@ -617,7 +617,7 @@ In addition to these guidelines, the face recognition solution should provide a 
 
 
 
-### Case Study - Face Recognition for Home/Office/Hotel Greeting System:
+# Case Study - Face Recognition for Home/Office/Hotel Greeting System:
 
 One of the use cases of face recognition is for greeting system used in smart homes, office and hotels.
 To enable voice capability feature, we use text-to-speech synthesis to dynamically create audio files given some input text. 
