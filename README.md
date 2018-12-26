@@ -145,7 +145,9 @@ libfaceid library supports several models for each step of the Face Recognition 
     - [Tacotron](https://github.com/keithito/tacotron)
     - [gTTS](https://pypi.org/project/gTTS/)
 - Speech recognition models for voice-activated capability
-    - [speech_recognition](https://pypi.org/project/SpeechRecognition/)
+    - [GoogleCloud](https://pypi.org/project/SpeechRecognition/)
+    - [Wit.ai](https://wit.ai/)
+    - [Houndify](https://www.houndify.com/)
 
 
 # Compatibility:
@@ -330,7 +332,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
                                    5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
         camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
         speech synthesizer models: 0-TTSX3, 1-TACOTRON, 2-GOOGLECLOUD
-        speech recognition models: 0-GOOGLECLOUD
+        speech recognition models: 0-GOOGLECLOUD, 1-WITAI, 2-HOUNDIFY
 
         1. facial_recognition_training.py
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
