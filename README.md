@@ -19,7 +19,7 @@
 </p> 
 <p>
     <b> Extra Cool Features.</b> The library contains models for predicting your age, gender, emotion and facial landmarks.
-    It also contains text-to-speech synthesizer and speech recognition models for voice-enabled and voice-activated capability.
+    It also contains TTS text-to-speech (speech synthesizer) and STT speech-to-text (speech recognition) models for voice-enabled and voice-activated capabilities.
     Voice-enabled feature allows system to speak your name after recognizing your face.
     Voice-activated feature allows system to listen for a specified word or phrase to trigger the system to do something (wake-word/trigger-word/hotword detection).
     Web app is also supported for some test applications using Flask so you would be able to view the video capture remotely on another computer in the same network via a web browser. 
