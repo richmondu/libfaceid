@@ -1,11 +1,7 @@
 __pycache__
-models/training/*.*
-models/others/facenet-master_recognition
-models/others/tensorflow_mobilenetssd_detection
-models/others/vggface_recognition
-models/others/*.zip
+models/training/*
+models/others/*
 datasets/*
-greetingsystem/*
 audiosets/*
 *.avi
 models/encoding/facenet_20180402-114759/*

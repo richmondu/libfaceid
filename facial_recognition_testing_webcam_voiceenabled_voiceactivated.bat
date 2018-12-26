@@ -5,6 +5,6 @@
 :: camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
 
 python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py -h
-python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 2 --speech_recognizer 0 --webcam 0 --resolution 0
+python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognizer 0 --webcam 0 --resolution 0
 
 pause
