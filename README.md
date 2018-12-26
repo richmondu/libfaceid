@@ -336,7 +336,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 
         1. facial_recognition_training.py
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
-            Usage: python facial_recognition_training.py --detector 0 --encoder 3 --classifier 1 --setsynthesizer True --synthesizer 0
+            Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0 --setsynthesizer True --synthesizer 0
 
         2. facial_recognition_testing_image.py
             Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
