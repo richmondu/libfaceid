@@ -148,6 +148,9 @@ libfaceid library supports several models for each step of the Face Recognition 
     - [GoogleCloud](https://pypi.org/project/SpeechRecognition/)
     - [Wit.ai](https://wit.ai/)
     - [Houndify](https://www.houndify.com/)
+    - PocketSphinx - TODO
+    - Snoyboy - TODO
+    - Precise - TODO
 
 
 # Compatibility:
