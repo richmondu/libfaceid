@@ -37,8 +37,8 @@
 
 | Date | Milestones |
 | --- | --- |
-| 2018, Dec 26 | Integrated Google Cloud's speech recognizer for voice-activated capability |
-| 2018, Dec 19 | Integrated Google's [Tacotron](https://github.com/keithito/tacotron) text-to-speech synthesizer for voice-enabled capability |
+| 2018, Dec 26 | Integrated Google Cloud's STT speech-to-text (speech recognition) for voice-activated capability |
+| 2018, Dec 19 | Integrated Google's [Tacotron](https://github.com/keithito/tacotron) TTS text-to-speech (speech synthesis) for voice-enabled capability |
 | 2018, Dec 13 | Integrated Google's [FaceNet](https://github.com/davidsandberg/facenet) face embedding (implementation by David Sandberg) |
 | 2018, Nov 30 | Committed libfaceid to Github |
 
