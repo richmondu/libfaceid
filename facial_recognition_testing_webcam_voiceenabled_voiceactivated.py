@@ -150,6 +150,8 @@ def run(cam_index, cam_resolution):
 #    speech_synthesizer=SpeechSynthesizerModels.GOOGLECLOUD
 
     speech_recognizer=SpeechRecognizerModels.GOOGLECLOUD
+#    speech_recognizer=SpeechRecognizerModels.WITAI
+#    speech_recognizer=SpeechRecognizerModels.HOUNDIFY
 
     process_facerecognition(detector, encoder, speech_synthesizer, speech_recognizer, cam_index, cam_resolution)
 
@@ -189,7 +191,7 @@ def parse_arguments(argv):
     parser.add_argument('--speech_synthesizer', required=False, default=0, 
         help='Speech synthesizer model to use. Options: 0-TTSX3, 1-TACOTRON, 2-GOOGLECLOUD')
     parser.add_argument('--speech_recognizer', required=False, default=0, 
-        help='Speech recognizer model to use. Options: 0-GOOGLECLOUD')
+        help='Speech recognizer model to use. Options: 0-GOOGLECLOUD, 1-WITAI, 2-HOUNDIFY')
     parser.add_argument('--webcam', required=False, default=0, 
         help='Camera index to use. Default is 0. Assume only 1 camera connected.)')
     parser.add_argument('--resolution', required=False, default=0,
