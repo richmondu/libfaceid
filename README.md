@@ -320,7 +320,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         classifier algorithms:     0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
                                    5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
         camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
-        speech synthesizer models: 0-TTSX3, 1-TACOTRON
+        speech synthesizer models: 0-TTSX3, 1-TACOTRON, 2-GOOGLECLOUD
 
         1. facial_recognition_training.py
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0

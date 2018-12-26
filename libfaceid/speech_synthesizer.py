@@ -10,8 +10,9 @@ INPUT_TACOTRON_MODEL = "tacotron-20180906/model.ckpt"
 
 class SpeechSynthesizerModels(Enum):
 
-    TTSX3               = 0
-    TACOTRON            = 1
+    TTSX3               = 0 # real-time, no .wav file generated
+    TACOTRON            = 1 # generates .wav file during training
+    GOOGLECLOUD         = 2 # generates .wav file during training, requires internet online
     DEFAULT = TTSX3
 
 
@@ -23,6 +24,8 @@ class SpeechSynthesizer:
             self._base = SpeechSynthesizer_TTSX3(path, path_output, training)
         elif model == SpeechSynthesizerModels.TACOTRON:
             self._base = SpeechSynthesizer_TACOTRON(path, path_output, training)
+        elif model == SpeechSynthesizerModels.GOOGLECLOUD:
+            self._base = SpeechSynthesizer_GOOGLECLOUD(path, path_output, training)
         print("Synthesizer loaded!")
 
     def synthesize(self, text, outputfile):
@@ -31,7 +34,7 @@ class SpeechSynthesizer:
 
     def synthesize_name(self, name):
         text = "Hello " + name
-        outputfile = name + ".wav"
+        outputfile = name
         self.synthesize(text, outputfile)
 
     def synthesize_datasets(self, path_datasets):
@@ -45,6 +48,7 @@ class SpeechSynthesizer:
         try:
             self._base.playaudio(path, name, block)
         except:
+            print("EXCEPTION")
             pass
 
 
@@ -69,6 +73,7 @@ class SpeechSynthesizer_TTSX3:
                 self._synthesizer.runAndWait()
             else:
                 from threading import Thread # lazy loading
+                self._thread =  None
                 self._thread = Thread(target=self.thread_play, kwargs=dict(text=text))
                 self._thread.setDaemon(True)
                 self._thread.start()
@@ -76,9 +81,14 @@ class SpeechSynthesizer_TTSX3:
     def thread_play(self, text="None"):
         self._synthesizer.say(text)
         self._synthesizer.runAndWait()
+        self._thread = None
+        import time
+        time.sleep(1)
 
 
 class SpeechSynthesizer_TACOTRON:
+
+    _file_extension = ".wav"
 
     def __init__(self, path, path_output, training):
         self._training = training
@@ -90,12 +100,34 @@ class SpeechSynthesizer_TACOTRON:
 
     def synthesize(self, text, outputfile):
         if self._training:
-            with open(self._path_output + outputfile, 'wb') as file:
+            with open(self._path_output + outputfile + self._file_extension, 'wb') as file:
                 file.write(self._synthesizer.synthesize(text))
 
     def playaudio(self, path, name, block):
-        #print("SpeechSynthesizer_TACOTRON")
+        print("SpeechSynthesizer_TACOTRON")
         from playsound import playsound # lazy loading
-        filename = path + "/" + name + ".wav"
+        filename = os.path.abspath(path + "/" + name + self._file_extension)
+        print(filename)
+        playsound(filename, block)
+
+
+class SpeechSynthesizer_GOOGLECLOUD:
+
+    _file_extension = ".mp3"
+
+    def __init__(self, path, path_output, training):
+        self._training = training
+        self._path_output = path_output
+
+    def synthesize(self, text, outputfile):
+        if self._training:
+            from gtts import gTTS # lazy loading
+            tts = gTTS(text)
+            tts.save(self._path_output + outputfile + self._file_extension)
+
+    def playaudio(self, path, name, block):
+        print("SpeechSynthesizer_GOOGLECLOUD")
+        from playsound import playsound # lazy loading
+        filename = path + "/" + name + self._file_extension
         playsound(filename, block)
 

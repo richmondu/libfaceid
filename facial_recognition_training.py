@@ -67,7 +67,9 @@ def run():
     # generate audio samples for image datasets using text to speech synthesizer
     if False: # Set true to enable generation of audio for each person in datasets folder 
         from libfaceid.speech_synthesizer import SpeechSynthesizerModels # lazy loading
-        speech_synthesizer = SpeechSynthesizerModels.DEFAULT
+        speech_synthesizer = SpeechSynthesizerModels.TTSX3
+        #speech_synthesizer = SpeechSynthesizerModels.TACOTRON
+        #speech_synthesizer = SpeechSynthesizerModels.GOOGLECLOUD
         train_audiosets(speech_synthesizer)
         print( "Audio samples created!" )
 
@@ -108,7 +110,7 @@ def parse_arguments(argv):
     parser.add_argument('--set_speech_synthesizer', required=False, default=False,
         help='Use text to speech synthesizier.')
     parser.add_argument('--speech_synthesizer', required=False, default=0,
-        help='Speech synthesizier algorithm to use. Options: 0-TTSX3, 1-TACOTRON')
+        help='Speech synthesizier algorithm to use. Options: 0-TTSX3, 1-TACOTRON, 2-GOOGLECLOUD')
     return parser.parse_args(argv)
 
 
