@@ -12,7 +12,7 @@ class SpeechSynthesizerModels(Enum):
 
     TTSX3               = 0 # real-time, no .wav file generated
     TACOTRON            = 1 # generates .wav file during training
-    GOOGLECLOUD         = 2 # generates .wav file during training, requires internet online
+    GOOGLECLOUD         = 2 # generates .mp3 file during training, requires internet access
     DEFAULT = TTSX3
 
 
@@ -26,11 +26,11 @@ class SpeechSynthesizer:
             self._base = SpeechSynthesizer_TACOTRON(path, path_output, training)
         elif model == SpeechSynthesizerModels.GOOGLECLOUD:
             self._base = SpeechSynthesizer_GOOGLECLOUD(path, path_output, training)
-        print("Synthesizer loaded!")
+        #print("Synthesizer loaded!")
 
     def synthesize(self, text, outputfile):
         self._base.synthesize(text, outputfile)
-        print("Synthesized text={} output={}".format(text, outputfile))
+        #print("Synthesized text={} output={}".format(text, outputfile))
 
     def synthesize_name(self, name):
         text = "Hello " + name
@@ -48,7 +48,7 @@ class SpeechSynthesizer:
         try:
             self._base.playaudio(path, name, block)
         except:
-            print("EXCEPTION")
+            print("SpeechSynthesizer playaudio EXCEPTION")
             pass
 
 
@@ -104,10 +104,9 @@ class SpeechSynthesizer_TACOTRON:
                 file.write(self._synthesizer.synthesize(text))
 
     def playaudio(self, path, name, block):
-        print("SpeechSynthesizer_TACOTRON")
+        #print("SpeechSynthesizer_TACOTRON")
         from playsound import playsound # lazy loading
         filename = os.path.abspath(path + "/" + name + self._file_extension)
-        print(filename)
         playsound(filename, block)
 
 
@@ -126,8 +125,8 @@ class SpeechSynthesizer_GOOGLECLOUD:
             tts.save(self._path_output + outputfile + self._file_extension)
 
     def playaudio(self, path, name, block):
-        print("SpeechSynthesizer_GOOGLECLOUD")
+        #print("SpeechSynthesizer_GOOGLECLOUD")
         from playsound import playsound # lazy loading
-        filename = path + "/" + name + self._file_extension
+        filename = os.path.abspath(path + "/" + name + self._file_extension)
         playsound(filename, block)
 
