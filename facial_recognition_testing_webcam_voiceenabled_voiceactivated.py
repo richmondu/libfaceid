@@ -71,10 +71,10 @@ def process_facerecognition(model_detector, model_recognizer, model_speech_synth
         # Initialize face recognizer
         face_encoder = FaceEncoder(model=model_recognizer, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
 
-        # Initialize text-to-speech synthesizer
+        # Initialize text-to-speech (speech synthesizer) for voice-enabled capability
         speech_synthesizer = SpeechSynthesizer(model=model_speech_synthesizer, path=None, path_output=None, training=False)
 
-        # Initialize speech recognizer for wakeword detection
+        # Initialize speech-to-text (speech recognizer) for voice-activated capability (wake-word/hot-word/trigger-word detection)
         speech_recognizer = SpeechRecognizer(model=model_speech_recognizer, path=None)
     except:
         face_encoder = None
