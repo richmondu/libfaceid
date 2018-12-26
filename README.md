@@ -1,7 +1,7 @@
 # libfaceid, a Face Recognition library for everybody
 
 <p>
-    <b> FaceRecognition Made Easy.</b> libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models.
+    <b> FaceRecognition Made Easy.</b> libfaceid is a Python library for facial recognition that seamlessly integrates multiple face detection and face recognition models. 
 </p>
 <p>
     <b> From Zero to Hero.</b> Learn the basics of Face Recognition and experiment with different models.
@@ -18,8 +18,8 @@
     The robust design allows supporting new models in the future to be very straightforward.
 </p> 
 <p>
-    <b> Have Some Fun.</b> The library contains models for predicting your age, gender, emotion and facial landmarks.
-    It also contains text-to-speech synthesizer and speech recognition for voice-enabled and voice-activated capability.
+    <b> Extra Cool Features.</b> The library contains models for predicting your age, gender, emotion and facial landmarks.
+    It also contains text-to-speech synthesizer and speech recognition models for voice-enabled and voice-activated capability.
     Voice-enabled feature allows system to speak your name after recognizing your face.
     Voice-activated feature allows system to listen for a specified word or phrase to trigger the system to do something (wake-word/trigger-word/hotword detection).
     Web app is also supported for some test applications using Flask so you would be able to view the video capture remotely on another computer in the same network via a web browser. 
