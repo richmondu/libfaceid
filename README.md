@@ -140,11 +140,11 @@ libfaceid library supports several models for each step of the Face Recognition 
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
 - Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
-- Text-To-Speech (Speech Synthesis) models for voice-enabled capability
+- TTS Text-To-Speech <b>(speech synthesis)</b> models for voice-enabled capability
     - [PyTTSX3](https://pypi.org/project/pyttsx3/)
     - [Tacotron](https://github.com/keithito/tacotron)
     - [gTTS](https://pypi.org/project/gTTS/)
-- Speech-To-Text (Speech Recognition) models for voice-activated capability
+- STT Speech-To-Text <b>(speech recognition)</b> models for voice-activated capability
     - [GoogleCloud](https://pypi.org/project/SpeechRecognition/)
     - [Wit.ai](https://wit.ai/)
     - [Houndify](https://www.houndify.com/)
