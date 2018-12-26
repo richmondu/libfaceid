@@ -11,9 +11,14 @@ keras==2.0.8
 h5py==2.8.0
 facenet==1.0.3
 flask==1.0.2
+
 playsound==1.2.2
 inflect==0.2.5
 librosa==0.5.1
 unidecode==0.4.20
 pyttsx3==2.7
 pypiwin32==223
+gtts==2.0.3
+
+speech_recognition==3.8.1
+
