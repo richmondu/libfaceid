@@ -136,10 +136,6 @@ libfaceid library supports several models for each step of the Face Recognition 
 - QDA
 
 ### Additional models (bonus features for PR): 
-- Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
-- Face Age estimator models for predicting age <b>(age detection)</b>
-- Face Gender estimator models for predicting gender <b>(gender detection)</b>
-- Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
 - TTS Text-To-Speech <b>(speech synthesis)</b> models for voice-enabled capability
     - [PyTTSX3](https://pypi.org/project/pyttsx3/)
     - [Tacotron](https://github.com/keithito/tacotron)
@@ -151,7 +147,14 @@ libfaceid library supports several models for each step of the Face Recognition 
     - PocketSphinx - TODO
     - Snoyboy - TODO
     - Precise - TODO
-
+- Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
+- Face Age estimator models for predicting age <b>(age detection)</b>
+- Face Gender estimator models for predicting gender <b>(gender detection)</b>
+- Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
+- Face Liveness detection models for preventing face spoofing
+    - eye blinking
+    - mouth opening
+ 
 
 # Compatibility:
 
@@ -225,6 +228,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         |   facial_recognition.py
         |   facial_recognition_testing_image.py
         |   facial_recognition_testing_webcam.py
+        |   facial_recognition_testing_webcam_livenessdetection.py
         |   facial_recognition_testing_webcam_voiceenabled.py
         |   facial_recognition_testing_webcam_voiceenabled_voiceactivated.py
         |   facial_recognition_training.py
@@ -333,6 +337,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         encoder models:            0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET
         classifier algorithms:     0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
                                    5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
+        liveness models:           0-EYESBLINK_MOUTHOPEN
         camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
         speech synthesizer models: 0-TTSX3, 1-TACOTRON, 2-GOOGLECLOUD
         speech recognition models: 0-GOOGLECLOUD, 1-WITAI, 2-HOUNDIFY
@@ -349,15 +354,17 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         4. facial_recognition_testing_webcam_flask.py
             Usage: python facial_recognition_testing_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
+        5. facial_recognition_testing_webcam.py
+            Usage: python facial_recognition_testing_webcam_livenessdetection.py --detector 0 --encoder 0 --liveness 0 --webcam 0 --resolution 0
 
-        5. facial_recognition_testing_webcam_voiceenabled.py
+        6. facial_recognition_testing_webcam_voiceenabled.py
             Usage: python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 --resolution 0
-        6. facial_recognition_testing_webcam_voiceenabled_voiceactivated.py
+        7. facial_recognition_testing_webcam_voiceenabled_voiceactivated.py
             Usage: python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
 
-        7. facial_estimation_poseagegenderemotion_webcam.py
+        8. facial_estimation_poseagegenderemotion_webcam.py
             Usage: python facial_estimation_poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
-        8. facial_estimation_poseagegenderemotion_webcam_flask.py
+        9. facial_estimation_poseagegenderemotion_webcam_flask.py
             Usage: python facial_estimation_poseagegenderemotion_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
 
@@ -412,7 +419,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         cv2.destroyAllWindows()
 
 
-### Real-Time Face Recognition (w/a webcam):
+### Basic Real-Time Face Recognition (w/a webcam):
 
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
@@ -433,6 +440,50 @@ Also note that opencv-python and opencv-contrib-python must always have the same
                 (x, y, w, h) = face
                 face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
                 label_face(frame, (x, y, w, h), face_id, confidence)
+            cv2.imshow(window_name, frame)
+            cv2.waitKey(1)
+
+        camera.release()
+        cv2.destroyAllWindows()
+
+
+### Real-Time Face Recognition With Liveness Detection (w/a webcam):
+
+        import cv2
+        from libfaceid.detector import FaceDetectorModels, FaceDetector
+        from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
+        from libfaceid.liveness    import FaceLivenessModels, FaceLiveness
+
+        INPUT_DIR_MODEL_DETECTION  = "models/detection/"
+        INPUT_DIR_MODEL_ENCODING   = "models/encoding/"
+        INPUT_DIR_MODEL_TRAINING   = "models/training/"
+        INPUT_DIR_MODEL_ESTIMATION = "models/estimation/"
+
+        camera = cv2.VideoCapture(webcam_index)
+        face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
+        face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
+        face_liveness = FaceLiveness(model=model_liveness, path=INPUT_DIR_MODEL_ESTIMATION)
+
+        while True:
+            frame = camera.read()
+            faces = face_detector.detect(frame)
+            for (index, face) in enumerate(faces):
+                (x, y, w, h) = face
+
+                // Check if eyes are close and if mouth is open
+                eyes_close, eyes_ratio = face_liveness.is_eyes_close(frame, face)
+                mouth_open, mouth_ratio = face_liveness.is_mouth_open(frame, face)
+
+                // Identify face only if eyes are open and mouth is close
+                if not eyes_close and not mouth_open:
+                    face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
+
+                label_face(frame, (x, y, w, h), face_id, confidence)
+
+            // Monitor eye blinking and mouth opening for liveness detection
+            total_eye_blinks, eye_counter = monitor_eye_blinking(eyes_close, eyes_ratio, total_eye_blinks, eye_counter, eye_continuous_close)
+            total_mouth_opens, mouth_counter = monitor_mouth_opening(mouth_open, mouth_ratio, total_mouth_opens, mouth_counter, mouth_continuous_open)
+
             cv2.imshow(window_name, frame)
             cv2.waitKey(1)
 
