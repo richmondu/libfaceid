@@ -96,6 +96,9 @@ def process_facerecognition():
             # Set text and bounding box on face
             label_face(frame, (x, y, w, h), face_id, confidence)
 
+            # Process 1 face only
+            break
+
 
         # Display updated frame to web app
         yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + cv2.imencode('.jpg', frame)[1].tobytes() + b'\r\n\r\n')

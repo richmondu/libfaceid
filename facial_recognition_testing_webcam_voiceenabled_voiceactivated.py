@@ -117,6 +117,9 @@ def process_facerecognition(model_detector, model_recognizer, model_speech_synth
                 if len(faces) == 1 and (face_id is not None) and (face_id != "Unknown"):
                     speech_synthesizer.playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
 
+            # Process 1 face only
+            break
+
 
         # Display updated frame
         cv2.imshow(WINDOW_NAME, frame)

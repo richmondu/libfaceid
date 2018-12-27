@@ -81,6 +81,9 @@ def process_facerecognition(model_detector, model_recognizer, cam_index, cam_res
             # Set text and bounding box on face
             label_face(frame, (x, y, w, h), face_id, confidence)
 
+            # Process 1 face only
+            break
+
 
         # Display updated frame
         cv2.imshow(WINDOW_NAME, frame)
