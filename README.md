@@ -599,7 +599,7 @@ Only the mathematical representations (128-dimensional vector) of the face shoul
 - Face is expected to be within a certain location (inside a fixed box or circular region).
 - Detection of faces will be triggered by a user action - clicking some button. (Not automatic detection).
 - Face alignment may not be helpful as users can be enforced or directed to have his face inside a fixed box or circular region so face is already expected to be aligned for the most cases. But if adding this feature does not affect speed performance, then face alignment ahould be added if possible.
-- Should verify if face is alive via anti-spoofing techniques against picture-based attacks, video-based attacks and 3D mask attacks. Two popular example of liveness detection is counting of eye blinks and dectecting smile. 
+- Should verify if face is alive via anti-spoofing techniques against picture-based attacks, video-based attacks and 3D mask attacks. Two popular example of liveness detection is detecting eye blinking and mouth opening. 
 
 
 ### Face Encoding/Embedding
@@ -611,7 +611,9 @@ Only the mathematical representations (128-dimensional vector) of the face shoul
 
 ### Face Identification
 
-- Classification model should consider the maximum number of users to support. For example, SVM is known to be good for less than 100 classes/persons only.
+- Recognize only when eyes are not closed and mouth is not open
+- Images per person should at least be 50 images. Increase the number of images per person by cropping images with different face backgound margin, slight rotations, flipping and scaling.
+- Classification model should consider the maximum number of users to support. For example, SVM is known to be good for less than 100k classes/persons only.
 - Should support unknown identification by setting a threshold on the best prediction. If best prediction is too low, then consider as Unknown.
 - Set the number of consecutive failed attempts allowed before disabling face recognition feature. Should fallback to passcode authentication if identification encounters trouble recognizing people.
 - Images used for successful scan should be added to the existing dataset images during face enrollment making it adaptive and updated so that a person can be recognized with better accuracy in the future even with natural changes in the face appearance (hairstyle, mustache, pimples, etc.)
