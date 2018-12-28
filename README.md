@@ -10,6 +10,7 @@
     The models are seamlessly integrated so that user can mix and match models. Each detector model has been made compatible with each embedding model to abstract you from the differences.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
+    Liveness detection models are also provided for anti-face spoofing attacks (photo-based, video-based, 3d-mask-based attacks).
 </p>
 <p>
     <b> Awesome Design.</b> The library is designed so that it is easy to use, modular and robust.
