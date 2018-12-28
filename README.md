@@ -136,7 +136,7 @@ libfaceid library supports several models for each step of the Face Recognition 
 - Adaboost
 - QDA
 
-### Face Liveness detection models for preventing spoofing attacks
+### Face Liveness Detection models for preventing spoofing attacks
 - [Eye Movement](https://www.pyimagesearch.com/2017/04/24/eye-blink-detection-opencv-python-dlib/)
 - [Mouth Movement](https://github.com/mauckc/mouth-open)
 - [Colorspace Histogram Concatenation](https://github.com/ee09115/spoofing_detection)
