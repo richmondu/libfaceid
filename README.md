@@ -10,7 +10,7 @@
     The models are seamlessly integrated so that user can mix and match models. Each detector model has been made compatible with each embedding model to abstract you from the differences.
     Each model differs in speed, accuracy, memory requirements and 3rd-party library dependencies.
     This enables users to easily experiment with various solutions appropriate for their specific use cases and system requirements.
-    Liveness detection models are also provided for anti-face spoofing attacks (photo-based, video-based, 3d-mask-based attacks).
+    In addition, face liveness detection models are also provided for anti-face spoofing attacks (photo-based, video-based, 3d-mask-based attacks).
 </p>
 <p>
     <b> Awesome Design.</b> The library is designed so that it is easy to use, modular and robust.
@@ -456,7 +456,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         import cv2
         from libfaceid.detector import FaceDetectorModels, FaceDetector
         from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
-        from libfaceid.liveness    import FaceLivenessModels, FaceLiveness
+        from libfaceid.liveness import FaceLivenessModels, FaceLiveness
 
         INPUT_DIR_MODEL_DETECTION  = "models/detection/"
         INPUT_DIR_MODEL_ENCODING   = "models/encoding/"
