@@ -342,29 +342,24 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         speech synthesizer models: 0-TTSX3, 1-TACOTRON, 2-GOOGLECLOUD
         speech recognition models: 0-GOOGLECLOUD, 1-WITAI, 2-HOUNDIFY
 
-        1. facial_recognition_training.py
+        1. Training with datasets
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0 --setsynthesizer True --synthesizer 0
 
-        2. facial_recognition_testing_image.py
+        2. Testing with images
             Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
 
-        3. facial_recognition_testing_webcam.py
+        3. Testing with a webcam
             Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 0
-        4. facial_recognition_testing_webcam_flask.py
             Usage: python facial_recognition_testing_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
-        5. facial_recognition_testing_webcam.py
             Usage: python facial_recognition_testing_webcam_livenessdetection.py --detector 0 --encoder 0 --liveness 0 --webcam 0 --resolution 0
 
-        6. facial_recognition_testing_webcam_voiceenabled.py
-            Usage: python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 --resolution 0
-        7. facial_recognition_testing_webcam_voiceenabled_voiceactivated.py
-            Usage: python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
+        4. Testing with voice-control
+            Usage: python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 -            Usage: python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
 
-        8. facial_estimation_poseagegenderemotion_webcam.py
+        5. Testing age/gender/emotion detection
             Usage: python facial_estimation_poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
-        9. facial_estimation_poseagegenderemotion_webcam_flask.py
             Usage: python facial_estimation_poseagegenderemotion_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
 
