@@ -17,6 +17,7 @@ INPUT_DIR_MODEL_DETECTION       = "models/detection/"
 INPUT_DIR_MODEL_ENCODING        = "models/encoding/"
 INPUT_DIR_MODEL_TRAINING        = "models/training/"
 INPUT_DIR_MODEL_ESTIMATION      = "models/estimation/"
+INPUT_DIR_MODEL_LIVENESS        = "models/liveness/"
 
 # Set width and height
 RESOLUTION_QVGA   = (320, 240)
@@ -43,30 +44,33 @@ def label_face(frame, face_rect, face_id, confidence):
     (x, y, w, h) = face_rect
     cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 255), 1)
     if face_id is not None:
-        cv2.putText(frame, "{} {:.2f}%".format(face_id, confidence), 
-            (x+5,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+        if confidence is not None:
+            text = "{} {:.2f}%".format(face_id, confidence)
+        else:
+            text = "{}".format(face_id)
+        cv2.putText(frame, text, (x+5,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
 
 def monitor_eye_blinking(eyes_close, eyes_ratio, total_eye_blinks, eye_counter, eye_continuous_close):
     if eyes_close:
-        print("eye less than threshold {:.2f}".format(eyes_ratio))
+        #print("eye less than threshold {:.2f}".format(eyes_ratio))
         eye_counter += 1
     else:
+        #print("eye:{:.2f} blinks:{}".format(eyes_ratio, total_eye_blinks))
         if eye_counter >= eye_continuous_close:
             total_eye_blinks += 1
-            print("eye:{:.2f} blinks:{}".format(eyes_ratio, total_eye_blinks))
         eye_counter = 0
     return total_eye_blinks, eye_counter
 
 
 def monitor_mouth_opening(mouth_open, mouth_ratio, total_mouth_opens, mouth_counter, mouth_continuous_open):
     if mouth_open:
-        print("mouth more than threshold {:.2f}".format(mouth_ratio))
+        #print("mouth more than threshold {:.2f}".format(mouth_ratio))
         mouth_counter += 1
     else:
+        #print("mouth:{:.2f} opens:{}".format(mouth_ratio, total_mouth_opens))
         if mouth_counter >= mouth_continuous_open:
             total_mouth_opens += 1
-            print("mouth:{:.2f} opens:{}".format(mouth_ratio, total_mouth_opens))
         mouth_counter = 0
     return total_mouth_opens, mouth_counter
 
@@ -85,7 +89,8 @@ def process_livenessdetection(model_detector, model_recognizer, model_liveness, 
         face_encoder = FaceEncoder(model=model_recognizer, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
 
         # Initialize face liveness detection
-        face_liveness = FaceLiveness(model=model_liveness, path=INPUT_DIR_MODEL_ESTIMATION)
+        face_liveness  = FaceLiveness(model=FaceLivenessModels.EYESBLINK_MOUTHOPEN, path=INPUT_DIR_MODEL_LIVENESS)
+        face_liveness2 = FaceLiveness(model=FaceLivenessModels.COLORSPACE_YCRCBLUV, path=INPUT_DIR_MODEL_LIVENESS)
 
     except:
         print("Error, check if models and trained dataset models exists!")
@@ -94,15 +99,17 @@ def process_livenessdetection(model_detector, model_recognizer, model_liveness, 
     face_id, confidence = (None, 0)
 
     eyes_close, eyes_ratio = (False, 0)
-    total_eye_blinks, eye_counter, eye_continuous_close = (0, 0, 3)
+    total_eye_blinks, eye_counter, eye_continuous_close = (0, 0, 1) # eye_continuous_close should depend on frame rate
     mouth_open, mouth_ratio = (False, 0)
-    total_mouth_opens, mouth_counter, mouth_continuous_open = (0, 0, 3)
+    total_mouth_opens, mouth_counter, mouth_continuous_open = (0, 0, 1) # eye_continuous_close should depend on frame rate
 
     time_start = time()
     time_elapsed = 0
     frame_count = 0
     identified_unique_faces = {} # dictionary
     runtime = 10 # monitor for 10 seconds only
+    is_fake_count_print = 0
+    is_fake_count_replay = 0
 
 
     print("Note: this will run for {} seconds only".format(runtime))
@@ -119,23 +126,31 @@ def process_livenessdetection(model_detector, model_recognizer, model_liveness, 
         # Indentify face based on trained dataset (note: should run facial_recognition_training.py)
         faces = face_detector.detect(frame)
         for (index, face) in enumerate(faces):
-            (x, y, w, h) = face
 
-            # Identify face only if eyes are not closed
+            # Check if eyes are close and if mouth is open
             eyes_close, eyes_ratio = face_liveness.is_eyes_close(frame, face)
             mouth_open, mouth_ratio = face_liveness.is_mouth_open(frame, face)
             #print("mouth_open={}, mouth_ratio={:.2f}".format(mouth_open, mouth_ratio))
-            if not eyes_close and not mouth_open:
-                face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
+
+            # Detect if frame is a print attack or replay attack based on colorspace
+            is_fake_print  = face_liveness2.is_fake(frame, face)
+            is_fake_replay = face_liveness2.is_fake(frame, face, flag=1)
+
+            # Identify face only if it is not fake and eyes are open and mouth is close
+            if is_fake_replay:
+                is_fake_count_replay += 1
+            if is_fake_print:
+                is_fake_count_print += 1
+                face_id, confidence = ("Fake", None)
+            elif not eyes_close and not mouth_open:
+                face_id, confidence = face_encoder.identify(frame, face)
                 if face_id not in identified_unique_faces:
                     identified_unique_faces[face_id] = 1
                 else:
                     identified_unique_faces[face_id] += 1
-            # Set text and bounding box on face
-            label_face(frame, (x, y, w, h), face_id, confidence)
 
-            # Process 1 face only
-            break
+            label_face(frame, face, face_id, confidence) # Set text and bounding box on face
+            break # Process 1 face only
 
 
         # Monitor eye blinking and mouth opening for liveness detection
@@ -157,16 +172,18 @@ def process_livenessdetection(model_detector, model_recognizer, model_liveness, 
 
     print("Note: this will run for {} seconds only".format(runtime))
 
-    # Check the counters
+    # Determining if face is alive can depend on the following factors and more:
     time_elapsed = int(time()-time_start)
     print("\n")
     print("Face Liveness Data:")
-    print("time_elapsed      = {}".format(time_elapsed))
-    print("frame_count       = {}".format(frame_count))
-    print("total_eye_blinks  = {}".format(total_eye_blinks))
-    print("total_mouth_opens = {}".format(total_mouth_opens))
-    print("identified_unique_faces = {}".format(identified_unique_faces))
-    print("TODO: determine if face is alive using this data.")
+    print("time_elapsed            = {}".format(time_elapsed))            # recognition will run for specific time (ex. 3 seconds)
+    print("frame_count             = {}".format(frame_count))             # can be used for averaging
+    print("total_eye_blinks        = {}".format(total_eye_blinks))        # fake face if 0
+    print("total_mouth_opens       = {}".format(total_mouth_opens))       # fake face if 0
+    print("is_fake_count_print     = {}".format(is_fake_count_print))     # fake face if not 0
+    print("is_fake_count_replay    = {}".format(is_fake_count_replay))    # fake face if not 0
+    print("identified_unique_faces = {}".format(identified_unique_faces)) # fake face if recognized more than 1 face
+    print("Todo: determine if face is alive using this data.")
     print("\n")
 
     # Release the camera
@@ -188,6 +205,7 @@ def run(cam_index, cam_resolution):
 #    encoder=FaceEncoderModels.FACENET
 
     liveness=FaceLivenessModels.EYESBLINK_MOUTHOPEN
+#    liveness=FaceLivenessModels.COLORSPACE_YCRCBLUV
 
     process_livenessdetection(detector, encoder, liveness, cam_index, cam_resolution)
 
@@ -224,7 +242,7 @@ def parse_arguments(argv):
     parser.add_argument('--encoder', required=False, default=0, 
         help='Encoder model to use. Options: 0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET')
     parser.add_argument('--liveness', required=False, default=0, 
-        help='Liveness detection model to use. Options: 0-EYESBLINK_MOUTHOPEN')
+        help='Liveness detection model to use. Options: 0-EYESBLINK_MOUTHOPEN, 1-COLORSPACE_YCRCBLUV')
     parser.add_argument('--webcam', required=False, default=0, 
         help='Camera index to use. Default is 0. Assume only 1 camera connected.)')
     parser.add_argument('--resolution', required=False, default=0,
