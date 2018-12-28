@@ -38,7 +38,7 @@
 
 | Date | Milestones |
 | --- | --- |
-| 2018, Dec 29 | Integrated [Colorspace histogram concatenation](https://github.com/ee09115/spoofing_detection) anti-face spoofing for face liveness detection |
+| 2018, Dec 29 | Integrated [Colorspace histogram concatenation](https://github.com/ee09115/spoofing_detection) for anti-face spoofing (face liveness detection) |
 | 2018, Dec 26 | Integrated Google Cloud's STT speech-to-text (speech recognition) for voice-activated capability |
 | 2018, Dec 19 | Integrated Google's [Tacotron](https://github.com/keithito/tacotron) TTS text-to-speech (speech synthesis) for voice-enabled capability |
 | 2018, Dec 13 | Integrated Google's [FaceNet](https://github.com/davidsandberg/facenet) face embedding |
