@@ -26,20 +26,21 @@
 </p>
 
 
-![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid.jpg)
-![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid2.jpg)
-![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid3.jpg)
-![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid4.jpg)
-![](https://github.com/richmondu/libfaceid/blob/master/teaser/libfaceid5.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/templates/teaser/libfaceid.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/templates/teaser/libfaceid2.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/templates/teaser/libfaceid3.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/templates/teaser/libfaceid4.jpg)
+![](https://github.com/richmondu/libfaceid/blob/master/templates/teaser/libfaceid5.jpg)
 
 
 # News:
 
 | Date | Milestones |
 | --- | --- |
+| 2018, Dec 29 | Integrated [Colorspace Anti-Spoofing](https://github.com/ee09115/spoofing_detection) for face liveness detection |
 | 2018, Dec 26 | Integrated Google Cloud's STT speech-to-text (speech recognition) for voice-activated capability |
 | 2018, Dec 19 | Integrated Google's [Tacotron](https://github.com/keithito/tacotron) TTS text-to-speech (speech synthesis) for voice-enabled capability |
-| 2018, Dec 13 | Integrated Google's [FaceNet](https://github.com/davidsandberg/facenet) face embedding (implementation by David Sandberg) |
+| 2018, Dec 13 | Integrated Google's [FaceNet](https://github.com/davidsandberg/facenet) face embedding |
 | 2018, Nov 30 | Committed libfaceid to Github |
 
 
@@ -335,12 +336,11 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 
         detector models:           0-HAARCASCADE, 1-DLIBHOG, 2-DLIBCNN, 3-SSDRESNET, 4-MTCNN, 5-FACENET
         encoder models:            0-LBPH, 1-OPENFACE, 2-DLIBRESNET, 3-FACENET
-        classifier algorithms:     0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 
-                                   5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
-        liveness models:           0-EYESBLINK_MOUTHOPEN
-        camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
+        classifier algorithms:     0-NAIVE_BAYES, 1-LINEAR_SVM, 2-RBF_SVM, 3-NEAREST_NEIGHBORS, 4-DECISION_TREE, 5-RANDOM_FOREST, 6-NEURAL_NET, 7-ADABOOST, 8-QDA
+        liveness models:           0-EYESBLINK_MOUTHOPEN, 1-COLORSPACE_YCRCBLUV
         speech synthesizer models: 0-TTSX3, 1-TACOTRON, 2-GOOGLECLOUD
         speech recognition models: 0-GOOGLECLOUD, 1-WITAI, 2-HOUNDIFY
+        camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
 
         1. Training with datasets
             Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
@@ -356,7 +356,8 @@ Also note that opencv-python and opencv-contrib-python must always have the same
             Usage: python facial_recognition_testing_webcam_livenessdetection.py --detector 0 --encoder 0 --liveness 0 --webcam 0 --resolution 0
 
         4. Testing with voice-control
-            Usage: python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 -            Usage: python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
+            Usage: python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 
+            Usage: python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
 
         5. Testing age/gender/emotion detection
             Usage: python facial_estimation_poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
@@ -404,9 +405,8 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         frame = image.read()
         faces = face_detector.detect(frame)
         for (index, face) in enumerate(faces):
-            (x, y, w, h) = face
-            face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
-            label_face(frame, (x, y, w, h), face_id, confidence)
+            face_id, confidence = face_encoder.identify(frame, face)
+            label_face(frame, face, face_id, confidence)
         cv2.imshow(window_name, frame)
         cv2.waitKey(5000)
 
@@ -432,9 +432,8 @@ Also note that opencv-python and opencv-contrib-python must always have the same
             frame = camera.read()
             faces = face_detector.detect(frame)
             for (index, face) in enumerate(faces):
-                (x, y, w, h) = face
-                face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
-                label_face(frame, (x, y, w, h), face_id, confidence)
+                face_id, confidence = face_encoder.identify(frame, face)
+                label_face(frame, face, face_id, confidence)
             cv2.imshow(window_name, frame)
             cv2.waitKey(1)
 
@@ -453,27 +452,34 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         INPUT_DIR_MODEL_ENCODING   = "models/encoding/"
         INPUT_DIR_MODEL_TRAINING   = "models/training/"
         INPUT_DIR_MODEL_ESTIMATION = "models/estimation/"
+        INPUT_DIR_MODEL_LIVENESS   = "models/liveness/"
 
         camera = cv2.VideoCapture(webcam_index)
         face_detector = FaceDetector(model=FaceDetectorModels.DEFAULT, path=INPUT_DIR_MODEL_DETECTION)
         face_encoder = FaceEncoder(model=FaceEncoderModels.DEFAULT, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=False)
         face_liveness = FaceLiveness(model=model_liveness, path=INPUT_DIR_MODEL_ESTIMATION)
+        face_liveness2 = FaceLiveness(model=FaceLivenessModels.COLORSPACE_YCRCBLUV, path=INPUT_DIR_MODEL_LIVENESS)
 
         while True:
             frame = camera.read()
             faces = face_detector.detect(frame)
             for (index, face) in enumerate(faces):
-                (x, y, w, h) = face
 
                 // Check if eyes are close and if mouth is open
                 eyes_close, eyes_ratio = face_liveness.is_eyes_close(frame, face)
                 mouth_open, mouth_ratio = face_liveness.is_mouth_open(frame, face)
 
-                // Identify face only if eyes are open and mouth is close
-                if not eyes_close and not mouth_open:
-                    face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
+                // Detect if frame is a print attack or replay attack based on colorspace
+                is_fake_print  = face_liveness2.is_fake(frame, face)
+                is_fake_replay = face_liveness2.is_fake(frame, face, flag=1)
 
-                label_face(frame, (x, y, w, h), face_id, confidence)
+                // Identify face only if it is not fake and eyes are open and mouth is close
+                if is_fake_print or is_fake_replay:
+                    face_id, confidence = ("Fake", None)
+                elif not eyes_close and not mouth_open:
+                    face_id, confidence = face_encoder.identify(frame, face)
+
+                label_face(frame, face, face_id, confidence)
 
             // Monitor eye blinking and mouth opening for liveness detection
             total_eye_blinks, eye_counter = monitor_eye_blinking(eyes_close, eyes_ratio, total_eye_blinks, eye_counter, eye_continuous_close)
@@ -508,9 +514,8 @@ Also note that opencv-python and opencv-contrib-python must always have the same
             frame = camera.read()
             faces = face_detector.detect(frame)
             for (index, face) in enumerate(faces):
-                (x, y, w, h) = face
-                face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
-                label_face(frame, (x, y, w, h), face_id, confidence)
+                face_id, confidence = face_encoder.identify(frame, face)
+                label_face(frame, face, face_id, confidence)
                 if (frame_count % 120 == 0):
                     // Speak the person's name
                     speech_synthesizer.playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
@@ -560,9 +565,8 @@ Also note that opencv-python and opencv-contrib-python must always have the same
             frame = camera.read()
             faces = face_detector.detect(frame)
             for (index, face) in enumerate(faces):
-                (x, y, w, h) = face
-                face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
-                label_face(frame, (x, y, w, h), face_id, confidence)
+                face_id, confidence = face_encoder.identify(frame, face)
+                label_face(frame, face, face_id, confidence)
                 if (frame_count % 120 == 0):
                     // Speak the person's name
                     speech_synthesizer.playaudio(INPUT_DIR_AUDIOSET, face_id, block=False)
@@ -599,7 +603,6 @@ Also note that opencv-python and opencv-contrib-python must always have the same
             frame = camera.read()
             faces = face_detector.detect(frame)
             for (index, face) in enumerate(faces):
-                (x, y, w, h) = face
                 age = face_age_estimator.estimate(frame, face_image)
                 gender = face_gender_estimator.estimate(frame, face_image)
                 emotion = face_emotion_estimator.estimate(frame, face_image)
