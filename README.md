@@ -136,6 +136,11 @@ libfaceid library supports several models for each step of the Face Recognition 
 - Adaboost
 - QDA
 
+### Face Liveness detection models for preventing face spoofing attacks
+- [Eye Movement](https://www.pyimagesearch.com/2017/04/24/eye-blink-detection-opencv-python-dlib/)
+- [Mouth Movement](https://github.com/mauckc/mouth-open)
+- [Colorspace Histogram Concatenation](https://github.com/ee09115/spoofing_detection)
+
 ### Additional models (bonus features for PR): 
 - TTS Text-To-Speech <b>(speech synthesis)</b> models for voice-enabled capability
     - [PyTTSX3](https://pypi.org/project/pyttsx3/)
@@ -148,10 +153,6 @@ libfaceid library supports several models for each step of the Face Recognition 
     - PocketSphinx - TODO
     - Snoyboy - TODO
     - Precise - TODO
-- Face Liveness detection models for preventing face spoofing attacks
-    - [Eye aspect ratio](https://www.pyimagesearch.com/2017/04/24/eye-blink-detection-opencv-python-dlib/)
-    - [Mouth aspect ratio](https://github.com/mauckc/mouth-open)
-    - [Colorspace histogram concatenation](https://github.com/ee09115/spoofing_detection)
 - Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
