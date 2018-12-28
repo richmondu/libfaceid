@@ -37,7 +37,7 @@
 
 | Date | Milestones |
 | --- | --- |
-| 2018, Dec 29 | Integrated [Colorspace Anti-Spoofing](https://github.com/ee09115/spoofing_detection) for face liveness detection |
+| 2018, Dec 29 | Integrated [Colorspace histogram](https://github.com/ee09115/spoofing_detection) for face liveness detection |
 | 2018, Dec 26 | Integrated Google Cloud's STT speech-to-text (speech recognition) for voice-activated capability |
 | 2018, Dec 19 | Integrated Google's [Tacotron](https://github.com/keithito/tacotron) TTS text-to-speech (speech synthesis) for voice-enabled capability |
 | 2018, Dec 13 | Integrated Google's [FaceNet](https://github.com/davidsandberg/facenet) face embedding |
@@ -80,7 +80,7 @@ A facial recognition system is a technology capable of identifying or verifying 
 3. <b>Face Encoding/Embedding.</b> Generating a mathematical representation of each face (coined as embedding) in the frame image.
 4. <b>Face Identification.</b> Infering each face embedding in an image with face embeddings of known people in a database.
 
-More complex systems include features such as <b>Face Liveness Detection</b> (to counter spoofing attacks via photo, video or 3d mask), <b>face alignment</b>, face augmentation (to increase the number of dataset of images) and face verification to improve accuracy.
+More complex systems include features such as <b>Face Liveness Detection</b> (to counter spoofing attacks via photo, video or 3d mask), face alignment, <b>face augmentation</b> (to increase the number of dataset of images) and face verification (to confirm prediction by comparing cosine similarity or euclidean distance with each database embedding).
 </p>
 
 
@@ -148,14 +148,15 @@ libfaceid library supports several models for each step of the Face Recognition 
     - PocketSphinx - TODO
     - Snoyboy - TODO
     - Precise - TODO
+- Face Liveness detection models for preventing face spoofing attacks
+    - [Eye aspect ratio](https://www.pyimagesearch.com/2017/04/24/eye-blink-detection-opencv-python-dlib/)
+    - [Mouth aspect ratio](https://github.com/mauckc/mouth-open)
+    - [Colorspace histogram concatenation](https://github.com/ee09115/spoofing_detection)
 - Face Pose estimator models for predicting face landmarks <b>(face landmark detection)</b>
 - Face Age estimator models for predicting age <b>(age detection)</b>
 - Face Gender estimator models for predicting gender <b>(gender detection)</b>
 - Face Emotion estimator models for predicting facial expression <b>(emotion detection)</b>
-- Face Liveness detection models for preventing face spoofing
-    - eye blinking
-    - mouth opening
- 
+
 
 # Compatibility:
 
@@ -353,13 +354,15 @@ Also note that opencv-python and opencv-contrib-python must always have the same
             Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 0
             Usage: python facial_recognition_testing_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
+                
+        4. Testing with a webcam with anti-spoofing attacks
             Usage: python facial_recognition_testing_webcam_livenessdetection.py --detector 0 --encoder 0 --liveness 0 --webcam 0 --resolution 0
 
-        4. Testing with voice-control
+        5. Testing with voice-control
             Usage: python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 
             Usage: python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
 
-        5. Testing age/gender/emotion detection
+        6. Testing age/gender/emotion detection
             Usage: python facial_estimation_poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
             Usage: python facial_estimation_poseagegenderemotion_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
