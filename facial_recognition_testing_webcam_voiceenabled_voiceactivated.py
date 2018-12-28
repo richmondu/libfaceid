@@ -27,7 +27,7 @@ RESOLUTION_HD     = (1280, 720)
 RESOLUTION_FULLHD = (1920, 1080)
 
 # Set the trigger words
-TRIGGER_WORDS = ["Hey Google", "Alexa", "Activate", "Open Sesame"]
+TRIGGER_WORDS = ["Hey Google", "Alexa", "Activate", "Open Sesame", "Panel"]
 
 
 
@@ -86,8 +86,11 @@ def process_facerecognition(model_detector, model_recognizer, model_speech_synth
     print("\nWaiting for a trigger word: {}".format(TRIGGER_WORDS))
     speech_recognizer.start(TRIGGER_WORDS, speech_recognizer_callback)
     global trigger_word_detected
-    while (trigger_word_detected == False):
-        time.sleep(1)
+    try:
+        while (trigger_word_detected == False):
+            time.sleep(1)
+    except:
+        pass
     speech_recognizer.stop()
 
 
@@ -177,6 +180,7 @@ def main(args):
             encoder = FaceEncoderModels(int(args.encoder))
             speech_synthesizer = SpeechSynthesizerModels(int(args.speech_synthesizer))
             speech_recognizer = SpeechRecognizerModels(int(args.speech_recognizer))
+
             print( "Parameters: {} {} {} {}".format(detector, encoder, speech_synthesizer, speech_recognizer) )
             process_facerecognition(detector, encoder, speech_synthesizer, speech_recognizer, cam_index, cam_resolution)
         except:
