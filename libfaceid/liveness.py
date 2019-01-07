@@ -121,7 +121,7 @@ class FaceLiveness_EYESBLINK_MOUTHOPEN:
 
 class FaceLiveness_COLORSPACE_YCRCBLUV:
 
-    _threshold_print = 0.31
+    _threshold_print = 0.35
     _threshold_replay = 0.93
 
     def __init__(self, path):
