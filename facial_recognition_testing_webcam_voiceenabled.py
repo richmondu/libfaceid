@@ -62,7 +62,7 @@ def process_facerecognition(model_detector, model_recognizer, model_speech_synth
         # Initialize text-to-speech synthesizer
         speech_synthesizer = SpeechSynthesizer(model=model_speech_synthesizer, path=None, path_output=None, training=False)
     except:
-        face_encoder = None
+        #face_encoder = None
         print("Warning, check if models and trained dataset models exists!")
     face_id, confidence = (None, 0)
 
