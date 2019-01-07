@@ -204,12 +204,19 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            This will install additional dependencies below:
            playsound==1.2.2
            inflect==0.2.5
-           librosa==0.5.1
+           librosa==0.4.2
            unidecode==0.4.20
            pyttsx3==2.7
-           pypiwin32==223
            gtts==2.0.3
-           speech_recognition==3.8.1
+           speechrecognition==3.8.1
+
+           Additional items to install: 
+           On Windows, install pypiwin32 using "pip install pypiwin32==223"
+           On RPI, 
+               sudo apt-get install espeak
+               sudo apt-get install python-espeak
+               sudo apt-get install portaudio19-dev
+               pip3 install pyaudio
 
 
 ### Quickstart (Dummy Guide):
