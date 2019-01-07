@@ -109,7 +109,6 @@ def process_livenessdetection(model_detector, model_recognizer, model_liveness, 
     identified_unique_faces = {} # dictionary
     runtime = 10 # monitor for 10 seconds only
     is_fake_count_print = 0
-    is_fake_count_replay = 0
 
 
     print("Note: this will run for {} seconds only".format(runtime))
@@ -134,11 +133,9 @@ def process_livenessdetection(model_detector, model_recognizer, model_liveness, 
 
             # Detect if frame is a print attack or replay attack based on colorspace
             is_fake_print  = face_liveness2.is_fake(frame, face)
-            is_fake_replay = face_liveness2.is_fake(frame, face, flag=1)
+            #is_fake_replay = face_liveness2.is_fake(frame, face, flag=1)
 
             # Identify face only if it is not fake and eyes are open and mouth is close
-            if is_fake_replay:
-                is_fake_count_replay += 1
             if is_fake_print:
                 is_fake_count_print += 1
                 face_id, confidence = ("Fake", None)
@@ -181,7 +178,6 @@ def process_livenessdetection(model_detector, model_recognizer, model_liveness, 
     print("total_eye_blinks        = {}".format(total_eye_blinks))        # fake face if 0
     print("total_mouth_opens       = {}".format(total_mouth_opens))       # fake face if 0
     print("is_fake_count_print     = {}".format(is_fake_count_print))     # fake face if not 0
-    print("is_fake_count_replay    = {}".format(is_fake_count_replay))    # fake face if not 0
     print("identified_unique_faces = {}".format(identified_unique_faces)) # fake face if recognized more than 1 face
     print("Todo: determine if face is alive using this data.")
     print("\n")
