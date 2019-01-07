@@ -60,7 +60,23 @@ def speech_recognizer_callback(word):
 
 
 def process_facerecognition(model_detector, model_recognizer, model_speech_synthesizer, model_speech_recognizer, cam_index, cam_resolution):
+    
+    # Initialize speech-to-text (speech recognizer) for voice-activated capability (wake-word/hot-word/trigger-word detection)
+    # Then wait for trigger word before starting face recognition
+    if True:
+        speech_recognizer = SpeechRecognizer(model=model_speech_recognizer, path=None)
+        print("\nWaiting for a trigger word: {}".format(TRIGGER_WORDS))
+        speech_recognizer.start(TRIGGER_WORDS, speech_recognizer_callback)
+        global trigger_word_detected
+        try:
+            while (trigger_word_detected == False):
+                time.sleep(1)
+        except:
+            pass
+        speech_recognizer.stop()
+        speech_recognizer = None
 
+    
     # Initialize the camera
     camera = cam_init(cam_index, cam_resolution[0], cam_resolution[1])
 
@@ -74,24 +90,10 @@ def process_facerecognition(model_detector, model_recognizer, model_speech_synth
         # Initialize text-to-speech (speech synthesizer) for voice-enabled capability
         speech_synthesizer = SpeechSynthesizer(model=model_speech_synthesizer, path=None, path_output=None, training=False)
 
-        # Initialize speech-to-text (speech recognizer) for voice-activated capability (wake-word/hot-word/trigger-word detection)
-        speech_recognizer = SpeechRecognizer(model=model_speech_recognizer, path=None)
     except:
         face_encoder = None
         print("Warning, check if models and trained dataset models exists!")
     face_id, confidence = (None, 0)
-
-
-    # Wait for trigger word before starting face recognition
-    print("\nWaiting for a trigger word: {}".format(TRIGGER_WORDS))
-    speech_recognizer.start(TRIGGER_WORDS, speech_recognizer_callback)
-    global trigger_word_detected
-    try:
-        while (trigger_word_detected == False):
-            time.sleep(1)
-    except:
-        pass
-    speech_recognizer.stop()
 
 
     # Start face recognition
