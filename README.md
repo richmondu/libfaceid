@@ -224,25 +224,24 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         1. Add your dataset
            ex. datasets/person1/1.jpg, datasets/person2/1.jpg
         2. Train your model with your dataset
-           Update facial_recognition_training.bat to specify your chosen models
-           Run facial_recognition_training.bat
+           Update training.bat to specify your chosen models
+           Run training.bat
         3. Test your model
-           Update facial_recognition_testing_image.bat to specify your chosen models
-           Run facial_recognition_testing_image.bat
+           Update testing_image.bat to specify your chosen models
+           Run testing_image.bat
 
 
 ### Folder structure:
 
         libfaceid
         |
-        |   facial_estimation_poseagegenderemotion_webcam.py
-        |   facial_recognition.py
-        |   facial_recognition_testing_image.py
-        |   facial_recognition_testing_webcam.py
-        |   facial_recognition_testing_webcam_livenessdetection.py
-        |   facial_recognition_testing_webcam_voiceenabled.py
-        |   facial_recognition_testing_webcam_voiceenabled_voiceactivated.py
-        |   facial_recognition_training.py
+        |   poseagegenderemotion_webcam.py
+        |   testing_image.py
+        |   testing_webcam.py
+        |   testing_webcam_livenessdetection.py
+        |   testing_webcam_voiceenabled.py
+        |   testing_webcam_voiceenabled_voiceactivated.py
+        |   training.py
         |   requirements.txt
         |   requirements_with_voicecapability.txt
         |   
@@ -343,7 +342,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
              ...
              datasets/PersonX - contain images of person named PersonX 
         2. Train the model using the datasets. 
-           Can use facial_recognition_training.py
+           Can use training.py
            Make sure the models used for training is the same for actual testing for better accuracy.
 
 
@@ -358,27 +357,27 @@ Also note that opencv-python and opencv-contrib-python must always have the same
         camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
 
         1. Training with datasets
-            Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0
-            Usage: python facial_recognition_training.py --detector 0 --encoder 0 --classifier 0 --setsynthesizer True --synthesizer 0
+            Usage: python training.py --detector 0 --encoder 0 --classifier 0
+            Usage: python training.py --detector 0 --encoder 0 --classifier 0 --setsynthesizer True --synthesizer 0
 
         2. Testing with images
-            Usage: python facial_recognition_testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
+            Usage: python testing_image.py --detector 0 --encoder 0 --image datasets/rico/1.jpg
 
         3. Testing with a webcam
-            Usage: python facial_recognition_testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 0
-            Usage: python facial_recognition_testing_webcam_flask.py
+            Usage: python testing_webcam.py --detector 0 --encoder 0 --webcam 0 --resolution 0
+            Usage: python testing_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
                 
         4. Testing with a webcam with anti-spoofing attacks
-            Usage: python facial_recognition_testing_webcam_livenessdetection.py --detector 0 --encoder 0 --liveness 0 --webcam 0 --resolution 0
+            Usage: python testing_webcam_livenessdetection.py --detector 0 --encoder 0 --liveness 0 --webcam 0 --resolution 0
 
         5. Testing with voice-control
-            Usage: python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 
-            Usage: python facial_recognition_testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
+            Usage: python testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 
+            Usage: python testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
 
         6. Testing age/gender/emotion detection
-            Usage: python facial_estimation_poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
-            Usage: python facial_estimation_poseagegenderemotion_webcam_flask.py
+            Usage: python poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
+            Usage: python poseagegenderemotion_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
 
 

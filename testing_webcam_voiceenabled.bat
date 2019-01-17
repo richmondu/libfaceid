@@ -3,7 +3,7 @@
 :: speech synthesizer models: 0-TTSX3, 1-TACOTRON, 2-GOOGLECLOUD
 :: camera resolution:         0-QVGA, 1-VGA, 2-HD, 3-FULLHD
 
-python facial_recognition_testing_webcam_voiceenabled.py -h
-python facial_recognition_testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 --resolution 0
+python testing_webcam_voiceenabled.py -h
+python testing_webcam_voiceenabled.py --detector 0 --encoder 0 --speech_synthesizer 0 --webcam 0 --resolution 0
 
 pause

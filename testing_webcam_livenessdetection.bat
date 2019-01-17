@@ -3,7 +3,7 @@
 :: liveness models:   0-EYESBLINK_MOUTHOPEN, 1-COLORSPACE_YCRCBLUV
 :: camera resolution: 0-QVGA, 1-VGA, 2-HD, 3-FULLHD
 
-python facial_recognition_testing_webcam_livenessdetection.py -h
-python facial_recognition_testing_webcam_livenessdetection.py --detector 0 --encoder 0 --liveness 0 --webcam 0 --resolution 0
+python testing_webcam_livenessdetection.py -h
+python testing_webcam_livenessdetection.py --detector 0 --encoder 0 --liveness 0 --webcam 0 --resolution 0
 
 pause
