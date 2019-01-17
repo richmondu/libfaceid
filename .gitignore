@@ -5,3 +5,5 @@ datasets/*
 audiosets/*
 *.avi
 models/encoding/facenet_20180402-114759/*
+demo_greeter.py
+LOGO.jpg
