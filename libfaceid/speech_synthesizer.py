@@ -39,14 +39,15 @@ class SpeechSynthesizer:
 
     def synthesize_datasets(self, path_datasets):
         for (_d, names, _f) in os.walk(path_datasets):
-            print("names " + str(names))
+            #print("names " + str(names))
             for name in names:
                 self.synthesize_name(name)
             break
 
     def playaudio(self, path, name, block=True):
         try:
-            self._base.playaudio(path, name, block)
+            if (name is not None) and (name != "Unknown"):
+                self._base.playaudio(path, name, block)
         except:
             print("SpeechSynthesizer playaudio EXCEPTION")
             pass
@@ -58,9 +59,12 @@ class SpeechSynthesizer_TTSX3:
         self._training = training
         if not self._training:
             import pyttsx3 # lazy loading
-            self._synthesizer = pyttsx3.init()
+            try:
+                self._synthesizer = pyttsx3.init()
+            except Exception as e:
+                print("pyttsx3 exception " + str(e))
             self._synthesizer.setProperty('voice', 'english')
-
+            
     def synthesize(self, text, outputfile):
         pass
 
@@ -82,8 +86,8 @@ class SpeechSynthesizer_TTSX3:
         self._synthesizer.say(text)
         self._synthesizer.runAndWait()
         self._thread = None
-        import time
-        time.sleep(1)
+        #import time
+        #time.sleep(1)
 
 
 class SpeechSynthesizer_TACOTRON:
