@@ -20,9 +20,24 @@ def ensure_directory(file_path):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
+def get_dataset_names(file_path):
+    for (_d, names, _f) in os.walk(file_path):
+        return names
+    return None
+
 def train_recognition(model_detector, model_encoder, model_classifier, verify):
 
     ensure_directory(INPUT_DIR_DATASET)
+
+    print("")
+    names = get_dataset_names(INPUT_DIR_DATASET)
+    if names is not None:
+        print("Names " + str(names))
+        for name in names:
+            for (_d, _n, files) in os.walk(INPUT_DIR_DATASET + "/" + name):
+                print(name + ": " + str(files))
+    print("")
+
     ensure_directory(INPUT_DIR_MODEL_TRAINING)
     face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)
     face_encoder = FaceEncoder(model=model_encoder, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
