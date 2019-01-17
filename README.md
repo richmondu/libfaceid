@@ -235,7 +235,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
 
         libfaceid
         |
-        |   poseagegenderemotion_webcam.py
+        |   agegenderemotion_webcam.py
         |   testing_image.py
         |   testing_webcam.py
         |   testing_webcam_livenessdetection.py
@@ -376,8 +376,8 @@ Also note that opencv-python and opencv-contrib-python must always have the same
             Usage: python testing_webcam_voiceenabled_voiceactivated.py --detector 0 --encoder 0 --speech_synthesizer 0 --speech_recognition 0 --webcam 0 --resolution 0
 
         6. Testing age/gender/emotion detection
-            Usage: python poseagegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
-            Usage: python poseagegenderemotion_webcam_flask.py
+            Usage: python agegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
+            Usage: python agegenderemotion_webcam_flask.py
                    Then open browser and type http://127.0.0.1:5000 or http://ip_address:5000
 
 
