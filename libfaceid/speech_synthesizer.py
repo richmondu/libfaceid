@@ -109,9 +109,8 @@ class SpeechSynthesizer_TACOTRON:
 
     def playaudio(self, path, name, block):
         #print("SpeechSynthesizer_TACOTRON")
-        from playsound import playsound # lazy loading
         filename = os.path.abspath(path + "/" + name + self._file_extension)
-        playsound(filename, block)
+        SpeechSynthesizer_Utils().playaudio(filename, block)
 
 
 class SpeechSynthesizer_GOOGLECLOUD:
@@ -130,7 +129,19 @@ class SpeechSynthesizer_GOOGLECLOUD:
 
     def playaudio(self, path, name, block):
         #print("SpeechSynthesizer_GOOGLECLOUD")
-        from playsound import playsound # lazy loading
         filename = os.path.abspath(path + "/" + name + self._file_extension)
-        playsound(filename, block)
+        SpeechSynthesizer_Utils().playaudio(filename, block)
 
+
+class SpeechSynthesizer_Utils:
+    def __init__(self):
+        self._option = 0
+        
+    def playaudio(self, filename, block):
+        if self._option == 0:
+            from playsound import playsound # lazy loading
+            #print("playsound")
+            playsound(filename, block)
+        else:
+            pass
+            
