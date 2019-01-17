@@ -38,7 +38,11 @@ class SpeechRecognizer_Common:
     def __init__(self, model):
         import speech_recognition # lazy loading
         self._r = speech_recognition.Recognizer()
-        self._m = speech_recognition.Microphone()
+        try:
+            self._m = speech_recognition.Microphone()
+        except:
+            self._m = None
+            print("SpeechRecognizer_Common, no mic detected!")
         self._model = SpeechRecognizerModels(model)
 
     def start(self, words, user_callback):

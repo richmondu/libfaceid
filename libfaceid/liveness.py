@@ -129,8 +129,14 @@ class FaceLiveness_COLORSPACE_YCRCBLUV:
         # https://github.com/ee09115/spoofing_detection
         # https://www.idiap.ch/dataset/printattack
         # https://www.idiap.ch/dataset/replayattack
-        self._clf_print = joblib.load(path + "colorspace_ycrcbluv_print.pkl")
-        self._clf_replay = joblib.load(path + "colorspace_ycrcbluv_replay.pkl")
+        try:
+            self._clf_print = joblib.load(path + "colorspace_ycrcbluv_print.pkl")
+        except Exception as e:
+            print("FaceLiveness_COLORSPACE_YCRCBLUV joblib exception {}".format(e))
+        try:
+            self._clf_replay = joblib.load(path + "colorspace_ycrcbluv_replay.pkl")
+        except:
+            print("FaceLiveness_COLORSPACE_YCRCBLUV joblib2 exception {}".format(e))
 
     def is_fake(self, frame, face, flag=0):
         feature_vector = self.get_embeddings(frame, face)

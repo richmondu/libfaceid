@@ -80,7 +80,7 @@ def run():
     train_recognition(detector, encoder, classifier, True)
 
     # generate audio samples for image datasets using text to speech synthesizer
-    if False: # Set true to enable generation of audio for each person in datasets folder 
+    if True: # Set true to enable generation of audio for each person in datasets folder 
         from libfaceid.speech_synthesizer import SpeechSynthesizerModels # lazy loading
         speech_synthesizer = SpeechSynthesizerModels.TTSX3
         #speech_synthesizer = SpeechSynthesizerModels.TACOTRON
