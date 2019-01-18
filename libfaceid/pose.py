@@ -123,7 +123,7 @@ class FacePoseEstimator_DLIB68():
 #            cv2.polylines(frame, [np.array(self._connection.values, np.int32)], True, color_white, thickness=3)
             for conn in self._connection:
                 cv2.circle(frame, (shape[conn[0]][0], shape[conn[0]][1]), 2, self._color, -1, cv2.LINE_AA)
-                cv2.line(frame, (shape[conn[0]][0], shape[conn[0]][1]), (shape[conn[1]][0], shape[conn[1]][1]), self._color, 1)
+                cv2.line(frame, (shape[conn[0]][0], shape[conn[0]][1]), (shape[conn[1]][0], shape[conn[1]][1]), self._color, 1, cv2.LINE_AA)
         elif self._overlay == FacePoseEstimatorOverlay.INTOZ:
             for conn in self._connection:
                 cv2.line(frame, (shape[conn[0]][0], shape[conn[0]][1]), (shape[conn[1]][0], shape[conn[1]][1]), color_yellow, 1)
