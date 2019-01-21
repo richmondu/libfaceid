@@ -7,3 +7,4 @@ audiosets/*
 models/encoding/facenet_20180402-114759/*
 demo_*
 LOGO.jpg
+.idea*
