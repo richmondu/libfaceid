@@ -3,6 +3,7 @@ import argparse
 import cv2
 import numpy as np
 import os
+import datetime
 from libfaceid.detector import FaceDetectorModels, FaceDetector
 from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
 from libfaceid.classifier import FaceClassifierModels
@@ -81,7 +82,7 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
     except:
         print("Warning, check if models and trained dataset models exists!")
 
-    print("Press space key to start recording!")
+    print("Press SPACEBAR to record video or ENTER to capture picture!")
     saveVideo = False
     out = None
 
@@ -99,7 +100,7 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
             (x, y, w, h) = face
             print("{} {} {} {}".format(x,y,w,h))
 
-            if saveVideo:
+            if saveVideo and len(faces) == 1:
                 out.write(frame)
 
             # Set text and bounding box on face
@@ -118,11 +119,14 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
 
         # Check for user actions
         keyPressed = cv2.waitKey(1) & 0xFF
-        if keyPressed == 27: # ESC
+        if keyPressed == 27: # ESC to exit
             break
-        elif keyPressed == 32: # Space
+        elif keyPressed == 32: # Space to save video
             saveVideo, out = save_video(saveVideo, out, frame.shape[:2], WINDOW_NAME + ".avi")
             break
+        elif keyPressed == 13: # Enter to capture picture
+            cv2.imwrite(WINDOW_NAME + "_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + ".jpg", frame);
+
 
     # Release the camera
     camera.release()
