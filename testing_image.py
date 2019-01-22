@@ -1,6 +1,7 @@
 import sys
 import argparse
 import cv2
+import os
 from libfaceid.detector import FaceDetectorModels, FaceDetector
 from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
 
@@ -57,13 +58,14 @@ def process_facerecognition(model_detector, model_recognizer, image):
         # Indentify face based on trained dataset (note: should run facial_recognition_training.py)
         if face_encoder is not None:
             face_id, confidence = face_encoder.identify(frame, (x, y, w, h))
+            print(face_id)
         # Set text and bounding box on face
         label_face(frame, (x, y, w, h), face_id, confidence)
 
 
     # Display the resulting frame
     cv2.imshow(WINDOW_NAME, frame)
-    cv2.waitKey(5000)
+    cv2.waitKey(1)
 
     # Release the image
     image.release()
@@ -84,7 +86,16 @@ def run(image):
 #    encoder=FaceEncoderModels.FACENET
 
     # check face recognition
-    process_facerecognition(detector, encoder, image)
+    if not image.endswith(".jpg") and not image.endswith(".png"):
+        # test all files inside the provided directory	
+        for (_d, _n, files) in os.walk(image):
+            print(type(files))
+            for file in files:
+                file_image = image + "/" + file
+                print(file_image)
+                process_facerecognition(detector, encoder, file_image)
+    else:
+        process_facerecognition(detector, encoder, image)
 
 
 def main(args):
