@@ -217,6 +217,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
                sudo apt-get install python-espeak
                sudo apt-get install portaudio19-dev
                pip3 install pyaudio
+               [Microphone Setup on RPI](https://iotbytes.wordpress.com/connect-configure-and-test-usb-microphone-and-speaker-with-raspberry-pi/)
 
 
 ### Quickstart (Dummy Guide):
