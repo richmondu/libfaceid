@@ -85,6 +85,7 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
     print("Press SPACEBAR to record video or ENTER to capture picture!")
     saveVideo = False
     out = None
+    color_recording = (255,255,255)
 
     while (True):
 
@@ -98,7 +99,7 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
         faces = face_detector.detect(frame)
         for (index, face) in enumerate(faces):
             (x, y, w, h) = face
-            print("{} {} {} {}".format(x,y,w,h))
+            #print("{} {} {} {}".format(x,y,w,h))
 
             if saveVideo and len(faces) == 1:
                 out.write(frame)
@@ -111,8 +112,9 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
 
 
         mask = np.full((frame.shape[0], frame.shape[1]), 0, dtype=np.uint8)  # mask is only
-        cv2.circle(mask, (int(cam_resolution[0]/2),int(cam_resolution[1]/2)), 100, (255,255,255), -1, cv2.LINE_AA)
+        cv2.circle(mask, (int(cam_resolution[0]/2),int(cam_resolution[1]/2)), 115, (255,255,255), -1, cv2.LINE_AA)
         fg = cv2.bitwise_or(frame, frame, mask=mask)
+        cv2.circle(fg, (int(cam_resolution[0]/2),int(cam_resolution[1]/2)), 115, color_recording, 1, cv2.LINE_AA)
 
         # Display updated frame
         cv2.imshow(WINDOW_NAME, fg)
@@ -123,7 +125,10 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
             break
         elif keyPressed == 32: # Space to save video
             saveVideo, out = save_video(saveVideo, out, frame.shape[:2], WINDOW_NAME + ".avi")
-            break
+            if out is not None:
+                color_recording = (0, 255, 0)
+            else:
+                color_recording = (0, 0, 0)
         elif keyPressed == 13: # Enter to capture picture
             cv2.imwrite(WINDOW_NAME + "_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + ".jpg", frame);
 
@@ -163,10 +168,10 @@ def video_to_images(model_detector, dir, name):
 
 
 def run(cam_index, cam_resolution, name):
-#    detector=FaceDetectorModels.HAARCASCADE
+    detector=FaceDetectorModels.HAARCASCADE
 #    detector=FaceDetectorModels.DLIBHOG
 #    detector=FaceDetectorModels.DLIBCNN
-    detector=FaceDetectorModels.SSDRESNET
+#    detector=FaceDetectorModels.SSDRESNET
 #    detector=FaceDetectorModels.MTCNN
 #    detector=FaceDetectorModels.FACENET
 
