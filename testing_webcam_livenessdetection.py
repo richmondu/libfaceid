@@ -129,7 +129,8 @@ def process_livenessdetection(model_detector, model_recognizer, model_liveness, 
             # Check if eyes are close and if mouth is open
             eyes_close, eyes_ratio = face_liveness.is_eyes_close(frame, face)
             mouth_open, mouth_ratio = face_liveness.is_mouth_open(frame, face)
-            #print("mouth_open={}, mouth_ratio={:.2f}".format(mouth_open, mouth_ratio))
+            print("eyes_close={}, eyes_ratio ={:.2f}".format(mouth_open, mouth_ratio))
+            print("mouth_open={}, mouth_ratio={:.2f}".format(mouth_open, mouth_ratio))
 
             # Detect if frame is a print attack or replay attack based on colorspace
             is_fake_print  = face_liveness2.is_fake(frame, face)
