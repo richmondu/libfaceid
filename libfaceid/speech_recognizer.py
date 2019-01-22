@@ -2,6 +2,10 @@ from enum import Enum
 
 
 
+registered_mic = 'C922 Pro Stream Webcam: USB Audio (hw:1,0)'
+#registered_mic= 'Microphone (C922 Pro Stream Web'
+
+
 # Added these accounts for testing purposes only
 CLIENT_KEY_WITAI    = "KCSDQHNAJ74ORMOG2PFOO4NRZBJVAIDT"
 CLIENT_ID_HOUNDIFY  = "n33EnhuJaA6DZpYqRwiYBg=="
@@ -37,13 +41,26 @@ class SpeechRecognizer_Common:
 
     def __init__(self, model):
         import speech_recognition # lazy loading
+        import pyaudio
+        device_count = pyaudio.PyAudio().get_device_count() - 1
+        print("\ndevice_count: " + str(device_count))
         self._r = speech_recognition.Recognizer()
         try:
-            self._m = speech_recognition.Microphone()
+            mics = speech_recognition.Microphone.list_microphone_names()
+            print("mics: " + str(mics))
+            index = mics.index(registered_mic)
+        except:
+            index = -1
+        print("index: " + str(index))
+        try:
+            if index == -1:
+                self._m = speech_recognition.Microphone()
+            else:
+                self._m = speech_recognition.Microphone(device_index=index)                
         except:
             self._m = None
             print("SpeechRecognizer_Common, no mic detected!")
-        self._model = SpeechRecognizerModels(model)
+        self._model = model
 
     def start(self, words, user_callback):
         self._user_callback = user_callback
@@ -57,18 +74,25 @@ class SpeechRecognizer_Common:
         self._listener(wait_for_stop=True)
 
     def callback(self, recognizer, audio):
+        text = None
         # recognize input from microphone
         try:
             if self._model == SpeechRecognizerModels.GOOGLECLOUD:
+                print("test")
                 text = recognizer.recognize_google(audio)
+                #print("test2")
             elif self._model == SpeechRecognizerModels.WITAI:
                 text = recognizer.recognize_wit(audio, key=CLIENT_KEY_WITAI)
                 text = text.lower()
             elif self._model == SpeechRecognizerModels.HOUNDIFY:
                 text = recognizer.recognize_houndify(audio, client_id=CLIENT_ID_HOUNDIFY, client_key=CLIENT_KEY_HOUNDIFY)
-        except:
+        except Exception as e:
+            #print("callback exception " + str(e))
             if self._model != SpeechRecognizerModels.GOOGLECLOUD:
                 text = recognizer.recognize_google(audio)
+        
+        if text is not None:
+            text = text.lower()
 
         # check if detected text is in the list of words to recognize
         try:
