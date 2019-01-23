@@ -82,10 +82,15 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
     except:
         print("Warning, check if models and trained dataset models exists!")
 
+    print("")
     print("Press SPACEBAR to record video or ENTER to capture picture!")
+    print("Make sure that your face is inside the circular region!")
+    print("")
+
     saveVideo = False
     out = None
     color_recording = (255,255,255)
+
 
     while (True):
 
@@ -129,6 +134,7 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
                 color_recording = (0, 255, 0)
             else:
                 color_recording = (0, 0, 0)
+                break
         elif keyPressed == 13: # Enter to capture picture
             cv2.imwrite(WINDOW_NAME + "_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + ".jpg", frame);
 
@@ -139,8 +145,15 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
 
 
 def video_to_images(model_detector, dir, name, one_image_only=False):
+
     ensure_directory(dir + "/" + name + "/")
-    video = cv2.VideoCapture(WINDOW_NAME + ".avi")
+
+    try:
+        video = cv2.VideoCapture(WINDOW_NAME + ".avi")
+        if video is None:
+            return
+    except:
+        return
 
     try:
         # Initialize face detection
@@ -169,6 +182,7 @@ def video_to_images(model_detector, dir, name, one_image_only=False):
     cv2.destroyAllWindows()
 
 
+
 def run(cam_index, cam_resolution, name):
 #    detector=FaceDetectorModels.HAARCASCADE
 #    detector=FaceDetectorModels.DLIBHOG
@@ -178,8 +192,14 @@ def run(cam_index, cam_resolution, name):
 #    detector=FaceDetectorModels.FACENET
 
     process_faceenrollment(detector, cam_index, cam_resolution)
+
+    print("")
+    print("Processing of video recording started...")
     video_to_images(detector, "x" + INPUT_DIR_DATASET, name)
     video_to_images(detector, INPUT_DIR_DATASET, name, one_image_only=True)
+    print("Processing of video recording completed!")
+    print("Make sure to train the new datasets before testing!")
+    print("")
 
 
 def main(args):
@@ -199,9 +219,16 @@ def main(args):
             detector = FaceDetectorModels(int(args.detector))
             name = str(args.name)
             print( "Parameters: {}".format(detector))
+
             process_faceenrollment(detector, cam_index, cam_resolution)
+
+            print("")
+            print("Processing of video recording started...")
             video_to_images(detector, "x" + INPUT_DIR_DATASET, name)
             video_to_images(detector, INPUT_DIR_DATASET, name, one_image_only=True)
+            print("Processing of video recording completed!")
+            print("Make sure to train the new datasets before testing!")
+            print("")
         except:
             print( "Invalid parameter" )
         return
