@@ -3,5 +3,5 @@
 :: camera resolution: 0-QVGA, 1-VGA, 2-HD, 3-FULLHD
 
 python enrollment.py -h
-python enrollment.py --detector 3 --webcam 0 --resolution 0 --name "Rico"
+python enrollment.py --detector 4 --webcam 0 --resolution 0 --name "Unknown"
 pause
