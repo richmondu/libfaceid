@@ -138,7 +138,7 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
     cv2.destroyAllWindows()
 
 
-def video_to_images(model_detector, dir, name):
+def video_to_images(model_detector, dir, name, one_image_only=False):
     ensure_directory(dir + "/" + name + "/")
     video = cv2.VideoCapture(WINDOW_NAME + ".avi")
 
@@ -159,7 +159,9 @@ def video_to_images(model_detector, dir, name):
         if len(faces) == 1:
             cv2.imwrite("{}/{}/{}.jpg".format(dir, name, i), frame);
             i += 1
-
+            if one_image_only:
+                break
+            
         #cv2.imshow(WINDOW_NAME, frame)
         #cv2.waitKey(1)
 
@@ -168,15 +170,16 @@ def video_to_images(model_detector, dir, name):
 
 
 def run(cam_index, cam_resolution, name):
-    detector=FaceDetectorModels.HAARCASCADE
+#    detector=FaceDetectorModels.HAARCASCADE
 #    detector=FaceDetectorModels.DLIBHOG
 #    detector=FaceDetectorModels.DLIBCNN
 #    detector=FaceDetectorModels.SSDRESNET
-#    detector=FaceDetectorModels.MTCNN
+    detector=FaceDetectorModels.MTCNN
 #    detector=FaceDetectorModels.FACENET
 
     process_faceenrollment(detector, cam_index, cam_resolution)
-    video_to_images(detector, INPUT_DIR_DATASET, name)
+    video_to_images(detector, "x" + INPUT_DIR_DATASET, name)
+    video_to_images(detector, INPUT_DIR_DATASET, name, one_image_only=True)
 
 
 def main(args):
@@ -191,12 +194,14 @@ def main(args):
     except:
         cam_resolution = RESOLUTION_VGA
 
-    if args.detector:
+    if args.detector and args.name:
         try:
             detector = FaceDetectorModels(int(args.detector))
+            name = str(args.name)
             print( "Parameters: {}".format(detector))
             process_faceenrollment(detector, cam_index, cam_resolution)
-            video_to_images(detector, INPUT_DIR_DATASET, name)
+            video_to_images(detector, "x" + INPUT_DIR_DATASET, name)
+            video_to_images(detector, INPUT_DIR_DATASET, name, one_image_only=True)
         except:
             print( "Invalid parameter" )
         return
@@ -211,7 +216,7 @@ def parse_arguments(argv):
         help='Camera index to use. Default is 0. Assume only 1 camera connected.)')
     parser.add_argument('--resolution', required=False, default=0,
         help='Camera resolution to use. Default is 0. Options: 0-QVGA, 1-VGA, 2-HD, 3-FULLHD')
-    parser.add_argument('--name', required=False, default="Richmond",
+    parser.add_argument('--name', required=False, default="Unknown",
         help='Name of person to enroll')
     return parser.parse_args(argv)
 
