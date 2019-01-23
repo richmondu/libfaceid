@@ -2,8 +2,8 @@ from enum import Enum
 
 
 
-registered_mic = 'C922 Pro Stream Webcam: USB Audio (hw:1,0)'
-#registered_mic= 'Microphone (C922 Pro Stream Web'
+#registered_mic = 'C922 Pro Stream Webcam: USB Audio (hw:1,0)'
+registered_mic= 'Microphone (C922 Pro Stream Web'
 
 
 # Added these accounts for testing purposes only

@@ -42,7 +42,8 @@ def train_recognition(model_detector, model_encoder, model_classifier, verify):
     face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)
     face_encoder = FaceEncoder(model=model_encoder, path=INPUT_DIR_MODEL_ENCODING, path_training=INPUT_DIR_MODEL_TRAINING, training=True)
     face_encoder.train(face_detector, path_dataset=INPUT_DIR_DATASET, verify=verify, classifier=model_classifier)
-
+    print("train_recognition completed")
+    
 # generate audio samples for image datasets using text to speech synthesizer
 def train_audiosets(model_speech_synthesizer):
 
