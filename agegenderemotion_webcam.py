@@ -120,11 +120,11 @@ def process_facedetection(model_detector, model_poseestimator, model_ageestimato
 
 def run(cam_index, cam_resolution):
 
-    detector=FaceDetectorModels.HAARCASCADE
+#    detector=FaceDetectorModels.HAARCASCADE
 #    detector=FaceDetectorModels.DLIBHOG
 #    detector=FaceDetectorModels.DLIBCNN
 #    detector=FaceDetectorModels.SSDRESNET
-#    detector=FaceDetectorModels.MTCNN
+    detector=FaceDetectorModels.MTCNN
 #    detector=FaceDetectorModels.FACENET
 
     encoder=FaceEncoderModels.LBPH

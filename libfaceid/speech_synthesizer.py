@@ -46,7 +46,7 @@ class SpeechSynthesizer:
 
     def playaudio(self, path, name, block=True):
         try:
-            if (name is not None) and (name != "Unknown"):
+            if (name is not None) and (name != "Unknown") and (name != "Fake"):
                 self._base.playaudio(path, name, block)
         except:
             print("SpeechSynthesizer playaudio EXCEPTION")

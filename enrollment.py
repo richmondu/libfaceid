@@ -5,6 +5,7 @@ import numpy as np
 import os
 import datetime
 import math
+import imutils
 from libfaceid.detector import FaceDetectorModels, FaceDetector
 from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
 from libfaceid.classifier import FaceClassifierModels
@@ -109,7 +110,8 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
     saveVideo = False
     out = None
     color_recording = (255,255,255)
-
+    is_windows = (os.name == 'nt')
+    
 
     while (True):
 
@@ -143,6 +145,8 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
             cv2.line(fg, (s1[i,0], s1[i,1]), (s2[i,0], s2[i,1]), (0, 0, 0), 2, cv2.LINE_AA)
 
         # Display updated frame
+        if is_windows:
+            fg = imutils.resize(fg, height=480)
         cv2.imshow(WINDOW_NAME, fg)
 
         # Check for user actions
@@ -216,8 +220,9 @@ def run(cam_index, cam_resolution, name):
 
     print("")
     print("Processing of video recording started...")
-    video_to_images(detector, "x" + INPUT_DIR_DATASET, name)
-    video_to_images(detector, INPUT_DIR_DATASET, name, one_image_only=True)
+#    video_to_images(detector, "x" + INPUT_DIR_DATASET, name)
+#    video_to_images(detector, INPUT_DIR_DATASET, name, one_image_only=True)
+    video_to_images(detector, INPUT_DIR_DATASET, name)
     print("Processing of video recording completed!")
     print("Make sure to train the new datasets before testing!")
     print("")
@@ -245,8 +250,9 @@ def main(args):
 
             print("")
             print("Processing of video recording started...")
-            video_to_images(detector, "x" + INPUT_DIR_DATASET, name)
-            video_to_images(detector, INPUT_DIR_DATASET, name, one_image_only=True)
+            #video_to_images(detector, "x" + INPUT_DIR_DATASET, name)
+            #video_to_images(detector, INPUT_DIR_DATASET, name, one_image_only=True)
+            video_to_images(detector, INPUT_DIR_DATASET, name)
             print("Processing of video recording completed!")
             print("Make sure to train the new datasets before testing!")
             print("")

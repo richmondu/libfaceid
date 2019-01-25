@@ -5,5 +5,5 @@
 
 python training.py -h
 ::python training.py --detector 0 --encoder 0 --classifier 0
-python training.py --detector 4 --encoder 0 --classifier 0 --set_speech_synthesizer True --speech_synthesizer 0
+python training.py --detector 4 --encoder 1 --classifier 1 --set_speech_synthesizer True --speech_synthesizer 0
 pause

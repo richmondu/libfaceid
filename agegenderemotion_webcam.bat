@@ -2,9 +2,9 @@
 
 :: camera resolution: 0-QVGA, 1-VGA, 2-HD, 3-FULLHD
 
-python agegenderemotion_webcam.py -h
+::python agegenderemotion_webcam.py -h
 
-python agegenderemotion_webcam.py --detector 0 --webcam 0 --resolution 0
+python agegenderemotion_webcam.py --detector 4 --webcam 0 --resolution 0
 
 
 pause
