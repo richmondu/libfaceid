@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import os
 import datetime
+import math
 from libfaceid.detector import FaceDetectorModels, FaceDetector
 from libfaceid.encoder  import FaceEncoderModels, FaceEncoder
 from libfaceid.classifier import FaceClassifierModels
@@ -70,6 +71,24 @@ def save_video(saveVideo, out, resolution, filename):
         saveVideo = True
     return saveVideo, out
 
+# inner
+s1={}
+for i in range(120):
+    for j in range(2):
+        if (j%2==0):
+            s1[i,j]=int(160+105*math.cos(3.0*i*3.14/180))
+        else:
+            s1[i,j]=int(120+105*math.sin(3.0*i*3.14/180))
+        #print(s1[i, j]) 
+# outer
+s2={}
+for i in range(120):
+    for j in range(2):
+        if (j%2==0):
+            s2[i,j]=int(160+120*math.cos(3.0*i*3.14/180))
+        else:
+            s2[i,j]=int(120+120*math.sin(3.0*i*3.14/180))
+        #print(s2[i, j]) 
 
 def process_faceenrollment(model_detector, cam_index, cam_resolution):
 
@@ -117,9 +136,11 @@ def process_faceenrollment(model_detector, cam_index, cam_resolution):
 
 
         mask = np.full((frame.shape[0], frame.shape[1]), 0, dtype=np.uint8)  # mask is only
-        cv2.circle(mask, (int(cam_resolution[0]/2),int(cam_resolution[1]/2)), 115, (255,255,255), -1, cv2.LINE_AA)
+        cv2.circle(mask, (int(cam_resolution[0]/2),int(cam_resolution[1]/2)), 110, (255,255,255), -1, cv2.LINE_AA)
         fg = cv2.bitwise_or(frame, frame, mask=mask)
-        cv2.circle(fg, (int(cam_resolution[0]/2),int(cam_resolution[1]/2)), 115, color_recording, 1, cv2.LINE_AA)
+        cv2.circle(fg, (int(cam_resolution[0]/2),int(cam_resolution[1]/2)), 110, color_recording, 15, cv2.LINE_AA)
+        for i in range(120):
+            cv2.line(fg, (s1[i,0], s1[i,1]), (s2[i,0], s2[i,1]), (0, 0, 0), 2, cv2.LINE_AA)
 
         # Display updated frame
         cv2.imshow(WINDOW_NAME, fg)

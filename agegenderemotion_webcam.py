@@ -57,7 +57,7 @@ def process_facedetection(model_detector, model_poseestimator, model_ageestimato
 
     try:
         # Initialize face detection
-        face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION)#, optimize=True)
+        face_detector = FaceDetector(model=model_detector, path=INPUT_DIR_MODEL_DETECTION, minfacesize=120)
         # Initialize face pose/age/gender estimation
         face_pose_estimator = FacePoseEstimator(model=model_poseestimator, path=INPUT_DIR_MODEL_ESTIMATION)
         face_age_estimator = FaceAgeEstimator(model=model_ageestimator, path=INPUT_DIR_MODEL_ESTIMATION)
