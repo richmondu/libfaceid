@@ -196,7 +196,12 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            h5py==2.8.0
            facenet==1.0.3
            flask==1.0.2
-           dlib==19.16.0 # requires [CMake](https://cmake.org/download/)
+           dlib==19.16.0 # requires CMake
+           
+           // Installing dlib
+           1. Install cmake from https://cmake.org/download/ OR 
+           2. pip install https://files.pythonhosted.org/packages/0e/ce/f8a3cff33ac03a8219768f0694c5d703c8e037e6aba2e865f9bae22ed63c/dlib-19.8.1-cp36-cp36m-win_amd64.whl#sha256=794994fa2c54e7776659fddb148363a5556468a6d5d46be8dad311722d54bfcf 
+
 
         3. Optional: Install the required Python PIP package dependencies for speech synthesizer and speech recognition for voice capability 
            pip install -r requirements_with_voicecapability.txt
