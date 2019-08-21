@@ -188,7 +188,6 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            opencv-contrib-python==3.4.3.18
            numpy==1.15.4
            imutils==0.5.1
-           dlib==19.16.0
            scipy==1.1.0
            scikit-learn==0.20.0
            mtcnn==0.0.8
@@ -197,6 +196,7 @@ Also note that opencv-python and opencv-contrib-python must always have the same
            h5py==2.8.0
            facenet==1.0.3
            flask==1.0.2
+           dlib==19.16.0 # requires [CMake](https://cmake.org/download/)
 
         3. Optional: Install the required Python PIP package dependencies for speech synthesizer and speech recognition for voice capability 
            pip install -r requirements_with_voicecapability.txt
