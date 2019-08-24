@@ -345,7 +345,7 @@ def process_facerecognition(cam_resolution, out_resolution, framecount, image=No
 
 def process_facerecognition_livenessdetection_poseagegenderemotion(cam_resolution, out_resolution, framecount, image=None, model_detector=0, model_recognizer=0):
 
-    from libfaceid.liveness import FaceLivenessDetectorModels, FaceLiveness
+    from libfaceid.liveness import FaceLivenessModels, FaceLiveness
     from libfaceid.pose    import FacePoseEstimatorModels,    FacePoseEstimator
     from libfaceid.age     import FaceAgeEstimatorModels,     FaceAgeEstimator
     from libfaceid.gender  import FaceGenderEstimatorModels,  FaceGenderEstimator
@@ -380,7 +380,7 @@ def process_facerecognition_livenessdetection_poseagegenderemotion(cam_resolutio
     # EYE BLINKING DETECTOR
     ###############################################################################
     # Initialize detector for blinking eyes
-    face_liveness = FaceLiveness(model=FaceLivenessDetectorModels.EYEBLINKING, path=INPUT_DIR_MODEL_ESTIMATION)
+    face_liveness = FaceLiveness(model=FaceLivenessModels.EYEBLINKING, path=INPUT_DIR_MODEL_ESTIMATION)
     face_liveness.initialize()
     (eye_counter, total_eye_blinks) = (0, 0)
 
