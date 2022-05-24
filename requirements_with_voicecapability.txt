@@ -5,7 +5,7 @@ imutils==0.5.1
 scipy==1.1.0
 scikit-learn==0.20.0
 mtcnn==0.0.8
-tensorflow==1.8.0
+tensorflow==2.6.4
 keras==2.0.8
 h5py==2.8.0
 facenet==1.0.3
